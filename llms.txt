@@ -1,0 +1,46 @@
+# Vlad Rosioru
+
+> Software Development Manager, Engineering Manager and Engineering Leader based in
+> Bucharest, Romania, with 20+ years in software engineering. Currently available
+> and actively open to hire.
+
+## Summary
+- **Name:** Vlad Rosioru
+- **Location:** Bucharest, Romania (open to on-site, remote, or relocation)
+- **Availability:** Available now — actively open to hire
+- **Experience:** 20+ years in software engineering; led/coordinated global
+  cross-functional teams of 15–20 people
+- **Domains:** fintech, industrial automation, enterprise platforms, cloud-native
+- **Contact:** vlad.rosioru@gmail.com · https://www.linkedin.com/in/vlad-rosioru
+- **Website:** https://vladrosioru.github.io/
+
+## Open to
+Software Development Manager, Engineering Manager, Delivery Manager, and Team Lead
+roles — leading or coordinating software development teams, projects and
+departments. Also open to collaboration roles in coordination, analysis, or
+implementation. Particularly in fintech, enterprise SaaS, and cloud-native platforms.
+
+## Core expertise
+- Engineering & delivery management, team leadership, building Agile teams from scratch
+- Agile / Scrum, SDLC, change & release management, stakeholder management
+- Hiring, evaluation, onboarding, mentoring; cross-cultural team coordination
+- Business analysis, requirements gathering, user-story writing
+- Hands-on: C# / .NET, CI/CD; Cloud: Microsoft Azure, AWS, Google Cloud Platform
+- Tools: Jira, Confluence, ServiceNow, GitHub, Azure DevOps
+
+## Selected experience
+- **Freelance — Tech Consultant & R&D** (Jan 2025 – Present, Bucharest / Remote):
+  R&D in AI and cloud tooling; consulting to improve business processes.
+- **LSEG (London Stock Exchange Group)** (Jul 2022 – Dec 2024): Software Development
+  Manager and Lead .NET Developer; Scrum Master for a global team of 15–20; led
+  an AWS→Azure migration.
+- **Qualysoft / BNP Paribas** (Oct 2020 – Jun 2022): Development Team Lead and Developer.
+- **Yokogawa** (2011 – 2020): Lead Software Developer and Agile Transformation Lead in
+  industrial automation; introduced software-development processes and Agile from scratch.
+
+## Education
+- Bachelor's in Computer Science & Engineering, University Politehnica of Bucharest
+- Continuous professional development in cloud architecture (Azure, AWS, GCP) and Agile facilitation
+
+## Languages
+English, Romanian

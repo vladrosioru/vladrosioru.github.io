@@ -30,7 +30,7 @@ function toggleGroup(header) {
 }
 
 // ── Nav active ──
-const sections = ['hero','about','experience','skills','education','contact'];
+const sections = ['hero','about','experience','skills','education','faq','contact'];
 window.addEventListener('scroll', () => {
   let cur = '';
   sections.forEach(id => {
@@ -45,10 +45,35 @@ window.addEventListener('scroll', () => {
 // ── Form ──
 function handleSubmit(e) {
   e.preventDefault();
+  const val = (id) => (document.getElementById(id)?.value || '').trim();
+
+  const first   = val('cf-first');
+  const last    = val('cf-last');
+  const company = val('cf-company');
+  const email   = val('cf-email');
+  const role    = val('cf-role');
+  const message = val('cf-message');
+
+  const fullName = [first, last].filter(Boolean).join(' ');
+  const subject = role
+    ? `Opportunity: ${role} — ${fullName}`
+    : `Website enquiry — ${fullName}`;
+
+  const body = [
+    `Name: ${fullName}`,
+    `Email: ${email}`,
+    company ? `Company: ${company}` : null,
+    role ? `Role / Opportunity: ${role}` : null,
+    '',
+    message
+  ].filter((line) => line !== null).join('\n');
+
+  const mailto = `mailto:vlad.rosioru@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
   const success = document.getElementById('f-success');
   success.style.display = 'block';
-  e.target.reset();
-  setTimeout(() => { success.style.display = 'none'; }, 4000);
+  window.location.href = mailto;
+  setTimeout(() => { success.style.display = 'none'; }, 6000);
 }
 
 // ── Tweaks removed ──
