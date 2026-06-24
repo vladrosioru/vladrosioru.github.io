@@ -351,10 +351,24 @@ footer {
 @media (max-width: 960px) {
   nav { padding: 0 4%; }
   .nav-links { display: none; }
-  #hero { grid-template-columns: 1fr; padding: 100px 5% 60px; }
+  #hero {
+    flex-direction: column; align-items: flex-start; justify-content: center;
+    min-height: auto; padding: 110px 6% 60px; gap: 2.5rem;
+  }
   .hero-geo { display: none; }
-  .hero-photo-wrap { max-width: 260px; }
-  .hero-stats { position: static; margin-top: 3rem; }
+  .hero-line { display: none; }
+  .hero-text { width: 100%; order: 2; }
+  .hero-photo-wrap {
+    position: static; transform: none; order: 1;
+    width: 200px; max-width: 60%; align-self: center;
+    animation: fadeIn 0.9s ease forwards 0.1s;
+  }
+  .hero-photo { width: 100%; }
+  .hero-accent-box { display: none; }
+  .hero-stats {
+    position: static; order: 3; margin-top: 0;
+    width: 100%; justify-content: flex-start; flex-wrap: wrap; gap: 2rem;
+  }
   section { padding: 4.5rem 5%; }
   .about-grid { grid-template-columns: 1fr; }
   .about-photo-col { position: static; }
@@ -368,7 +382,11 @@ footer {
 @media (max-width: 640px) {
   .edu-grid { grid-template-columns: 1fr; }
   .about-meta { grid-template-columns: 1fr; }
-  .hero-stats { gap: 2rem; }
+  #hero { padding: 100px 7% 50px; gap: 2rem; }
+  .hero-photo-wrap { width: 160px; }
+  .hero-stats { gap: 1.5rem 2rem; }
+  .hero-actions { width: 100%; }
+  .hero-actions .btn { flex: 1 1 auto; justify-content: center; }
 }
 
 /* ─── IMAGE / ARTIFACT PLACEHOLDERS ─────────────────────────────
