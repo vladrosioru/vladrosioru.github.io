@@ -192,8 +192,8 @@
 <div class="wrap">
   <header class="masthead">
     <p class="kicker">Torb Logistic · Modulul de Aprovizionare</p>
-    <h1>Patru decizii de validat</h1>
-    <p class="lede">Fiecare influențează direct cât vă recomandă sistemul să comandați. Aveți doar de ales o variantă — noi implementăm și verificăm.</p>
+    <h1>Decizii de validat</h1>
+    <p class="lede">Fiecare influențează direct cât vă recomandă sistemul să comandați. Aveți doar de ales o variantă — noi implementăm și verificăm. Punctele 1–4 țin de pagina actuală; punctele 5–10, de noul model de forecast pe client × articol.</p>
   </header>
 
   <section class="summary">
@@ -223,6 +223,36 @@
             <td class="num-cell">4</td>
             <td>Aceleași cifre pe ecran și în Excel</td>
             <td class="rec-cell">Rezolvat — buton „3 ani / 90 zile” (implicit 3 ani)</td>
+          </tr>
+          <tr>
+            <td class="num-cell">5</td>
+            <td>Corecția lunilor fără stoc (rupturi)</td>
+            <td class="rec-cell">Folosim istoricul de stoc, dacă există</td>
+          </tr>
+          <tr>
+            <td class="num-cell">6</td>
+            <td>Cantitatea minimă de comandă (MOQ)</td>
+            <td class="rec-cell">Ne dați lista MOQ pe furnizor/articol</td>
+          </tr>
+          <tr>
+            <td class="num-cell">7</td>
+            <td>Cine confirmă delistarea unui client</td>
+            <td class="rec-cell">Marcaj automat + confirmare KAM</td>
+          </tr>
+          <tr>
+            <td class="num-cell">8</td>
+            <td>Estimarea pentru un articol nou-listat</td>
+            <td class="rec-cell">După tipul/canalul de client</td>
+          </tr>
+          <tr>
+            <td class="num-cell">9</td>
+            <td>Sugestie separată RO vs Export HU</td>
+            <td class="rec-cell">Păstrăm separarea, ca acum</td>
+          </tr>
+          <tr>
+            <td class="num-cell">10</td>
+            <td>Momentul recalculării</td>
+            <td class="rec-cell">Job programat, noaptea</td>
           </tr>
         </tbody>
       </table>
@@ -368,9 +398,215 @@
 
   </div>
 
+  <div class="masthead" style="border-bottom:1px solid var(--line); margin:3.6rem 0 2.2rem; padding-bottom:1.3rem;">
+    <p class="kicker">Runda 2 · Noul model de forecast</p>
+    <h2 style="font-family:var(--serif); font-weight:700; font-size:clamp(1.5rem,4vw,2rem); line-height:1.15; margin:.2rem 0 .6rem;">Modelul pe client × articol</h2>
+    <p class="lede" style="max-width:46ch;">Trecem de la media pe articol la calcul pe fiecare pereche client × articol — mai fidel realității, mai ales pentru delistări și produse în declin. Punctele de mai jos ne blochează câteva reguli din specificație: avem nevoie de decizia dvs. sau de confirmarea că datele există.</p>
+  </div>
+
+  <div class="decisions">
+
+    <!-- 5 -->
+    <article class="card">
+      <div class="eyebrow-row">
+        <span class="index">5</span>
+        <span class="eyebrow">Rupturi de stoc</span>
+      </div>
+      <h3>Produse care n-au vândut pentru că lipseau de pe stoc</h3>
+      <p>Regula „lunile fără vânzări se numără ca zero” (punctul 1) e corectă doar dacă produsul chiar era pe stoc și n-a vândut. Dacă o lună a avut 0 vânzări pentru că produsul lipsea din depozit, nu înseamnă că nu era cerere — iar dacă o numărăm ca zero, tăiem nedrept exact articolele pe care am întârziat să le comandăm. Ca să excludem corect aceste luni, avem nevoie de istoricul zilelor în care stocul a fost 0.</p>
+      <p class="example">Exemplu: un articol epuizat <b>2 luni la rând</b> apare cu „0 vânzări” — fără istoricul de stoc, media lui scade artificial și sistemul comandă prea puțin.</p>
+
+      <p class="qlabel">Întrebarea</p>
+      <p class="question">Avem un istoric al stocului zilnic (sau lunar) per articol, din care să deducem lunile de ruptură?</p>
+
+      <ul class="options">
+        <li class="opt rec">
+          <span class="opt-badge">A</span>
+          <span class="opt-body"><span class="otitle">Folosim istoricul de stoc existent</span><span class="tag">Recomandat</span><br>Dacă în baza de date există fotografii zilnice ale stocului, le folosim ca să marcăm lunile de ruptură și le excludem din medie.</span>
+        </li>
+        <li class="opt">
+          <span class="opt-badge">B</span>
+          <span class="opt-body"><span class="otitle">Începem să înregistrăm de acum</span><br>Dacă nu există istoric, pornim colectarea zilnică a stocului; corecția devine tot mai bună în timp.</span>
+        </li>
+        <li class="opt">
+          <span class="opt-badge">C</span>
+          <span class="opt-body"><span class="otitle">Renunțăm deocamdată la corecție</span><br>Acceptăm riscul ca articolele epuizate temporar să fie penalizate în medie.</span>
+        </li>
+      </ul>
+
+      <div class="why">
+        <span class="why-label">De ce A</span>
+        <span>E singura variantă care funcționează imediat, fără să distorsioneze articolele bine-vândute pe care doar n-am reușit să le ținem pe stoc. Trebuie doar să confirmați dacă fotografiile zilnice de stoc există în istoric.</span>
+      </div>
+    </article>
+
+    <!-- 6 -->
+    <article class="card">
+      <div class="eyebrow-row">
+        <span class="index">6</span>
+        <span class="eyebrow">Cantitate minimă de comandă</span>
+      </div>
+      <h3>Rotunjirea comenzii la bax și cantitatea minimă a furnizorului</h3>
+      <p>Sugestia de comandă trebuie rotunjită în sus la multiplul de <b>bax</b> al furnizorului — nu comandăm 7 bucăți dacă baxul are 12. Numărul de bucăți per bax îl avem deja pentru fiecare articol. Ce nu avem este cantitatea minimă de comandă (MOQ) impusă de unii furnizori — cantitatea sub care nu acceptă comandă pentru un articol.</p>
+      <p class="example">Exemplu: dacă un furnizor cere minim <b>X cutii</b> per articol, fără MOQ sistemul poate sugera o cantitate pe care furnizorul o refuză.</p>
+
+      <p class="qlabel">Întrebarea</p>
+      <p class="question">Aveți, per furnizor sau per articol, o cantitate minimă de comandă (MOQ) pe care să o respectăm?</p>
+
+      <ul class="options">
+        <li class="opt rec">
+          <span class="opt-badge">A</span>
+          <span class="opt-body"><span class="otitle">Ne dați lista MOQ</span><span class="tag">Recomandat</span><br>Pe furnizor sau pe articol, acolo unde există; o folosim ca prag minim în sugestie. Rotunjirea la bax o facem oricum din datele existente.</span>
+        </li>
+        <li class="opt">
+          <span class="opt-badge">B</span>
+          <span class="opt-body"><span class="otitle">Rotunjim doar la bax, fără MOQ</span><br>Mai simplu — folosim doar multiplul de bax, fără prag minim de cantitate.</span>
+        </li>
+        <li class="opt">
+          <span class="opt-badge">C</span>
+          <span class="opt-body"><span class="otitle">MOQ implicit, configurabil</span><br>Pornim de la o valoare implicită per furnizor, pe care o ajustați în ecranul de configurare.</span>
+        </li>
+      </ul>
+
+      <div class="why">
+        <span class="why-label">De ce A</span>
+        <span>Rotunjirea la bax o implementăm din datele existente. MOQ-ul, acolo unde furnizorul îl impune, evită comenzi respinse — dar are nevoie de lista dvs.</span>
+      </div>
+    </article>
+
+    <!-- 7 -->
+    <article class="card">
+      <div class="eyebrow-row">
+        <span class="index">7</span>
+        <span class="eyebrow">Delistare la client</span>
+      </div>
+      <h3>Când un client se oprește din comenzi — cine confirmă delistarea</h3>
+      <p>În noul model, dacă un client nu mai comandă un articol un timp mai lung decât ritmul lui obișnuit, perechea trece pe <b>„Suspect delistare”</b> și contribuția acelui client iese imediat din prognoza articolului — nu se diluează lent cu zerouri. Pragul se adaptează la ritmul fiecărui client (cine comandă trimestrial nu e alarmat la 5 luni). Rămâne de stabilit cine confirmă că e o delistare reală, nu o pauză.</p>
+      <p class="example">Exemplu: un client care lua lunar un ceai se oprește de <b>7 luni</b>; sistemul îl marchează „Suspect delistare” și nu-l mai include în prognoză — dar poate reveni.</p>
+
+      <p class="qlabel">Întrebarea</p>
+      <p class="question">Cum vreți să confirmăm delistarea unei perechi client × articol?</p>
+
+      <ul class="options">
+        <li class="opt rec">
+          <span class="opt-badge">A</span>
+          <span class="opt-body"><span class="otitle">Marcaj automat + confirmare vânzări/KAM</span><span class="tag">Recomandat</span><br>Sistemul semnalează „Suspect”, iar echipa apasă „Confirmă delistarea” sau „Fals pozitiv” (revine pe activ). Dacă nimeni nu intervine, după încă ~90 de zile fără comenzi devine automat delistat.</span>
+        </li>
+        <li class="opt">
+          <span class="opt-badge">B</span>
+          <span class="opt-body"><span class="otitle">Complet automat</span><br>Sistemul decide singur, fără confirmare umană. Mai puțină muncă, dar risc de fals pozitiv la clienții cu comenzi rare.</span>
+        </li>
+        <li class="opt">
+          <span class="opt-badge">C</span>
+          <span class="opt-body"><span class="otitle">Doar semnalare</span><br>Marcăm „Suspect”, dar nu scoatem niciodată automat contribuția din prognoză.</span>
+        </li>
+      </ul>
+
+      <div class="why">
+        <span class="why-label">De ce A</span>
+        <span>Pragul adaptiv face alarmele false rare, iar confirmarea umană pe cazurile rămase ține prognoza curată fără să ascundă decizia de om. Până la răspuns, marcăm „Suspect” doar informativ, fără să tăiem automat.</span>
+      </div>
+    </article>
+
+    <!-- 8 -->
+    <article class="card">
+      <div class="eyebrow-row">
+        <span class="index">8</span>
+        <span class="eyebrow">Listări noi</span>
+      </div>
+      <h3>Cât estimăm pentru un articol nou, la un client fără istoric</h3>
+      <p>Când listăm un articol nou la un client, nu avem încă vânzări proprii pentru acea pereche. Estimarea inițială o facem pornind de la cât vinde același articol la clienți „comparabili”, scalată după mărimea clientului, apoi trecem treptat pe datele reale în primele 3 luni (ramp-up). Trebuie doar să stabilim ce înseamnă „comparabil”.</p>
+      <p class="example">Exemplu: listăm un ceai nou la un supermarket; estimăm pornind de la cât vinde ceaiul respectiv la ceilalți clienți din aceeași categorie.</p>
+
+      <p class="qlabel">Întrebarea</p>
+      <p class="question">Cum definim „clienți comparabili” pentru estimarea inițială?</p>
+
+      <ul class="options">
+        <li class="opt rec">
+          <span class="opt-badge">A</span>
+          <span class="opt-body"><span class="otitle">După tipul/canalul de client</span><span class="tag">Recomandat</span><br>Comparăm cu clienți de același tip — supermarket cu supermarket, farmacie cu farmacie. Tipul de client îl avem deja în date.</span>
+        </li>
+        <li class="opt">
+          <span class="opt-badge">B</span>
+          <span class="opt-body"><span class="otitle">După categoria de produs la același client</span><br>Folosim media articolelor din aceeași familie pe care clientul le ia deja.</span>
+        </li>
+        <li class="opt">
+          <span class="opt-badge">C</span>
+          <span class="opt-body"><span class="otitle">Estimare manuală la listare</span><br>Persoana care listează introduce o cantitate de pornire.</span>
+        </li>
+      </ul>
+
+      <div class="why">
+        <span class="why-label">De ce A</span>
+        <span>Tipul de client e cel mai bun predictor al volumului și îl avem deja în date; variantele B și C rămân rezerve automate când lipsesc datele.</span>
+      </div>
+    </article>
+
+    <!-- 9 -->
+    <article class="card">
+      <div class="eyebrow-row">
+        <span class="index">9</span>
+        <span class="eyebrow">Piața RO vs Export</span>
+      </div>
+      <h3>Păstrăm sugestia separată pentru RO și pentru Export HU?</h3>
+      <p>Tool-ul actual calculează două sugestii de comandă: una pentru piața RO și una pentru clienții de Export HU (Brandmix, Hun-Trade), pentru că se comandă și se facturează diferit. Stocul comun acoperă întâi cererea RO, iar surplusul rămâne pentru export. Noua specificație vorbește doar de „client × articol” și nu menționează separarea — vrem să știm dacă o păstrăm.</p>
+      <p class="example">Exemplu: azi sistemul arată pe coloane distincte <b>„Sug. RO”</b> și <b>„Sug. Export HU”</b> pentru fiecare articol.</p>
+
+      <p class="qlabel">Întrebarea</p>
+      <p class="question">În noul model, păstrăm sugestia separată RO / Export HU?</p>
+
+      <ul class="options">
+        <li class="opt rec">
+          <span class="opt-badge">A</span>
+          <span class="opt-body"><span class="otitle">Păstrăm separarea, ca acum</span><span class="tag">Recomandat</span><br>Aceleași două coloane, dar cu calcul pe client × articol dedesubt. Vizual nu se schimbă nimic.</span>
+        </li>
+        <li class="opt">
+          <span class="opt-badge">B</span>
+          <span class="opt-body"><span class="otitle">O singură sugestie totală</span><br>Renunțăm la separare. Mai simplu, dar pierdem distincția utilă la comandă și facturare.</span>
+        </li>
+      </ul>
+
+      <div class="why">
+        <span class="why-label">De ce A</span>
+        <span>Separarea reflectă un flux real de business (comandă și facturare diferite); noul model o poate păstra fără efort suplimentar.</span>
+      </div>
+    </article>
+
+    <!-- 10 -->
+    <article class="card">
+      <div class="eyebrow-row">
+        <span class="index">10</span>
+        <span class="eyebrow">Momentul recalculării</span>
+      </div>
+      <h3>Când recalculăm statusurile și prognozele</h3>
+      <p>Noul model presupune mai multe calcule: status per pereche client × articol, delistări, ramp-up pentru listări noi. Le putem rula o dată pe noapte, ca un job programat — iar pagina afișează instant ultimul rezultat — sau le recalculăm de fiecare dată când deschideți pagina, ca acum.</p>
+      <p class="example">Exemplu: cu sute de articole × sute de clienți, recalculul „la deschidere” poate încetini pagina; un job de noapte o ține instant.</p>
+
+      <p class="qlabel">Întrebarea</p>
+      <p class="question">Când preferați să se facă recalculul?</p>
+
+      <ul class="options">
+        <li class="opt rec">
+          <span class="opt-badge">A</span>
+          <span class="opt-body"><span class="otitle">Job programat, noaptea</span><span class="tag">Recomandat</span><br>Pagina se deschide instant pe ultimul recalcul; sugestiile de comandă se generează la cerere pe baza lui.</span>
+        </li>
+        <li class="opt">
+          <span class="opt-badge">B</span>
+          <span class="opt-body"><span class="otitle">La deschiderea paginii, ca acum</span><br>Mereu la zi la secundă, dar potențial mai lent pe volume mari.</span>
+        </li>
+      </ul>
+
+      <div class="why">
+        <span class="why-label">De ce A</span>
+        <span>E chiar recomandarea din specificație și oferă viteză constantă; datele de vânzări se schimbă oricum o dată pe zi, nu pe minut.</span>
+      </div>
+    </article>
+
+  </div>
+
   <section class="closing">
     <h2>Cum răspundeți</h2>
-    <p>E suficient să alegeți o variantă (A / B / C) la fiecare din cele patru puncte — sau să ne spuneți direct valorile, ex. pragul de zile de la punctul 2. Implementăm și verificăm imediat, iar cifrele sugestiei rămân sub control (le comparăm înainte/după).</p>
+    <p>E suficient să alegeți o variantă (A / B / C) la fiecare punct — sau să ne spuneți direct valorile (ex. pragul de zile de la punctul 2, lista MOQ de la punctul 6). Punctele 5–10 deblochează noul model de forecast; până la răspuns, implementăm ce nu depinde de ele. Cifrele sugestiei rămân sub control — le comparăm înainte/după.</p>
   </section>
 
   <p class="foot">Document intern de decizie · sursă: auditul paginii /forecast</p>
