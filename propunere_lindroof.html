@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Propunere Tehnică — Proiect LindRoof</title>
+<style>
+  :root {
+    --paper: #f7f5ef; --surface: #ffffff; --surface-2: #f1efe6;
+    --ink: #1b2a3a; --navy: #1f3f66; --tile: #b8532e; --muted: #64707d;
+    --line: #dcd6c9; --grid: rgba(31,63,102,.07);
+    --shadow: 0 1px 2px rgba(27,42,58,.05), 0 6px 20px rgba(27,42,58,.06);
+    --radius: 8px;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0e2038; --surface: #123153; --surface-2: #0f2846;
+      --ink: #eef3f8; --navy: #bcd2e8; --tile: #e2895a; --muted: #93a7bd;
+      --line: rgba(255,255,255,.16); --grid: rgba(255,255,255,.05);
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.35);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans);
+    font-size: 17px; line-height: 1.62; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 50rem; margin: 0 auto; padding: clamp(1.4rem,4vw,3rem) clamp(1.1rem,4vw,2rem) 4rem; }
+  a { color: var(--navy); }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--tile); outline-offset: 2px; }
+  p { margin: .7rem 0; }
+  code { background: var(--surface-2); color: var(--tile); padding: .05rem .35rem; border-radius: 4px; font-size: .86em; font-family: var(--mono); }
+
+  /* ---- title block (hero) ---- */
+  @keyframes riseIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .titleblock { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--surface); box-shadow: var(--shadow); padding: clamp(1.6rem,4vw,2.6rem); margin-bottom: 2.6rem;
+    animation: riseIn .5s ease both; }
+  @media (prefers-reduced-motion: reduce) { .titleblock { animation: none; } }
+  .tb-grid { position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px; }
+  .tick { position: absolute; width: 14px; height: 14px; border-color: var(--navy); opacity: .5; }
+  .tick.tl { top: 10px; left: 10px; border-top: 1.5px solid; border-left: 1.5px solid; }
+  .tick.tr { top: 10px; right: 10px; border-top: 1.5px solid; border-right: 1.5px solid; }
+  .tick.bl { bottom: 10px; left: 10px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
+  .tick.br { bottom: 10px; right: 10px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
+  .tb-content { position: relative; z-index: 1; }
+  .eyebrow { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--tile); margin: 0 0 .9rem; font-weight: 700; }
+  h1 { font-family: var(--serif); font-weight: 700; color: var(--navy); font-size: clamp(2rem,5.5vw,2.9rem);
+    line-height: 1.08; letter-spacing: -.01em; margin: 0 0 .55rem; }
+  .subtitle { color: var(--muted); font-size: 1.04rem; max-width: 46ch; margin: 0 0 1.7rem; }
+  .tb-meta { display: grid; grid-template-columns: repeat(4, auto); gap: 1.6rem; margin: 0; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+  @media (max-width: 640px) { .tb-meta { grid-template-columns: repeat(2, 1fr); } }
+  .tb-meta dt { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 .3rem; }
+  .tb-meta dd { margin: 0; font-size: .92rem; font-weight: 600; }
+
+  /* ---- headings ---- */
+  h2.h-plain { font-family: var(--serif); font-weight: 700; color: var(--ink); font-size: clamp(1.3rem,3.6vw,1.7rem);
+    margin: 3.1rem 0 1.1rem; padding-bottom: .55rem; border-bottom: 1px solid var(--line); }
+  h2.h-part { font-family: var(--serif); font-weight: 700; color: var(--navy); font-size: clamp(1.5rem,4.2vw,2rem);
+    margin: 3.6rem 0 1.2rem; padding-bottom: .6rem; border-bottom: 2px solid var(--navy);
+    display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap; }
+  .part-tag { font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
+    background: var(--navy); color: var(--paper); padding: .28rem .6rem; border-radius: 4px; font-weight: 700; }
+  h3.h-sub { font-family: var(--serif); font-weight: 700; font-size: 1.16rem; margin: 1.9rem 0 .5rem;
+    display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; }
+  .sub-num { font-family: var(--mono); color: var(--tile); font-weight: 700; font-size: .95rem; }
+  .meta-chip { font-family: var(--mono); font-size: .7rem; border: 1px dashed var(--muted); color: var(--muted);
+    border-radius: 20px; padding: .16rem .6rem; font-weight: 600; letter-spacing: .01em; }
+  .meta-chip .fill { color: var(--tile); font-weight: 700; }
+
+  /* ---- decision table ---- */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+    box-shadow: var(--shadow); margin: 1.2rem 0; }
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  thead th { text-align: left; font-family: var(--mono); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted); padding: .85rem 1rem; border-bottom: 1px solid var(--line); background: var(--surface-2); white-space: nowrap; }
+  tbody td { padding: .95rem 1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td:first-child { font-weight: 700; color: var(--navy); }
+
+  /* ---- objectives ---- */
+  .obj-list { list-style: none; padding: 0; margin: 1.2rem 0; display: grid; gap: .6rem; }
+  .obj-list li { padding: .9rem 1.1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); font-size: .95rem; }
+  .obj-list b { color: var(--navy); }
+
+  ul.plain { padding-left: 1.2rem; margin: .8rem 0; }
+  ul.plain li { margin: .45rem 0; }
+
+  /* ---- variant cards ---- */
+  .variant-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin: 1.1rem 0 1.8rem; }
+  @media (max-width: 680px) { .variant-grid { grid-template-columns: 1fr; } }
+  .variant-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+    padding: 1.3rem 1.4rem; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .65rem; }
+  .variant-card.mode-local .v-icon { color: var(--navy); }
+  .variant-card.mode-net .v-icon { color: var(--tile); }
+  .v-icon svg { width: 30px; height: 30px; display: block; }
+  .v-tag { font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: .2rem 0 0; font-weight: 700; }
+  .variant-card h4 { font-family: var(--serif); font-size: 1.14rem; margin: 0; font-weight: 700; }
+  .variant-card > p.v-desc { margin: 0; font-size: .93rem; }
+  .v-recommend { font-size: .84rem; color: var(--muted); margin: 0; }
+  .v-recommend b { color: var(--ink); }
+  .v-admin { border: 1px dashed var(--navy); border-radius: 8px; background: var(--surface-2); padding: .7rem .85rem; font-size: .84rem; }
+  .v-admin .va-title { display: flex; align-items: center; gap: .4rem; font-weight: 700; color: var(--navy); margin-bottom: .35rem; }
+  .v-admin .va-title svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .v-admin ul { margin: .2rem 0 0; padding-left: 1.05rem; }
+  .v-admin li { margin: .3rem 0; }
+
+  /* ---- deliverables ---- */
+  .deliv { border: 1px solid var(--line); border-left: 3px solid var(--navy); border-radius: 0 8px 8px 0;
+    background: var(--surface-2); padding: .85rem 1.05rem; margin: 1.1rem 0; }
+  .deliv .dv-title { display: flex; align-items: center; gap: .45rem; font-family: var(--mono); font-size: .62rem;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--navy); font-weight: 700; margin-bottom: .55rem; }
+  .deliv .dv-title svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .deliv ul { margin: 0; padding: 0; list-style: none; }
+  .deliv li { position: relative; padding-left: 1.35rem; margin: .38rem 0; font-size: .87rem; }
+  .deliv li::before { content: ""; position: absolute; left: 0; top: .45em; width: .5rem; height: .5rem;
+    border: 1.5px solid var(--navy); border-radius: 2px; }
+  .deliv li .opt { font-family: var(--mono); font-size: .78em; color: var(--tile); font-weight: 700; }
+  .variant-card .deliv { margin: .2rem 0 0; }
+  .v-meta-row { display: flex; flex-wrap: wrap; gap: .5rem; margin: .1rem 0 .2rem; }
+  .v-cols { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin-top: .2rem; padding-top: .85rem; border-top: 1px solid var(--line); }
+  @media (max-width: 420px) { .v-cols { grid-template-columns: 1fr; } }
+  .v-cols h5 { font-family: var(--mono); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 .4rem; font-weight: 700; }
+  .v-cols ul { margin: 0; padding-left: 1.05rem; font-size: .84rem; }
+  .v-cols li { margin: .32rem 0; }
+
+  /* ---- clear / to-clarify split ---- */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin: 1rem 0 1.8rem; }
+  @media (max-width: 680px) { .split { grid-template-columns: 1fr; } }
+  .panel { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); padding: 1.2rem 1.3rem; }
+  .panel.ready { border-top: 3px solid #2f7d57; }
+  .panel.pending { border-top: 3px solid var(--tile); }
+  @media (prefers-color-scheme: dark) { .panel.ready { border-top-color: #63b98a; } }
+  .panel-head { display: flex; align-items: center; gap: .55rem; margin: 0 0 .85rem; }
+  .panel-head .dot { width: .7rem; height: .7rem; border-radius: 50%; flex-shrink: 0; }
+  .panel.ready .dot { background: #2f7d57; }
+  .panel.pending .dot { background: var(--tile); }
+  .panel-head h4 { font-family: var(--serif); font-size: 1.02rem; margin: 0; font-weight: 700; }
+  .panel-head .tag { font-family: var(--mono); font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-left: auto; }
+  .panel ul { margin: 0; padding-left: 1.15rem; font-size: .9rem; }
+  .panel li { margin: .5rem 0; }
+  .panel li .q { display: block; color: var(--tile); font-size: .82rem; margin-top: .15rem; font-style: italic; }
+
+  /* ---- licensing flow ---- */
+  .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: .7rem; margin: 1.2rem 0 1.8rem; }
+  @media (max-width: 820px) { .flow { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 420px) { .flow { grid-template-columns: 1fr; } }
+  .flow-step { position: relative; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+    padding: 1rem 1.1rem; box-shadow: var(--shadow); }
+  .flow-step .fs-num { font-family: var(--mono); font-size: .68rem; font-weight: 700; color: var(--paper);
+    background: var(--tile); width: 1.5rem; height: 1.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: .55rem; }
+  .flow-step h5 { font-family: var(--serif); font-size: 1rem; margin: 0 0 .3rem; font-weight: 700; }
+  .flow-step p { margin: 0; font-size: .82rem; color: var(--muted); }
+  .flow-step p .lbl { color: var(--navy); font-weight: 600; }
+  .flow-step::after { content: "›"; position: absolute; right: -.62rem; top: 50%; transform: translateY(-50%);
+    color: var(--muted); font-size: 1.4rem; z-index: 2; }
+  .flow-step:last-child::after { display: none; }
+  @media (max-width: 720px) { .flow-step::after { display: none; } }
+
+  /* ---- note ---- */
+  .note { border-left: 3px solid var(--navy); background: var(--surface-2); padding: .85rem 1.1rem;
+    border-radius: 0 8px 8px 0; margin: 1.1rem 0; font-size: .92rem; }
+  .note b { color: var(--navy); }
+
+  /* ---- roadmap timeline ---- */
+  .timeline { list-style: none; margin: 1.2rem 0; padding: 0; position: relative; }
+  .timeline::before { content: ""; position: absolute; left: 1.05rem; top: .3rem; bottom: .3rem; width: 1px; background: var(--line); }
+  .timeline > li { position: relative; padding: 0 0 1.7rem 2.6rem; }
+  .timeline > li:last-child { padding-bottom: 0; }
+  .timeline > li::before { content: ""; position: absolute; left: .65rem; top: .3rem; width: .8rem; height: .8rem;
+    border-radius: 50%; background: var(--surface); border: 2px solid var(--navy); }
+  .tl-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem; margin-bottom: .4rem; }
+  .tl-stage { font-family: var(--serif); font-weight: 700; font-size: 1.03rem; }
+  .tl-weeks { font-family: var(--mono); font-size: .7rem; color: var(--tile); border: 1px solid var(--tile); border-radius: 20px; padding: .1rem .55rem; white-space: nowrap; }
+  .timeline ul { margin: .2rem 0 0; padding-left: 1.1rem; font-size: .9rem; }
+  .timeline ul li { margin: .3rem 0; }
+
+  /* ---- next steps ---- */
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 1.2rem 0; display: grid; gap: .7rem; }
+  .steps li { counter-increment: step; display: grid; grid-template-columns: 2.1rem 1fr; gap: .8rem; align-items: center;
+    padding: .85rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); font-size: .95rem; }
+  .steps li::before { content: counter(step); font-family: var(--mono); font-weight: 700; color: var(--paper); background: var(--navy);
+    width: 2.1rem; height: 2.1rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .9rem; flex-shrink: 0; }
+
+  .foot { margin-top: 3.4rem; padding-top: 1.2rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .78rem;
+    font-family: var(--mono); display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="titleblock">
+    <div class="tb-grid" aria-hidden="true"></div>
+    <span class="tick tl" aria-hidden="true"></span><span class="tick tr" aria-hidden="true"></span>
+    <span class="tick bl" aria-hidden="true"></span><span class="tick br" aria-hidden="true"></span>
+    <div class="tb-content">
+      <p class="eyebrow">Propunere tehnică · Software</p>
+      <h1>LindRoof</h1>
+      <p class="subtitle">Plan de dezvoltare pentru ecosistemul software LindRoof — modernizarea aplicației existente și o aplicație nouă complementară.</p>
+      <dl class="tb-meta">
+        <div><dt>Document</dt><dd>Propunere tehnică</dd></div>
+        <div><dt>Versiune</dt><dd>1.0</dd></div>
+        <div><dt>Data</dt><dd>9 iulie 2026</dd></div>
+        <div><dt>Status</dt><dd>Draft pentru discuție</dd></div>
+      </dl>
+    </div>
+  </header>
+
+  <!-- ============ REZUMAT ============ -->
+  <h2 class="h-plain">Rezumat executiv</h2>
+  <p>Prezenta documentație detaliază planul de dezvoltare pentru aplicația software <b>LindRoof</b>: refactorizarea, securizarea și modernizarea aplicației existente (LindRoof v1). Pentru aceasta există două variante posibile de arhitectură — alegerea variantei influențează costul, timpul de livrare și modelul de licențiere.</p>
+  <!-- ASCUNS TEMPORAR (Partea B): text original al rezumatului menționa și "(B) crearea unei noi aplicații complementare (LindRoof v2)". Se lucrează la v2 în altă sesiune. -->
+
+
+  <!-- ============ DECIZII ============ -->
+  <h2 class="h-plain">Decizii de arhitectură necesare</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Modul</th><th>Varianta 1</th><th>Varianta 2</th></tr></thead>
+      <tbody>
+        <tr><td>A — Aplicație existentă<br><span style="font-weight:400;color:var(--muted);font-size:.85em">LindRoof v1</span></td><td>Total offline</td><td>Cu server (propriu sau închiriat — VPS / Cloud)</td></tr>
+        <!-- ASCUNS TEMPORAR (Partea B): <tr><td>B — Aplicație nouă<br><span style="font-weight:400;color:var(--muted);font-size:.85em">LindRoof v2</span></td><td>Desktop offline</td><td>Web app găzduită pe server</td></tr> -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============ OBIECTIVE ============ -->
+  <h2 class="h-plain">Obiectivele proiectului</h2>
+  <ul class="obj-list">
+    <li><b>Securizare</b> — protejarea proprietății intelectuale și controlul accesului.</li>
+    <li><b>Modernizare tehnică</b> — migrarea la o arhitectură de date modernă (<code>DBF</code> → <code>SQLite</code>) și actualizarea stack-ului tehnologic, pentru mentenanță, stabilitate și performanță pe termen lung.</li>
+    <li><b>Optimizare mod lucru</b> — asigurarea continuității activității fără conexiune la internet.</li>
+    <li><b>Extensibilitate</b> — introducerea de noi proprietăți geometrice (Înălțime) și capabilități de export.</li>
+  </ul>
+
+  <!-- ============ PARTEA A ============ -->
+  <h2 class="h-part"><span class="part-tag">Partea A</span>Modificare aplicație existentă <span style="color:var(--muted);font-size:.65em;font-family:var(--mono);font-weight:400">LindRoof v1</span></h2>
+
+  <h3 class="h-sub"><span class="sub-num">A.1</span> Modificări comune (ambele variante)</h3>
+  <div class="split">
+    <div class="panel ready">
+      <div class="panel-head"><span class="dot" aria-hidden="true"></span><h4>Clarificate</h4><span class="tag">Se poate începe</span></div>
+      <ul>
+        <li><b>Modernizare bază de date:</b> migrarea de la formatul <code>DBF</code> la <code>SQLite</code> (structură relațională modernă, integritate a datelor, performanță și extensibilitate).</li>
+        <li><b>Actualizare model date:</b> adăugarea proprietății <code>Inaltime</code> (tip numeric/float) pentru entitățile de tip linie desenată și selectată.</li>
+        <li><b>Interfață utilizator (UI):</b> câmp de input în panoul de proprietăți al liniei pentru definirea înălțimii.</li>
+        <li><b>Obfuscare (obfuscation):</b> tehnici de obfuscare a codului înainte de compilare/distribuție, pentru a preveni ingineria inversă (reverse engineering).</li>
+        <li><b>Criptare:</b> criptarea bazei de date locale și a fișierelor de configurare; detaliile de implementare se discută în faza de dezvoltare.</li>
+        <li><b>Modernizare sistem de licențiere:</b> înlocuirea mecanismului actual cu un sistem modern (licență criptată legată de hardware, validare la pornire, reînnoire) — vezi fluxul A.3.</li>
+      </ul>
+    </div>
+    <div class="panel pending">
+      <div class="panel-head"><span class="dot" aria-hidden="true"></span><h4>De clarificat cu clientul</h4><span class="tag">Înainte de dev</span></div>
+      <ul>
+        <li><b>Modul export TXT:</b> confirmarea formatului exact — separator, poziția și unitatea de măsură pentru <code>Inaltime</code>, plus aplicațiile care consumă fișierul exportat.<span class="q">Exemplu propus: <code>ID_Linie;Coordonate;Inaltime</code></span></li>
+        <li><b>Varianta cu server (dacă se alege A-Server):</b> ce tip de server — propriu sau închiriat (VPS / Cloud)?<span class="q">Dacă e propriu: e expus public / accesibil de pe internet? Ce tehnologii rulează deja? Se pot instala tehnologii adiacente (runtime, bază de date, server web)?</span></li>
+        <li><b>Aplicația de administrare:</b> confirmarea (acceptul) clientului pentru realizarea aplicației de administrare (generare licențe / creare installer).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="deliv">
+    <div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>Livrabile</div>
+    <ul>
+      <li>Bază de date <code>SQLite</code> + unealtă de migrare <code>DBF</code> → <code>SQLite</code> (cu verificarea corectitudinii datelor).</li>
+      <li>Aplicația LindRoof v1 actualizată: proprietatea <code>Inaltime</code> în model + câmp de input în UI.</li>
+      <li>Modul de export TXT actualizat, conform formatului agreat.</li>
+      <li>Versiune de distribuție cu cod obfuscat și date locale criptate.</li>
+      <li><b>Codul sursă</b> complet al aplicației LindRoof v1 modificate.</li>
+      <li>Documentație tehnică a modificărilor.</li>
+    </ul>
+  </div>
+
+  <h3 class="h-sub"><span class="sub-num">A.2</span> Variante de arhitectură</h3>
+  <div class="variant-grid">
+    <article class="variant-card mode-local">
+      <span class="v-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="10" width="28" height="20" rx="2"/><line x1="6" y1="24" x2="34" y2="24"/><circle cx="28" cy="27" r="1.3" fill="currentColor" stroke="none"/></svg></span>
+      <p class="v-tag">Varianta A-Offline</p>
+      <h4>Total offline</h4>
+      <div class="v-meta-row">
+        <span class="meta-chip">Durata: <span class="fill">10</span> zile</span>
+        <span class="meta-chip">Cost: <span class="fill">350</span> EUR</span>
+      </div>
+      <p class="v-desc">Aplicația funcționează integral local, fără nicio dependență de server. Licență criptată (<code>.lic</code>), legată de ID-ul hardware, cu dată de expirare fixă — fără verificare online.</p>
+      <div class="v-admin">
+        <div class="va-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg>Aplicație de administrare (internă)</div>
+        <ul>
+          <li>Generarea fișierelor de licență <code>.lic</code>.</li>
+          <li>Istoric pe client + identificator hardware → licențe noi generate direct, <b>fără ca utilizatorul să retrimită ceva</b>.</li>
+          <li>Creare pachet de instalare (installer) generic, cu toate fișierele necesare (același pentru toți; licența se generează separat, după instalare).</li>
+        </ul>
+      </div>
+      <p class="v-recommend"><b>Recomandat pentru:</b> clienți care lucrează predominant pe teren, cu conectivitate instabilă sau inexistentă.</p>
+      <div class="v-cols">
+        <div><h5>Avantaje</h5><ul><li>Cost minim de infrastructură</li><li>Funcționează oriunde, indiferent de conectivitate</li></ul></div>
+        <div><h5>De luat în calcul</h5><ul><li>Reînnoire manuală a licenței</li><li>Fără revocare instantă sau telemetrie</li></ul></div>
+      </div>
+      <div class="deliv">
+        <div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>Livrabile</div>
+        <ul>
+          <li>Aplicație de administrare (internă): generare <code>.lic</code>, istoric client + identificator hardware, creare installer.</li>
+          <li>Mecanism de licențiere offline integrat în aplicație.</li>
+          <li>Pachet de instalare (installer) generic.</li>
+          <li>Ghid de emitere și reînnoire a licențelor.</li>
+        </ul>
+      </div>
+    </article>
+    <article class="variant-card mode-net">
+      <span class="v-icon" aria-hidden="true"><svg viewBox="0 0 40 34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4" width="26" height="9" rx="1.6"/><rect x="7" y="17" width="26" height="9" rx="1.6"/><circle cx="12" cy="8.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="21.5" r="1.1" fill="currentColor" stroke="none"/><line x1="17.5" y1="8.5" x2="28" y2="8.5"/><line x1="17.5" y1="21.5" x2="28" y2="21.5"/></svg></span>
+      <p class="v-tag">Varianta A-Server</p>
+      <h4>Cu server <span style="font-weight:400;color:var(--muted);font-size:.7em">(propriu sau închiriat — VPS / Cloud)</span></h4>
+      <div class="v-meta-row">
+        <span class="meta-chip">Durata: <span class="fill">15</span> zile</span>
+        <span class="meta-chip">Cost: <span class="fill">650</span> EUR</span>
+      </div>
+      <p class="v-desc">Păstrează modul de lucru offline-first, dar adaugă un server central de licențiere: validare hibridă (token JWT, status abonament) online, cu fallback pe licența offline prin <i>heartbeat</i>. Emiterea și gestionarea licențelor se fac din server.</p>
+      <div class="v-admin">
+        <div class="va-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg>Aplicație de administrare (internă)</div>
+        <ul>
+          <li>Rămâne necesară, dar <b>doar pentru crearea pachetului de instalare (installer)</b> — generarea și gestionarea licențelor sunt preluate de server.</li>
+        </ul>
+      </div>
+      <p class="v-recommend"><b>Recomandat pentru:</b> clienți care doresc abonament, revocare la nevoie sau partajare de date între mai multe puncte de lucru.</p>
+      <div class="v-cols">
+        <div><h5>Avantaje</h5><ul><li>Control centralizat al licențelor</li><li>Model de abonament recurent, telemetrie</li></ul></div>
+        <div><h5>De luat în calcul</h5><ul><li>Cost recurent de hosting/mentenanță</li><li>Complexitate suplimentară de infrastructură</li></ul></div>
+      </div>
+      <div class="deliv">
+        <div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>Livrabile</div>
+        <ul>
+          <li>Server de licențiere (API + panou de administrare) pe VPS/Cloud, cu TLS și backup.</li>
+          <li>Integrarea validării hibride (online + fallback offline) în aplicație.</li>
+          <li>Aplicație de administrare (internă) pentru crearea installer-ului generic.</li>
+          <li><span class="opt">Opțional:</span> coadă de sincronizare între stații.</li>
+          <li>Documentație de instalare și operare a serverului.</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <h3 class="h-sub"><span class="sub-num">A.3</span> Fluxul de licențiere (pe scurt)</h3>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="fs-num">1</div>
+      <h5>Instalare</h5>
+      <p>Clientul instalează aplicația (installer generic, identic pentru toți).</p>
+    </div>
+    <div class="flow-step">
+      <div class="fs-num">2</div>
+      <h5>Identificator hardware</h5>
+      <p>La prima pornire, aplicația generează un identificator hardware unic.</p>
+    </div>
+    <div class="flow-step">
+      <div class="fs-num">3</div>
+      <h5>Trimitere la administrator</h5>
+      <p>Clientul trimite identificatorul; administratorul generează fișierul <code>.lic</code> din aplicația de administrare.</p>
+    </div>
+    <div class="flow-step">
+      <div class="fs-num">4</div>
+      <h5>Activare &amp; utilizare</h5>
+      <p>Clientul aplică <code>.lic</code>; verificare la fiecare pornire — <span class="lbl">A-Offline:</span> local; <span class="lbl">A-Server:</span> online periodic, funcțional și offline.</p>
+    </div>
+    <div class="flow-step">
+      <div class="fs-num">5</div>
+      <h5>Reînnoire</h5>
+      <p>Licența nouă se generează din istoric, fără ca utilizatorul să retrimită ceva.</p>
+    </div>
+  </div>
+
+  <!-- ============ PARTEA B — ASCUNSĂ TEMPORAR ============
+       Se lucrează la LindRoof v2 în altă sesiune. Nu se afișează clientului.
+       Re-activare: șterge <div class="hidden-partB" ...> de mai jos și </div>-ul pereche. -->
+  <div class="hidden-partB" style="display:none" aria-hidden="true">
+  <h2 class="h-part"><span class="part-tag">Partea B</span>Dezvoltare aplicație nouă <span style="color:var(--muted);font-size:.65em;font-family:var(--mono);font-weight:400">LindRoof v2</span></h2>
+
+  <h3 class="h-sub"><span class="sub-num">B.1</span> Elemente comune (ambele variante)</h3>
+  <div class="note"><b>De completat:</b> rolul principal al LindRoof v2 — ex. aplicație mobilă de teren / modul de vizualizare 3D / platformă de management. Decizie necesară din partea clientului înainte de Etapa 3 din roadmap.</div>
+  <ul class="plain">
+    <li><b>Sincronizare:</b> consumă și generează date compatibile cu structura actualizată din LindRoof v1 (inclusiv proprietatea <code>Inaltime</code>).</li>
+  </ul>
+  <div class="deliv">
+    <div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>Livrabile</div>
+    <ul>
+      <li>Contract de date / schemă comună cu LindRoof v1 (cu versionare pentru compatibilitate).</li>
+      <li>Modul de import și consum al datelor din v1 (inclusiv <code>Inaltime</code>).</li>
+      <li><b>Codul sursă</b> complet al aplicației LindRoof v2.</li>
+      <li>Specificația funcțională a aplicației, după confirmarea rolului.</li>
+    </ul>
+  </div>
+
+  <h3 class="h-sub"><span class="sub-num">B.2</span> Variante de arhitectură</h3>
+  <div class="variant-grid">
+    <article class="variant-card mode-local">
+      <span class="v-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="30" height="20" rx="2"/><line x1="14" y1="33" x2="26" y2="33"/><line x1="20" y1="27" x2="20" y2="33"/></svg></span>
+      <p class="v-tag">Varianta B · Desktop</p>
+      <h4>Desktop offline</h4>
+      <div class="v-meta-row">
+        <span class="meta-chip">Durata: <span class="fill">___</span> zile</span>
+        <span class="meta-chip">Cost: <span class="fill">___</span> EUR</span>
+      </div>
+      <p class="v-desc">Aplicație instalabilă local, cu bază de date embedded (ex: SQLite, Realm), funcțională fără internet. Sincronizare cu v1 prin export/import TXT sau, dacă există server, prin coada de sincronizare la reconectare.</p>
+      <p class="v-recommend"><b>Licențiere:</b> același model ca Varianta A-Offline, sau hibrid dacă serverul de licențiere există deja.</p>
+      <div class="v-cols">
+        <div><h5>Avantaje</h5><ul><li>Funcționează 100% pe teren, fără semnal</li><li>Control total asupra datelor locale</li></ul></div>
+        <div><h5>De luat în calcul</h5><ul><li>Fără acces multi-dispozitiv în timp real</li><li>Actualizări cu instalare manuală</li></ul></div>
+      </div>
+      <div class="deliv">
+        <div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>Livrabile</div>
+        <ul>
+          <li>Aplicația LindRoof v2 desktop, instalabilă + pachet de instalare (installer).</li>
+          <li>Bază de date locală embedded și sincronizare cu v1 (fișier sau coadă).</li>
+          <li>Licențiere integrată (model A-Offline sau hibrid).</li>
+          <li>Documentație de utilizare.</li>
+        </ul>
+      </div>
+    </article>
+    <article class="variant-card mode-net">
+      <span class="v-icon" aria-hidden="true"><svg viewBox="0 0 40 30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="30" height="22" rx="2"/><line x1="5" y1="10" x2="35" y2="10"/><circle cx="10" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="14" cy="7" r="1" fill="currentColor" stroke="none"/></svg></span>
+      <p class="v-tag">Varianta B · Web</p>
+      <h4>Web app găzduită pe server</h4>
+      <div class="v-meta-row">
+        <span class="meta-chip">Durata: <span class="fill">___</span> zile</span>
+        <span class="meta-chip">Cost: <span class="fill">___</span> EUR</span>
+      </div>
+      <p class="v-desc">Aplicație web, găzduită pe server propriu sau în cloud (VPS / Cloud services), accesibilă din browser. Date centralizate, acces multi-utilizator simultan.</p>
+      <p class="v-recommend"><b>Licențiere:</b> gestionată nativ server-side (cont de utilizator + abonament), fără fișier <code>.lic</code> separat.</p>
+      <div class="v-cols">
+        <div><h5>Avantaje</h5><ul><li>Acces de oriunde, colaborare în timp real</li><li>Actualizări instant, fără instalare</li></ul></div>
+        <div><h5>De luat în calcul</h5><ul><li>Necesită internet și disponibilitate server</li><li>Cost hosting + cerințe de securitate suplimentare</li></ul></div>
+      </div>
+      <div class="deliv">
+        <div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>Livrabile</div>
+        <ul>
+          <li>Aplicație web LindRoof v2 (interfață + backend) găzduită pe server/cloud.</li>
+          <li>Bază de date centralizată, cu acces multi-utilizator.</li>
+          <li>Autentificare, conturi de utilizator și abonamente.</li>
+          <li>Configurare hosting: TLS, backup, monitorizare.</li>
+          <li>Documentație de instalare, operare și securitate.</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+  </div><!-- /.hidden-partB — sfârșit Partea B ascunsă -->
+
+  <!-- ============ ROADMAP ============ -->
+  <h2 class="h-plain">Plan de implementare și etape (roadmap indicativ)</h2>
+  <div class="note"><b>Notă:</b> roadmap-ul de mai jos acoperă scenariul complet (Varianta A-Server + server de licențiere). Dacă se alege varianta total offline (A-Offline), etapele legate de server se elimină, iar timpul de livrare se scurtează.</div>
+  <ol class="timeline">
+    <li>
+      <div class="tl-head"><span class="tl-stage">Etapa 1 — Securitate &amp; Licențiere</span></div>
+      <ul>
+        <li>Implementare server de licențe (dacă se alege Varianta A-Server).</li>
+        <li>Integrare module de obfuscare în pipeline-ul de build.</li>
+      </ul>
+    </li>
+    <li>
+      <div class="tl-head"><span class="tl-stage">Etapa 2 — Aplicație de administrare</span></div>
+      <ul>
+        <li>Dezvoltarea aplicației de administrare (internă): generare licențe <code>.lic</code>, istoric pe client + identificator hardware, creare pachet de instalare (installer) generic.</li>
+        <li><i>La Varianta A-Server, aplicația de administrare se reduce la crearea installer-ului; emiterea licențelor se face din server.</i></li>
+      </ul>
+    </li>
+    <li>
+      <div class="tl-head"><span class="tl-stage">Etapa 3 — Upgrade aplicație existentă</span></div>
+      <ul>
+        <li>Adăugare proprietate <code>Inaltime</code>.</li>
+        <li>Modificare algoritm export TXT.</li>
+      </ul>
+    </li>
+    <!-- ASCUNS TEMPORAR (Partea B): între Upgrade și Testare exista o etapă "Dezvoltare aplicație nouă & mod offline" (Creare UI/UX aplicație nouă + bază de date locală și sincronizare).
+    <li>
+      <div class="tl-head"><span class="tl-stage">Dezvoltare aplicație nouă &amp; mod offline</span></div>
+      <ul>
+        <li>Creare UI/UX aplicație nouă.</li>
+        <li>Implementare bază de date locală și algoritm de sincronizare.</li>
+      </ul>
+    </li>
+    -->
+    <li>
+      <div class="tl-head"><span class="tl-stage">Etapa 4 — Testare (QA) și livrare</span></div>
+      <ul>
+        <li>Testare scenarii de cădere bruscă a internetului în timpul exportului/sincronizării.</li>
+      </ul>
+    </li>
+  </ol>
+
+  <!-- ============ PASI URMATORI ============ -->
+  <h2 class="h-plain">Pași următori</h2>
+  <ol class="steps">
+    <!-- ASCUNS TEMPORAR (Partea B): "Confirmarea rolului principal al aplicației LindRoof v2 (secțiunea B.1)." și mențiunea Părții B în pasul de alegere. -->
+    <li>Alegerea variantei de arhitectură pentru Partea A (A-Offline sau A-Server).</li>
+    <li>Aprobarea roadmap-ului și a bugetului aferent variantei alese.</li>
+  </ol>
+
+  <p class="foot"><span>Propunere tehnică · Proiect LindRoof</span><span>v1.0 · 9 iulie 2026</span></p>
+</div>
+</body>
+</html>
