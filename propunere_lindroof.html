@@ -237,11 +237,14 @@
     <li><b>Securizare</b> — protejarea proprietății intelectuale și controlul accesului.</li>
     <li><b>Modernizare tehnică</b> — migrarea la o arhitectură de date modernă (<code>DBF</code> → <code>SQLite</code>) și actualizarea stack-ului tehnologic, pentru mentenanță, stabilitate și performanță pe termen lung.</li>
     <li><b>Optimizare mod lucru</b> — asigurarea continuității activității fără conexiune la internet.</li>
+    <li><b>Trasabilitate</b> — log al activității utilizatorului (acțiuni, modificări) pentru audit și diagnoză.</li>
     <li><b>Extensibilitate</b> — introducerea de noi proprietăți geometrice (Înălțime) și capabilități de export.</li>
   </ul>
 
   <!-- ============ PARTEA A ============ -->
   <h2 class="h-part"><span class="part-tag">Partea A</span>Modificare aplicație existentă <span style="color:var(--muted);font-size:.65em;font-family:var(--mono);font-weight:400">LindRoof v1</span></h2>
+
+  <div class="note"><b>Notă privind domeniul (scope) — calcularea golurilor:</b> calcularea automată a golurilor <b>nu</b> poate fi inclusă în Partea A. Efortul este foarte mare din cauza structurii tehnice actuale a aplicației; din acest motiv, funcționalitatea este încadrată într-o etapă separată (Partea B — în curs de definire).</div>
 
   <h3 class="h-sub"><span class="sub-num">A.1</span> Modificări comune (ambele variante)</h3>
   <div class="split">
@@ -253,6 +256,7 @@
         <li><b>Interfață utilizator (UI):</b> câmp de input în panoul de proprietăți al liniei pentru definirea înălțimii.</li>
         <li><b>Obfuscare (obfuscation):</b> tehnici de obfuscare a codului înainte de compilare/distribuție, pentru a preveni ingineria inversă (reverse engineering).</li>
         <li><b>Criptare:</b> criptarea bazei de date locale și a fișierelor de configurare; detaliile de implementare se discută în faza de dezvoltare.</li>
+        <li><b>Log de activitate utilizator:</b> înregistrarea acțiunilor relevante (creare / editare / ștergere, export, autentificare) cu marcaj de timp, pentru audit și diagnoză.</li>
         <li><b>Modernizare sistem de licențiere:</b> înlocuirea mecanismului actual cu un sistem modern (licență criptată legată de hardware, validare la pornire, reînnoire) — vezi fluxul A.3.</li>
       </ul>
     </div>
@@ -262,6 +266,7 @@
         <li><b>Modul export TXT:</b> confirmarea formatului exact — separator, poziția și unitatea de măsură pentru <code>Inaltime</code>, plus aplicațiile care consumă fișierul exportat.<span class="q">Exemplu propus: <code>ID_Linie;Coordonate;Inaltime</code></span></li>
         <li><b>Varianta cu server (dacă se alege A-Server):</b> ce tip de server — propriu sau închiriat (VPS / Cloud)?<span class="q">Dacă e propriu: e expus public / accesibil de pe internet? Ce tehnologii rulează deja? Se pot instala tehnologii adiacente (runtime, bază de date, server web)?</span></li>
         <li><b>Aplicația de administrare:</b> confirmarea (acceptul) clientului pentru realizarea aplicației de administrare (generare licențe / creare installer).</li>
+        <li><b>Sincronizarea log-ului / datelor:</b> se dorește sincronizarea log-ului de activitate (și/sau a datelor) între stații sau către un server? Dacă da — <b>cum</b> anume?<span class="q">La reconectare, în timp real sau doar la cerere? Către ce destinație?</span></li>
       </ul>
     </div>
   </div>
@@ -273,6 +278,7 @@
       <li>Aplicația LindRoof v1 actualizată: proprietatea <code>Inaltime</code> în model + câmp de input în UI.</li>
       <li>Modul de export TXT actualizat, conform formatului agreat.</li>
       <li>Versiune de distribuție cu cod obfuscat și date locale criptate.</li>
+      <li>Modul de log de activitate utilizator (stocare locală).</li>
       <li><b>Codul sursă</b> complet al aplicației LindRoof v1 modificate.</li>
       <li>Documentație tehnică a modificărilor.</li>
     </ul>
@@ -288,7 +294,7 @@
         <span class="meta-chip">Durata: <span class="fill">10</span> zile</span>
         <span class="meta-chip">Cost: <span class="fill">350</span> EUR</span>
       </div>
-      <p class="v-desc">Aplicația funcționează integral local, fără nicio dependență de server. Licență criptată (<code>.lic</code>), legată de ID-ul hardware, cu dată de expirare fixă — fără verificare online.</p>
+      <p class="v-desc">Aplicația funcționează integral local, fără nicio dependență de server. Licență criptată (<code>.lic</code>), legată de ID-ul hardware, cu dată de expirare fixă — fără verificare online. Datele și <b>log-ul de activitate se salvează exclusiv local</b> (nu se sincronizează).</p>
       <div class="v-admin">
         <div class="va-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg>Aplicație de administrare (internă)</div>
         <ul>
@@ -320,7 +326,7 @@
         <span class="meta-chip">Durata: <span class="fill">15</span> zile</span>
         <span class="meta-chip">Cost: <span class="fill">650</span> EUR</span>
       </div>
-      <p class="v-desc">Păstrează modul de lucru offline-first, dar adaugă un server central de licențiere: validare hibridă (token JWT, status abonament) online, cu fallback pe licența offline prin <i>heartbeat</i>. Emiterea și gestionarea licențelor se fac din server.</p>
+      <p class="v-desc">Păstrează modul de lucru offline-first, dar adaugă un server central de licențiere: validare hibridă (token JWT, status abonament) online, cu fallback pe licența offline prin <i>heartbeat</i>. Emiterea și gestionarea licențelor se fac din server. Log-ul de activitate poate fi sincronizat central (dacă se dorește).</p>
       <div class="v-admin">
         <div class="va-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg>Aplicație de administrare (internă)</div>
         <ul>
@@ -373,6 +379,8 @@
       <p>Licența nouă se generează din istoric, fără ca utilizatorul să retrimită ceva.</p>
     </div>
   </div>
+
+  <div class="note"><b>Notă (licențiere):</b> mecanismul propus <b>nu</b> folosește verificare în doi pași (2FA) prin SMS / telefon. Se elimină astfel costurile recurente pentru servicii de mesagerie GSM. Validarea se bazează pe licența criptată legată de hardware (și, la Varianta A-Server, pe token online).</div>
 
   <!-- ============ PARTEA B — ASCUNSĂ TEMPORAR ============
        Se lucrează la LindRoof v2 în altă sesiune. Nu se afișează clientului.
