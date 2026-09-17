@@ -6,6 +6,15 @@ serve the folder with any static host.
 Deployed at https://vladrosioru.github.io/ — files live at the repository
 root so GitHub Pages serves them at the domain root.
 
+## Content source
+
+Profile content (titles, dates, claims, certifications) is maintained in the
+separate CV project (`cv.typ`, `PROJECT_CONTEXT.md`,
+`info/LinkedIn_Profile_Snapshot.md`). Update the site from there and do not add
+claims it does not support. `assets/Vlad_Rosioru_Resume.pdf` is a copy of the
+compiled CV, and `og-image.png` carries the headline as baked-in text, so both
+need refreshing whenever the positioning changes.
+
 ## Structure
 
 ```
@@ -19,6 +28,7 @@ root so GitHub Pages serves them at the domain root.
 ├── assets/
 │   └── Vlad_Rosioru_Resume.pdf
 ├── og-image.png            1200×630 social share card (Open Graph / Twitter)
+├── llms.txt                Plain-text profile summary for AI answer engines
 ├── robots.txt              Allows search + AI/answer-engine crawlers; links sitemap
 └── sitemap.xml             Single-URL sitemap
 ```

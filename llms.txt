@@ -1,46 +1,42 @@
 # Vlad Rosioru
 
-> Software Development Manager, Engineering Manager and Engineering Leader based in
-> Bucharest, Romania, with 20+ years in software engineering. Currently available
-> and actively open to hire.
+> Delivery Manager and Scrum Master based in Bucharest, Romania. Twenty years in
+> software: fourteen building it in C#/.NET, the last six coordinating the people
+> who build it. Available now.
 
 ## Summary
 - **Name:** Vlad Rosioru
-- **Location:** Bucharest, Romania (open to on-site, remote, or relocation)
-- **Availability:** Available now — actively open to hire
-- **Experience:** 20+ years in software engineering; led/coordinated global
-  cross-functional teams of 15–20 people
-- **Domains:** fintech, industrial automation, enterprise platforms, cloud-native
+- **Location:** Bucharest, Romania (on-site, hybrid, or fully remote)
+- **Availability:** Available now; permanent or B2B
+- **Target roles:** Delivery Manager, Scrum Master, Technical Program Manager, Technical Delivery Manager, Delivery Lead
+- **Experience:** 20 years in software; ex-LSEG (London Stock Exchange Group)
 - **Contact:** vlad.rosioru@gmail.com · https://www.linkedin.com/in/vlad-rosioru
 - **Website:** https://vladrosioru.github.io/
-
-## Open to
-Software Development Manager, Engineering Manager, Delivery Manager, and Team Lead
-roles — leading or coordinating software development teams, projects and
-departments. Also open to collaboration roles in coordination, analysis, or
-implementation. Particularly in fintech, enterprise SaaS, and cloud-native platforms.
+- **CV (PDF):** https://vladrosioru.github.io/assets/Vlad_Rosioru_Resume.pdf
 
 ## Core expertise
-- Engineering & delivery management, team leadership, building Agile teams from scratch
-- Agile / Scrum, SDLC, change & release management, stakeholder management
-- Hiring, evaluation, onboarding, mentoring; cross-cultural team coordination
-- Business analysis, requirements gathering, user-story writing
-- Hands-on: C# / .NET, CI/CD; Cloud: Microsoft Azure, AWS, Google Cloud Platform
-- Tools: Jira, Confluence, ServiceNow, GitHub, Azure DevOps
+- Delivery management: releases, change management, risks and dependencies between teams, status reporting
+- Agile / Scrum: Scrum Master, ceremonies, sprint planning, introducing Agile to teams new to it
+- Hiring and interviewing; starting a team from nothing (HAY and Dreyfus role profiles)
+- Business analysis: requirements, user stories, acceptance criteria
+- Tooling: ServiceNow, Jira, Confluence, Asana, Azure DevOps, GitHub, CI/CD
+- Engineering background: C# / .NET, ASP.NET, Entity Framework, SQL Server, PostgreSQL; Azure (AZ-900), AWS, GCP
 
-## Selected experience
-- **Freelance — Tech Consultant & R&D** (Jan 2025 – Present, Bucharest / Remote):
-  R&D in AI and cloud tooling; consulting to improve business processes.
-- **LSEG (London Stock Exchange Group)** (Jul 2022 – Dec 2024): Software Development
-  Manager and Lead .NET Developer; Scrum Master for a global team of 15–20; led
-  an AWS→Azure migration.
-- **Qualysoft / BNP Paribas** (Oct 2020 – Jun 2022): Development Team Lead and Developer.
-- **Yokogawa** (2011 – 2020): Lead Software Developer and Agile Transformation Lead in
-  industrial automation; introduced software-development processes and Agile from scratch.
+## Experience
+- **Independent Consultant, Delivery & Technical Advisory** · Freelance · Jan 2025 – Present. Advising on .NET projects (performance bottlenecks, which architectural changes are worth paying for); hands-on with Azure and current AI development tooling (Cursor, Claude Code, Gemini, Copilot).
+- **Software Development Coordinator (Delivery Manager & Scrum Master)** · LSEG · Oct 2023 – Dec 2024. A release every three weeks for a global team of 15 to 20 with no rollbacks; owned change management through GitHub pipelines and ServiceNow approvals; moved the .NET workload from AWS to Azure without taking production down; Scrum Master; designed and ran hiring interviews for analysts, testers and developers.
+- **Lead .NET Developer** · LSEG · Jul 2022 – Oct 2023. Built the ListAPI module of a Portfolio Management platform and shipped it on time (Clean Architecture, CQRS); coordinated the local developers.
+- **Software Developer** · Qualysoft · Oct 2020 – Jun 2022. Coordinated the implementation of one module of a GPS tracking solution; supported the team on implementation and delivery processes.
+- **Software Development Team Coordinator** · Yokogawa · Jan 2019 – Apr 2020. Started the software team from nothing (role profiles, hiring, Azure DevOps, CI/CD); introduced Agile to stakeholders; requirements, user stories, sprint planning, status reporting.
+- **Software Engineer** · ORTEC · Mar 2018 – Sep 2018. C#/ASP.NET integration on Exact Synergy; functional specifications.
+- **Lead Software Developer** · Yokogawa · Aug 2011 – Jun 2017. Agreed cross-company data-transfer standards with Siemens, WAGO and ABB (the target was 80% less effort to migrate an industrial automation project between platforms); ran Yokogawa's booth and workshops at the NAMUR Global Assembly 2016 (500+ attendees); NAMUR Modular Production prototype integrated into Centum VP; business analysis in Japan, the Netherlands and Germany; code reviews, QA procedures, mentoring.
+- **Earlier, 2005 – 2011:** software developer at INTRAROM, CIEL Romania, Lemonbyte and Axes Software; QA tester at Gameloft; part-time facilitator at Ascendis (2010 – 2015).
 
-## Education
-- Bachelor's in Computer Science & Engineering, University Politehnica of Bucharest
-- Continuous professional development in cloud architecture (Azure, AWS, GCP) and Agile facilitation
+## Education and certifications
+- Master's Degree, Economic Informatics, Romanian-American University (2000 – 2005)
+- Microsoft Certified: Azure Fundamentals (AZ-900), Jun 2024
+- EITC/CP/PPF, European IT Certification Institute, Sep 2025
+- Contributing to the Psychological Safety of the Team, Trend Consult Group, Nov 2022
 
 ## Languages
-English, Romanian
+Romanian (native), English (full professional), French (limited working), German (elementary)

@@ -9,34 +9,34 @@
 > then make sure it actually appears in the visible copy.
 
 ## Goal
-Be found by people searching for an **engineering manager / leader / coordinator
-of software development projects or departments** — with emphasis on the
-long-tail variants (role + location + tech + domain), which are winnable, rather
-than the bare generic terms, which are dominated by LinkedIn/Indeed/big firms.
+Be found by recruiters and hiring managers looking for a **Delivery Manager, Scrum
+Master or Technical Program Manager**, with emphasis on the long-tail variants
+(role + location + engagement type + domain), which are winnable, rather than the
+bare generic titles, which are dominated by job boards and large firms.
 
 ## Tier 1 — Will rank (low competition, do nothing more)
 | Phrase | Reinforced in |
 |--------|---------------|
 | Vlad Rosioru | title, h1, structured data `name`, OG tags |
-| Vlad Rosioru engineering manager / leader | title, hero title, alt text |
-| Vlad Rosioru Bucharest | hero location, description, structured data |
-| Vlad Rosioru LSEG | experience section, structured data `worksFor` |
+| Vlad Rosioru delivery manager / scrum master | title, hero title, photo alt text, OG image |
+| Vlad Rosioru Bucharest | hero location, meta description, structured data `address` |
+| Vlad Rosioru LSEG | about copy, experience section, FAQ |
 
 ## Tier 2 — Winnable long-tail (keep reinforcing in copy)
 | Phrase | Reinforced in |
 |--------|---------------|
-| software development manager Bucharest | title, hero title, hero loc, meta description |
-| engineering manager software development Romania | meta description, hero, structured data |
-| engineering leader Bucharest Romania | hero title, hero loc, description |
-| software development department lead / coordinator | meta description, about copy ("departments", "coordinated") |
-| .NET delivery manager Romania | skills chips, experience tags, knowsAbout |
-| fintech engineering leader Bucharest | hero desc, experience (LSEG), description |
-| agile / scrum team lead Bucharest | about copy, chips, experience tags |
+| delivery manager Bucharest | title, hero title, hero location, meta description |
+| scrum master Bucharest | title, hero title, about copy, LSEG role title |
+| technical delivery manager Romania | structured data `jobTitle`, FAQ, contact copy |
+| technical program manager Romania | FAQ, contact copy, structured data `jobTitle` |
+| delivery manager B2B / remote Romania | hero tag, FAQ, contact copy, llms.txt |
+| release and change management ServiceNow | about copy, LSEG role, skills bars and pills |
+| .NET delivery manager / ex-LSEG | hero description, experience, FAQ |
 
-## Tier 3 — Aspirational only (too competitive for a new personal site)
+## Tier 3 — Aspirational only (too competitive for a personal site)
 Do not expect traffic from bare terms; keep them only for context:
-`engineering manager`, `software development manager`, `engineering leader`,
-`team lead`, `scrum master`, `agile`, `.NET`, `C#`, `Azure`, `AWS`, `fintech`.
+`delivery manager`, `scrum master`, `technical program manager`, `delivery lead`,
+`agile delivery lead`, `change management`, `release management`, `.NET`, `Azure`, `fintech`.
 
 ## Rules to keep it effective
 1. **One primary phrase per page region.** Don't repeat the same phrase 10×
