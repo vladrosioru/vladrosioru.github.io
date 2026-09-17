@@ -31,7 +31,7 @@ bare generic titles, which are dominated by job boards and large firms.
 | technical program manager Romania | FAQ, contact copy, structured data `jobTitle` |
 | delivery manager B2B / remote Romania | hero tag, FAQ, contact copy, llms.txt |
 | release and change management ServiceNow | about copy, LSEG role, skills bars and pills |
-| .NET delivery manager / ex-LSEG | hero description, experience, FAQ |
+| .NET delivery manager / ex-LSEG | Twitter description, OG image, experience, FAQ |
 
 ## Tier 3 — Aspirational only (too competitive for a personal site)
 Do not expect traffic from bare terms; keep them only for context:
