@@ -1,39 +1,43 @@
 # Vlad Rosioru
 
-> Delivery Manager and Scrum Master based in Bucharest, Romania. Twenty years in
-> software: fourteen building it in C#/.NET, the last six coordinating the people
-> who build it. Available now.
+> Technical Delivery Manager and engineering leader based in Bucharest, Romania. More than
+> sixteen years in software: eleven hands-on in C#/.NET and more than five
+> leading cross-functional, international teams. Available now.
 
 ## Summary
 - **Name:** Vlad Rosioru
 - **Location:** Bucharest, Romania (on-site, hybrid, or fully remote)
 - **Availability:** Available now; permanent or B2B
 - **Target roles:** Delivery Manager, Scrum Master, Technical Program Manager, Technical Delivery Manager, Delivery Lead
-- **Experience:** 20 years in software; ex-LSEG (London Stock Exchange Group)
+- **Experience:** 16+ years in software (11 hands-on, 5+ leading delivery); ex-LSEG (London Stock Exchange Group)
 - **Contact:** vlad.rosioru@gmail.com · https://www.linkedin.com/in/vlad-rosioru
 - **Website:** https://vladrosioru.github.io/
 - **CV (PDF):** https://vladrosioru.github.io/assets/Vlad_Rosioru_Resume.pdf
 
 ## Core expertise
-- Delivery management: releases, change management, risks and dependencies between teams, status reporting
-- Agile / Scrum: Scrum Master, ceremonies, sprint planning, introducing Agile to teams new to it
-- Hiring and interviewing; starting a team from nothing (HAY and Dreyfus role profiles)
+- Delivery management: releases, change management and release governance, risks and dependencies between teams, status reporting
+- Agile / Scrum: Scrum Master, ceremonies, sprint planning, effort estimation, introducing Agile to teams new to it
+- Hiring, interviewing, mentoring and onboarding; starting a team from nothing (HAY and Dreyfus role profiles)
 - Business analysis: requirements, user stories, acceptance criteria
+- Facilitation, training and negotiation
 - Tooling: ServiceNow, Jira, Confluence, Asana, Azure DevOps, GitHub, CI/CD
-- Engineering background: C# / .NET, ASP.NET, Entity Framework, SQL Server, PostgreSQL; Azure (AZ-900), AWS, GCP
+- Engineering background: C# / .NET, ASP.NET, Entity Framework, SQL Server, PostgreSQL; Python, Kotlin, PHP (advisory); Azure (AZ-900), AWS, GCP
 
 ## Experience
-- **Independent Consultant, Delivery & Technical Advisory** · Freelance · Jan 2025 – Present. Advising on .NET projects (performance bottlenecks, which architectural changes are worth paying for); hands-on with Azure and current AI development tooling (Cursor, Claude Code, Gemini, Copilot).
-- **Software Development Coordinator (Delivery Manager & Scrum Master)** · LSEG · Oct 2023 – Dec 2024. A release every three weeks for a global team of 15 to 20 with no rollbacks; owned change management through GitHub pipelines and ServiceNow approvals; moved the .NET workload from AWS to Azure without taking production down; Scrum Master; designed and ran hiring interviews for analysts, testers and developers.
-- **Lead .NET Developer** · LSEG · Jul 2022 – Oct 2023. Built the ListAPI module of a Portfolio Management platform and shipped it on time (Clean Architecture, CQRS); coordinated the local developers.
-- **Software Developer** · Qualysoft · Oct 2020 – Jun 2022. Coordinated the implementation of one module of a GPS tracking solution; supported the team on implementation and delivery processes.
-- **Software Development Team Coordinator** · Yokogawa · Jan 2019 – Apr 2020. Started the software team from nothing (role profiles, hiring, Azure DevOps, CI/CD); introduced Agile to stakeholders; requirements, user stories, sprint planning, status reporting.
+- **Independent Consultant, Technical & Delivery Advisory** · Freelance · Jan 2025 – Present. Technical guidance across Python, Kotlin, PHP and .NET, focused on application performance and architecture; kept current on Azure, GCP and AI development tooling (Claude Code, Cursor, Gemini, Copilot).
+- **Software Development Coordinator (Delivery Manager & Scrum Master)** · LSEG · Oct 2022 – Dec 2024. A release every three weeks for a global team of 15 to 20 with no rollbacks; owned change management and release governance (preparation, risk analysis, verification, rollback planning) through GitHub pipelines and ServiceNow approvals; coordinated the move of the .NET workload from AWS to Azure without taking production down; Scrum Master; designed and ran hiring interviews for analysts, testers and developers; earlier in the role led the local developers and built the ListAPI module of a Portfolio Management platform, shipped on time (Clean Architecture, CQRS).
+- **Software Developer, Delivery & Implementation** · Qualysoft · Oct 2020 – Sep 2022. Coordinated the implementation of one module of a GPS tracking solution; improved development workflows and delivery processes; supported project planning and effort estimation.
+- **Software Development Team Coordinator** · Yokogawa · Jan 2019 – May 2020. Started the software team from nothing (role profiles, hiring, Azure DevOps, CI/CD); introduced Agile to stakeholders; standardised requirements, user stories, delivery procedures and stakeholder communication; mentored and onboarded the team.
+- **Corporate Team-building Facilitator (part-time)** · Ascendis · Jan 2010 – Dec 2018. Group activities, professional events and debriefs for corporate groups.
 - **Software Engineer** · ORTEC · Mar 2018 – Sep 2018. C#/ASP.NET integration on Exact Synergy; functional specifications.
-- **Lead Software Developer** · Yokogawa · Aug 2011 – Jun 2017. Agreed cross-company data-transfer standards with Siemens, WAGO and ABB (the target was 80% less effort to migrate an industrial automation project between platforms); ran Yokogawa's booth and workshops at the NAMUR Global Assembly 2016 (500+ attendees); NAMUR Modular Production prototype integrated into Centum VP; business analysis in Japan, the Netherlands and Germany; code reviews, QA procedures, mentoring.
-- **Earlier, 2005 – 2011:** software developer at INTRAROM, CIEL Romania, Lemonbyte and Axes Software; QA tester at Gameloft; part-time facilitator at Ascendis (2010 – 2015).
+- **Technical Lead, Automation Engineering Platforms** · Yokogawa · Aug 2011 – Jun 2017. Technical leadership combined with business analysis and stakeholder work for industrial automation; agreed interoperability and data-transfer standards with Siemens, WAGO, ABB and Evonik (the target was 80% less effort to migrate an industrial automation project between platforms); ran Yokogawa's booth and workshops at the NAMUR Global Assembly 2016 (500+ attendees); NAMUR Modular Production prototype integrated into Centum VP; business analysis in Japan, the Netherlands and Germany; code reviews, QA procedures, planning, mentoring.
+- **Software Developer, Business Analysis & Project Coordination** · INTRAROM · Aug 2007 – Jul 2011. Business-flow analysis, requirements, planning and delivery of enterprise applications: railway ticketing (Windows Mobile) for the national railway company, internal production systems, SharePoint intranet; accounting modules for CIEL Romania (2010).
+- **Software Developer** · Various Companies · Dec 2005 – Jul 2007. Lemonbyte (BPM platform, ASP/VB to C#/ASP.NET, Windows Workflow engine), Axes Software (Reporting Services, WMS modules, wireless LAN), Gameloft (testing and bug reporting, technical documentation).
 
 ## Education and certifications
 - Master's Degree, Economic Informatics, Romanian-American University (2000 – 2005)
+- High School Diploma, Informatics, Emil Botta Theoretical High School (1996 – 2000)
+- PMP® (PMI), candidate, target completion Q4 2026
 - Microsoft Certified: Azure Fundamentals (AZ-900), Jun 2024
 - EITC/CP/PPF, European IT Certification Institute, Sep 2025
 - Contributing to the Psychological Safety of the Team, Trend Consult Group, Nov 2022

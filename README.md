@@ -10,8 +10,10 @@ root so GitHub Pages serves them at the domain root.
 
 Profile content (titles, dates, claims, certifications) is maintained in the
 separate CV project (`cv.typ`, `PROJECT_CONTEXT.md`,
-`info/LinkedIn_Profile_Snapshot.md`). Update the site from there and do not add
-claims it does not support. `assets/Vlad_Rosioru_Resume.pdf` is a copy of the
+`info/LinkedIn_Profile_Snapshot.md`) and the latest LinkedIn CV export
+(last aligned with the 2026-10-20 export). Update the site from there and do not
+add claims it does not support. The LinkedIn export carries a home address and
+phone number, so it is never committed or linked from the site. `assets/Vlad_Rosioru_Resume.pdf` is a copy of the
 compiled CV, and `og-image.png` carries the headline as baked-in text, so both
 need refreshing whenever the positioning changes.
 
