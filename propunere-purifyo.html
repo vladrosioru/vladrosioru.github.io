@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Propunere GEO — Purifyo.com</title>
+<style>
+  :root {
+    --paper: #f7f5ef; --surface: #ffffff; --surface-2: #f1efe6;
+    --ink: #1b2a3a; --navy: #1f3f66; --tile: #b8532e; --muted: #64707d;
+    --line: #dcd6c9; --grid: rgba(31,63,102,.07);
+    --ok: #2f7d57; --alert: #b3261e;
+    --shadow: 0 1px 2px rgba(27,42,58,.05), 0 6px 20px rgba(27,42,58,.06);
+    --radius: 8px;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0e2038; --surface: #123153; --surface-2: #0f2846;
+      --ink: #eef3f8; --navy: #bcd2e8; --tile: #e2895a; --muted: #93a7bd;
+      --line: rgba(255,255,255,.16); --grid: rgba(255,255,255,.05);
+      --ok: #63b98a; --alert: #f08a80;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.35);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans);
+    font-size: 17px; line-height: 1.62; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 54rem; margin: 0 auto; padding: clamp(1.4rem,4vw,3rem) clamp(1.1rem,4vw,2rem) 4rem; }
+  a { color: var(--navy); }
+  a:focus-visible { outline: 2px solid var(--tile); outline-offset: 2px; }
+  p { margin: .7rem 0; }
+  code { background: var(--surface-2); color: var(--tile); padding: .05rem .35rem; border-radius: 4px; font-size: .86em; font-family: var(--mono); }
+
+  /* ---- title block (hero) ---- */
+  @keyframes riseIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .titleblock { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--surface); box-shadow: var(--shadow); padding: clamp(1.6rem,4vw,2.6rem); margin-bottom: 2.6rem;
+    animation: riseIn .5s ease both; }
+  @media (prefers-reduced-motion: reduce) { .titleblock { animation: none; } }
+  .tb-grid { position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px; }
+  .tick { position: absolute; width: 14px; height: 14px; border-color: var(--navy); opacity: .5; }
+  .tick.tl { top: 10px; left: 10px; border-top: 1.5px solid; border-left: 1.5px solid; }
+  .tick.tr { top: 10px; right: 10px; border-top: 1.5px solid; border-right: 1.5px solid; }
+  .tick.bl { bottom: 10px; left: 10px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
+  .tick.br { bottom: 10px; right: 10px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
+  .tb-content { position: relative; z-index: 1; }
+  .eyebrow { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--tile); margin: 0 0 .9rem; font-weight: 700; }
+  h1 { font-family: var(--serif); font-weight: 700; color: var(--navy); font-size: clamp(2rem,5.5vw,2.9rem);
+    line-height: 1.08; letter-spacing: -.01em; margin: 0 0 .55rem; }
+  .subtitle { color: var(--muted); font-size: 1.04rem; max-width: 52ch; margin: 0 0 1.7rem; }
+  .tb-meta { display: grid; grid-template-columns: repeat(4, auto); gap: 1.6rem; margin: 0; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+  @media (max-width: 640px) { .tb-meta { grid-template-columns: repeat(2, 1fr); } }
+  .tb-meta dt { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 .3rem; }
+  .tb-meta dd { margin: 0; font-size: .92rem; font-weight: 600; }
+
+  /* ---- table of contents ---- */
+  .toc { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 1rem 1.3rem; margin: 0 0 1rem; font-size: .9rem; }
+  .toc .toc-title { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: .4rem; }
+  .toc ol { margin: 0; padding-left: 1.3rem; columns: 2; column-gap: 2rem; }
+  @media (max-width: 560px) { .toc ol { columns: 1; } }
+  .toc li { margin: .2rem 0; break-inside: avoid; }
+
+  /* ---- headings ---- */
+  h2.h-plain { font-family: var(--serif); font-weight: 700; color: var(--ink); font-size: clamp(1.3rem,3.6vw,1.7rem);
+    margin: 3.1rem 0 1.1rem; padding-bottom: .55rem; border-bottom: 1px solid var(--line); }
+  h2.h-part { font-family: var(--serif); font-weight: 700; color: var(--navy); font-size: clamp(1.5rem,4.2vw,2rem);
+    margin: 3.6rem 0 1.2rem; padding-bottom: .6rem; border-bottom: 2px solid var(--navy);
+    display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap; }
+  .part-tag { font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
+    background: var(--navy); color: var(--paper); padding: .28rem .6rem; border-radius: 4px; font-weight: 700; }
+  h3.h-sub { font-family: var(--serif); font-weight: 700; font-size: 1.16rem; margin: 1.9rem 0 .5rem;
+    display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; }
+  .sub-num { font-family: var(--mono); color: var(--tile); font-weight: 700; font-size: .95rem; }
+  .meta-chip { font-family: var(--mono); font-size: .7rem; border: 1px dashed var(--muted); color: var(--muted);
+    border-radius: 20px; padding: .16rem .6rem; font-weight: 600; letter-spacing: .01em; white-space: nowrap; }
+  .meta-chip .fill { color: var(--tile); font-weight: 700; }
+
+  /* ---- tables ---- */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+    box-shadow: var(--shadow); margin: 1.2rem 0; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  thead th { text-align: left; font-family: var(--mono); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted); padding: .85rem 1rem; border-bottom: 1px solid var(--line); background: var(--surface-2); white-space: nowrap; }
+  tbody td { padding: .9rem 1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td:first-child { font-weight: 700; color: var(--navy); }
+  table.plain-first tbody td:first-child { font-weight: 400; color: var(--ink); }
+  tr.total td { background: var(--surface-2); font-weight: 700; }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  .sub { display: block; font-weight: 400; color: var(--muted); font-size: .85em; margin-top: .2rem; }
+
+  /* ---- lists ---- */
+  .obj-list { list-style: none; padding: 0; margin: 1.2rem 0; display: grid; gap: .6rem; }
+  .obj-list li { padding: .9rem 1.1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); font-size: .95rem; }
+  .obj-list b { color: var(--navy); }
+  .obj-list li.alert { border-left: 3px solid var(--alert); }
+  .obj-list li.win { border-left: 3px solid var(--ok); }
+  ul.plain { padding-left: 1.2rem; margin: .8rem 0; }
+  ul.plain li { margin: .45rem 0; }
+
+  /* ---- result / deliverable box ---- */
+  .deliv { border: 1px solid var(--line); border-left: 3px solid var(--navy); border-radius: 0 8px 8px 0;
+    background: var(--surface-2); padding: .85rem 1.05rem; margin: 1.1rem 0; }
+  .deliv .dv-title { display: flex; align-items: center; gap: .45rem; font-family: var(--mono); font-size: .62rem;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--navy); font-weight: 700; margin-bottom: .45rem; }
+  .deliv .dv-title svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .deliv p { margin: 0; font-size: .9rem; }
+
+  /* ---- panels ---- */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin: 1rem 0 1.8rem; }
+  @media (max-width: 680px) { .split { grid-template-columns: 1fr; } }
+  .panel { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); padding: 1.2rem 1.3rem; }
+  .panel.ready { border-top: 3px solid var(--ok); }
+  .panel.pending { border-top: 3px solid var(--tile); }
+  .panel-head { display: flex; align-items: center; gap: .55rem; margin: 0 0 .85rem; }
+  .panel-head .dot { width: .7rem; height: .7rem; border-radius: 50%; flex-shrink: 0; }
+  .panel.ready .dot { background: var(--ok); }
+  .panel.pending .dot { background: var(--tile); }
+  .panel-head h4 { font-family: var(--serif); font-size: 1.02rem; margin: 0; font-weight: 700; }
+  .panel-head .tag { font-family: var(--mono); font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-left: auto; }
+  .panel ul { margin: 0; padding-left: 1.15rem; font-size: .9rem; }
+  .panel li { margin: .5rem 0; }
+
+  /* ---- notes ---- */
+  .note { border-left: 3px solid var(--navy); background: var(--surface-2); padding: .85rem 1.1rem;
+    border-radius: 0 8px 8px 0; margin: 1.1rem 0; font-size: .92rem; }
+  .note b { color: var(--navy); }
+  .note.alert { border-left-color: var(--alert); }
+  .note.alert b { color: var(--alert); }
+
+  /* ---- roadmap timeline ---- */
+  .timeline { list-style: none; margin: 1.2rem 0; padding: 0; position: relative; }
+  .timeline::before { content: ""; position: absolute; left: 1.05rem; top: .3rem; bottom: .3rem; width: 1px; background: var(--line); }
+  .timeline > li { position: relative; padding: 0 0 1.9rem 2.6rem; }
+  .timeline > li:last-child { padding-bottom: 0; }
+  .timeline > li::before { content: ""; position: absolute; left: .65rem; top: .3rem; width: .8rem; height: .8rem;
+    border-radius: 50%; background: var(--surface); border: 2px solid var(--navy); }
+  .tl-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem; margin-bottom: .4rem; }
+  .tl-stage { font-family: var(--serif); font-weight: 700; font-size: 1.08rem; margin-right: .2rem; }
+  .tl-weeks { font-family: var(--mono); font-size: .7rem; color: var(--tile); border: 1px solid var(--tile); border-radius: 20px; padding: .1rem .55rem; white-space: nowrap; }
+  .tl-goal { margin: .2rem 0 .3rem; font-size: .92rem; }
+  .timeline ul { margin: .2rem 0 0; padding-left: 1.1rem; font-size: .9rem; }
+  .timeline ul li { margin: .3rem 0; }
+
+  /* ---- steps ---- */
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 1.2rem 0; display: grid; gap: .7rem; }
+  .steps li { counter-increment: step; display: grid; grid-template-columns: 2.1rem 1fr; gap: .8rem; align-items: center;
+    padding: .85rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); font-size: .95rem; }
+  .steps li::before { content: counter(step); font-family: var(--mono); font-weight: 700; color: var(--paper); background: var(--navy);
+    width: 2.1rem; height: 2.1rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .9rem; flex-shrink: 0; }
+  .steps .who { display: block; font-family: var(--mono); font-size: .7rem; color: var(--muted); margin-top: .15rem; }
+
+  /* ---- estimate summary cards ---- */
+  .est-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .9rem; margin: 1.2rem 0; }
+  @media (max-width: 680px) { .est-grid { grid-template-columns: 1fr; } }
+  .est-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); padding: 1rem 1.15rem; }
+  .est-card .ec-label { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  .est-card .ec-value { font-family: var(--serif); font-size: 1.45rem; font-weight: 700; color: var(--navy); margin: .25rem 0 .1rem; line-height: 1.2; }
+  .est-card .ec-note { font-size: .82rem; color: var(--muted); margin: 0; }
+  .est-card.main { border-top: 3px solid var(--tile); }
+
+  .foot { margin-top: 3.4rem; padding-top: 1.2rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .78rem;
+    font-family: var(--mono); display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
+  @media print {
+    body { background: #fff; font-size: 11pt; }
+    .titleblock { animation: none; box-shadow: none; }
+    .table-wrap, .panel, .est-card { box-shadow: none; }
+    h2 { break-after: avoid; } tr, li { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="titleblock">
+    <div class="tb-grid" aria-hidden="true"></div>
+    <span class="tick tl" aria-hidden="true"></span><span class="tick tr" aria-hidden="true"></span>
+    <span class="tick bl" aria-hidden="true"></span><span class="tick br" aria-hidden="true"></span>
+    <div class="tb-content">
+      <p class="eyebrow">Propunere de implementare · GEO</p>
+      <h1>Purifyo.com</h1>
+      <p class="subtitle">Vizibilitate în răspunsurile asistenților AI: ChatGPT, Google AI (AI Overviews, AI Mode), Gemini, Perplexity, Copilot.</p>
+      <dl class="tb-meta">
+        <div><dt>Document</dt><dd>Propunere pentru conducere</dd></div>
+        <div><dt>Versiune</dt><dd>3.0 (consolidată)</dd></div>
+        <div><dt>Data</dt><dd>7 noiembrie 2026</dd></div>
+        <div><dt>Status</dt><dd>Draft pentru discuție</dd></div>
+      </dl>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Cuprins">
+    <div class="toc-title">Cuprins</div>
+    <ol>
+      <li><a href="#rezumat">Rezumat executiv</a></li>
+      <li><a href="#geo">Ce este GEO</a></li>
+      <li><a href="#situatie">Situația actuală</a></li>
+      <li><a href="#proactive">Acțiuni deja realizate</a></li>
+      <li><a href="#propunere">Propunerea: acțiuni imediate și etape</a></li>
+      <li><a href="#estimare">Estimare: efort și cost uman</a></li>
+      <li><a href="#masurare">Măsurare și riscuri</a></li>
+      <li><a href="#intrebari">Ce avem nevoie de la dumneavoastră</a></li>
+      <li><a href="#pasi">Pași următori</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============ 1. REZUMAT ============ -->
+  <h2 class="h-plain" id="rezumat">Rezumat executiv</h2>
+  <p>Tot mai mulți clienți își încep cercetarea întrebând un asistent AI („ce dedurizator îmi trebuie pentru o casă cu 4 persoane?”, „dedurizator sau osmoză inversă?”). Asistentul răspunde direct și recomandă câteva magazine sau produse. <b>Dacă Purifyo nu apare în acel răspuns, clientul nu mai ajunge pe site.</b></p>
+  <p>Am analizat purifyo.com din panoul de administrare și din exterior, așa cum îl „văd” motoarele AI. Concluziile principale:</p>
+  <ul class="obj-list">
+    <li class="win"><b>Baza tehnică este bună.</b> Roboții AI au acces liber, pluginul de SEO funcționează, produsele au date structurate, iar fluxurile de produse către Google, Facebook și TikTok există deja.</li>
+    <li class="alert"><b>Trei probleme cer o decizie imediată:</b> numere de recenzii <b>generate aleatoriu</b> pe site (risc juridic); <b>lipsa copiilor de siguranță</b> (ultima este din octombrie 2024); pagina de <b>Black Friday</b> are cod JavaScript în loc de descriere pentru Google, chiar în timpul campaniei.</li>
+    <li class="win"><b>Un câștig rapid:</b> datele tehnice ale produselor (consum de sare, debit, presiune, dimensiuni) există, dar <b>nu sunt vizibile pentru motoarele AI</b>. Se rezolvă în mai puțin de o oră.</li>
+    <li><b>Principalul gol:</b> site-ul <b>nu are conținut informativ</b> pe care AI-ul să-l citeze, iar <b>datele despre produse și despre firmă se contrazic</b> de la o pagină la alta.</li>
+    <li><b>Propunem un program în 4 etape</b>, de aproximativ 3 luni, urmat de monitorizare lunară. Efortul uman estimat: <b>96–200 de ore</b>, cost realist <b>~25.200 lei (~4.900 EUR)</b> fără TVA (secțiunea <a href="#estimare">Estimare</a>).</li>
+  </ul>
+
+  <!-- ============ 2. GEO ============ -->
+  <h2 class="h-plain" id="geo">Ce este GEO și de ce contează pentru Purifyo</h2>
+  <div class="table-wrap">
+    <table class="plain-first">
+      <thead><tr><th>SEO clasic</th><th>GEO (Generative Engine Optimization)</th></tr></thead>
+      <tbody>
+        <tr><td>Obiectiv: poziție în lista de rezultate Google</td><td>Obiectiv: să fii <b>menționat și citat</b> în răspunsul generat de AI</td></tr>
+        <tr><td>Clientul compară 10 linkuri</td><td>Clientul primește 2–3 recomandări gata făcute</td></tr>
+        <tr><td>Contează cuvintele cheie și linkurile</td><td>Contează <b>faptele clare, datele structurate, autoritatea și coerența brandului</b> pe tot internetul</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Pentru produse de 3.000–15.000 lei, pe care clientul le cercetează înainte de cumpărare, recomandarea unui asistent AI cântărește mult.</p>
+  <div class="note"><b>Google rămâne esențial.</b> Google este principalul motor de căutare din România, iar modul AI (AI Mode) funcționează în limba română din octombrie 2025. Google alege sursele pentru răspunsurile AI dintre paginile <b>deja bine poziționate</b> în căutare, așa că o poziție bună în Google este o condiție de bază pentru GEO.</div>
+
+  <!-- ============ 3. SITUATIA ACTUALA ============ -->
+  <h2 class="h-part" id="situatie"><span class="part-tag">Analiză</span>Situația actuală</h2>
+
+  <h3 class="h-sub"><span class="sub-num">3.1</span> Pe scurt</h3>
+  <div class="split">
+    <div class="panel ready">
+      <div class="panel-head"><span class="dot" aria-hidden="true"></span><h4>Ce funcționează deja</h4><span class="tag">Bază solidă</span></div>
+      <ul>
+        <li>Toți roboții AI importanți (ChatGPT, Claude, Perplexity, Google, Bing) <b>au acces liber</b> și citesc paginile complet.</li>
+        <li>Pluginul de SEO (Rank Math) funcționează: descrieri, date pentru distribuire, hartă a site-ului, setări care permit citarea integrală a textelor.</li>
+        <li>Produsele au <b>date structurate de bază</b>: marcă, preț cu TVA, recenzii, întrebări frecvente.</li>
+        <li><b>Google Analytics 4</b> colectează date; <b>fluxurile de produse</b> către Google (gestionat de Agenție Vie), Facebook și TikTok există.</li>
+        <li><b>Specificațiile tehnice</b> sunt completate pentru fiecare produs (dar nu sunt vizibile pentru AI).</li>
+        <li>Un <b>calculator pentru alegerea dedurizatorului</b> și un produs-model bine construit (pachetul de 26 L cu by-pass).</li>
+      </ul>
+    </div>
+    <div class="panel pending">
+      <div class="panel-head"><span class="dot" aria-hidden="true"></span><h4>Ce lipsește în principal</h4><span class="tag">De rezolvat</span></div>
+      <ul>
+        <li><b>Conținut informativ:</b> niciun articol real, întrebări frecvente doar despre livrare și cont.</li>
+        <li><b>Date coerente:</b> produse cu cifre contradictorii, conținut copiat, produse dublate.</li>
+        <li><b>Identitate clară:</b> două nume de firmă, fără pagina „Despre noi”, cifre de încredere inconsistente.</li>
+        <li><b>Măsurare:</b> legătura cu Google Search Console nu funcționează din iulie 2024.</li>
+        <li><b>Siguranță:</b> fără copii de siguranță recente; acces complet pentru trei agenții.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="h-sub"><span class="sub-num">3.2</span> Probleme urgente: necesită decizie acum</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Problemă</th><th>Risc</th><th>Ce propunem</th><th>Decide</th></tr></thead>
+      <tbody>
+        <tr><td>U1</td><td><b>Recenzii prezentate înșelător.</b> Trei fragmente de cod afișează „5.00 (N review-uri)” cu <b>N generat aleatoriu între 50 și 200</b>, „100% clienți recomandă” și eticheta „proprietar verificat” pentru recenzii introduse de personal (detalii în 3.4).</td><td><b>Juridic</b> (practici comerciale incorecte, sancțiuni ANPC), <b>Google</b> (suspendare Merchant Center, pierderea stelelor din rezultate), <b>reputație</b>, <b>AI</b> (cifre contradictorii).</td><td>Dezactivarea imediată a celor trei fragmente (evaluările reale revin automat) și verificarea de către un avocat.</td><td>Conducerea</td></tr>
+        <tr><td>U2</td><td><b>Nu există copii de siguranță recente.</b> Singura copie a site-ului este din <b>6 octombrie 2024</b>, pe același server; nu este programată nicio copie automată.</td><td>O defecțiune, o actualizare greșită sau un atac ar putea duce la pierderea comenzilor, a celor <b>4.045 de conturi de clienți</b> și a conținutului din ultimii doi ani. <b>Cel mai mare risc operațional identificat.</b></td><td>O copie completă imediată, apoi copii automate (zilnic baza de date, săptămânal fișierele) într-un cont extern al firmei.</td><td>Conducerea (contul extern)</td></tr>
+        <tr><td>U3</td><td><b>Pagina de Black Friday are ca descriere pentru Google un fragment de cod JavaScript</b>, nu un text.</td><td>În plină campanie, Google și AI-ul afișează sau citesc cod în loc de mesajul ofertei.</td><td>O descriere reală, scrisă în câteva minute.</td><td>Echipa tehnică / Agenție Vie</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="h-sub"><span class="sub-num">3.3</span> Ce limitează vizibilitatea în AI</h3>
+
+  <p><b>A. Conținutul și datele produselor</b></p>
+  <div class="table-wrap">
+    <table class="plain-first">
+      <thead><tr><th>Problemă</th><th>Impact</th></tr></thead>
+      <tbody>
+        <tr><td><b>Niciun articol informativ.</b> Cele 10 articole de blog sunt goale (titlul „x”) și sunt indexate. Întrebările frecvente acoperă doar livrarea și contul.</td><td>AI-ul citează surse care <b>explică</b> (duritatea apei, alegerea sistemului, costuri). Purifyo nu are ce oferi, așa că AI-ul citează concurența. Paginile goale scad încrederea în întregul site.</td></tr>
+        <tr><td><b>Datele tehnice nu sunt vizibile pentru AI.</b> Fila „Date tehnice” se încarcă prin JavaScript după deschiderea paginii, iar roboții AI văd o casetă goală.</td><td>Exact cifrele pe care AI-ul le-ar cita (de ex. 3,1 kg sare/regenerare, 2,1 m³/h) lipsesc pentru AI.</td></tr>
+        <tr><td><b>Datele produselor se contrazic.</b> Exemplu: stația de 26 L apare cu „5–8 persoane, până la 50°” în text și „4–6 persoane, 20–40°” în caracteristici; dedurizatorul de 30 L are trei variante pentru numărul de persoane.</td><td>AI-ul citează una dintre variante la întâmplare sau consideră informația nesigură.</td></tr>
+        <tr><td><b>Conținut copiat.</b> Un produs conține text cu <b>linkuri către magazine concurente</b> (takabanis.ro, keman.ro); două produse conțin cod copiat dintr-o pagină de rezultate Google.</td><td>Conținutul copiat scade încrederea motoarelor în site și trimite vizitatori către concurență.</td></tr>
+        <tr><td><b>Produse dublate și incomplete.</b> Trei variante ale stației de 26 L, două dozatoare cu același titlu, două produse publicate fără preț, multe descrieri de 1–3 propoziții (inclusiv desulfurarea).</td><td>Concurență internă între pagini; informație insuficientă pentru recomandări.</td></tr>
+        <tr><td><b>Coduri EAN.</b> Doar 1 produs din 78 are un cod EAN real (GS1); 27 au coduri interne, 50 nu au niciunul.</td><td>Google Shopping și asistenții de cumpărături pot respinge sau ignora produsele.</td></tr>
+        <tr><td><b>Formulări riscante.</b> „Nitrați (o sursă cancerigenă)”, „pietre la rinichi”, „elimină 99%”, fără surse.</td><td>Apa potabilă este un subiect de sănătate; AI-ul tratează cu prudență afirmațiile nesusținute.</td></tr>
+        <tr><td>Imaginile nu au descrieri text, multe imagini principale sunt de „Black Friday” tot anul, iar emoji-urile apar ca coduri (<code>&amp;#x1f381;</code>) în descrierile pentru Google.</td><td>Semnale de calitate mai slabe; text „murdar” în rezultate.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><b>B. Identitatea și încrederea</b></p>
+  <div class="table-wrap">
+    <table class="plain-first">
+      <thead><tr><th>Problemă</th><th>Impact</th></tr></thead>
+      <tbody>
+        <tr><td>Firma apare cu <b>două nume</b> („ADA CONCEPT SUPPLY S.R.L.” și „Ada Concept Retail”) și <b>nu există o pagină „Despre noi”</b>.</td><td>Identitate neclară, deci încredere mai mică din partea AI-ului.</td></tr>
+        <tr><td><b>Cifre de încredere inconsistente:</b> „278 recenzii” (Google are 44, site-ul are 76), „peste 9.000 de clienți” pe o pagină și „peste 5.000” pe alta, „Rating 4.9” scris manual, „ULTIMELE 3 PACHETE ÎN STOC” afișat permanent.</td><td>Cifrele pot fi contrazise ușor; AI-ul și autoritățile tratează cu suspiciune afirmațiile nesusținute.</td></tr>
+        <tr><td><b>Prețuri „reduse” permanent</b>, fără dată de final, la aproape toate produsele.</td><td>Risc față de regulile UE privind prețul de referință (Directiva Omnibus).</td></tr>
+        <tr><td><b>Prezență slabă în afara site-ului:</b> profilul firmei indică doar Facebook; 44 de recenzii Google.</td><td>AI-ul „află” despre branduri mai ales din <b>surse externe</b>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><b>C. Tehnic</b></p>
+  <div class="table-wrap">
+    <table class="plain-first">
+      <thead><tr><th>Problemă</th><th>Impact</th></tr></thead>
+      <tbody>
+        <tr><td><b>Două pluginuri de SEO lucrează în paralel</b> (Rank Math și modulul „ai-seo” din CMWeb Studio): etichete duplicate, date contradictorii despre firmă, iar adresa de email apare ca „autor” în codul fiecărei pagini.</td><td>Semnale contradictorii pentru AI; adresă de email expusă.</td></tr>
+        <tr><td>Orice pagină inexistentă trimite vizitatorul la prima pagină, în loc să afișeze „pagina nu există”.</td><td>Google consideră asta o eroare de calitate.</td></tr>
+        <tr><td>Structura titlurilor e confuză (3 titluri principale pe prima pagină, niciunul pe categorii). Harta site-ului include coșul, contul și articolele goale.</td><td>AI-ul înțelege mai greu paginile; roboții pierd timp pe pagini fără valoare.</td></tr>
+        <tr><td>Regulile pentru roboți blochează <b>Common Crawl</b>, o sursă importantă de date pentru modelele AI.</td><td>Modelele viitoare vor ști mai puțin despre Purifyo.</td></tr>
+        <tr><td>Prima pagină are ~800 KB de cod și se încarcă multe scripturi externe (Ads, Clarity, Facebook, Pinterest, TikTok). Limita de memorie WordPress este mică.</td><td>Încărcare lentă; unii roboți citesc incomplet.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><b>D. Măsurare</b></p>
+  <div class="table-wrap">
+    <table class="plain-first">
+      <thead><tr><th>Problemă</th><th>Impact</th></tr></thead>
+      <tbody>
+        <tr><td><b>Legătura cu Google Search Console nu mai funcționează din iulie 2024.</b></td><td>Nu există date despre căutări de 16 luni; nu putem măsura punctul de pornire.</td></tr>
+        <tr><td><b>Două containere Google Tag Manager</b> trimit date în același cont Google Analytics.</td><td>Vizitele pot fi numărate de două ori, deci rapoartele sunt nesigure.</td></tr>
+        <tr><td>Nu știm încă pentru ce căutări apare purifyo.com în Google și dacă este citat în răspunsurile AI ale Google.</td><td>Prioritățile de conținut nu pot fi stabilite pe date reale.</td></tr>
+        <tr><td>Fluxul de produse pentru Google se actualizează doar manual.</td><td>Prețurile și stocul din Google Shopping pot diferi de site.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><b>E. Securitate și operare</b></p>
+  <div class="table-wrap">
+    <table class="plain-first">
+      <thead><tr><th>Problemă</th><th>Impact</th></tr></thead>
+      <tbody>
+        <tr><td><b>Patru conturi de administrator</b>, dintre care trei folosite de agenții (Dow Media, CM Web Studio, Agenție Vie).</td><td>Orice modificare trebuie coordonată; accesul complet al mai multor terți crește riscul.</td></tr>
+        <tr><td>Un fragment de cod trimite <b>o copie a fiecărui email WooCommerce</b> (inclusiv, probabil, resetările de parolă) către confirmari@purifyo.com.</td><td>Date personale ale clienților copiate într-o căsuță comună.</td></tr>
+        <tr><td>Lista utilizatorilor este vizibilă public (un cont are ca nume o adresă de email), managerul de fișiere este activ, tema nu are licența activată.</td><td>Suprafață de atac inutilă; tema nu primește actualizări.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="h-sub"><span class="sub-num">3.4</span> Detaliu: recenziile</h3>
+  <ul class="plain">
+    <li><b>Pe paginile magazinului și ale categoriilor</b>, un fragment de cod („Reviews”) înlocuiește evaluările reale cu „5.00 (N review-uri)”, unde N este <b>generat aleatoriu între 50 și 200</b>. Pe categoria Dedurizatoare apar, de exemplu, 85, 58, 116, 154, 128 și 174 de „recenzii”.</li>
+    <li><b>Pe paginile de produs</b>, un al doilea fragment („Product reviews”) afișează același număr inventat: stația de 26 L arată „5.00 (118 review-uri)”, deși datele reale ale aceleiași pagini indică 25.</li>
+    <li><b>Un al treilea fragment</b> („Propietar verificat reviews”) transformă eticheta „store manager” în „proprietar verificat”, adică eticheta pentru cumpărători verificați.</li>
+    <li><b>Situația reală:</b> 76 de recenzii publicate în total (plus 20 neaprobate încă), 44 de recenzii pe Google Maps. Două recenzii au fost introduse din contul de administrator sub nume de clienți (dedurizatorul SDP 11 L), din aceeași adresă IP, fără email și fără stele, și apar ca „proprietar verificat”. Ele pot reprezenta păreri reale primite, de exemplu, telefonic.</li>
+    <li><b>Cifra „278 recenzii”</b> este scrisă manual în site, inclusiv peste widgetul cu recenzii Google (care afișează de fapt 44).</li>
+    <li>Suspiciunea că recenziile de produs ar fi copiate de pe Google Maps <b>nu s-a confirmat</b> (7 recenzenți verificați nu apar pe Google).</li>
+    <li>Cele <b>20 de recenzii neaprobate</b> sunt păreri reale nepublicate, utile pentru GEO.</li>
+  </ul>
+
+  <h3 class="h-sub"><span class="sub-num">3.5</span> Risc: magazinul duplicat de pe purifyo.ro</h3>
+  <p>Pe domeniul <b>purifyo.ro</b> funcționează un magazin separat, cu aproape aceleași produse și texte (60 de pagini de produs identice). Dezavantajele pentru purifyo.com:</p>
+  <ul class="plain">
+    <li><b>Conținut duplicat:</b> Google și motoarele AI pot afișa celălalt site în locul purifyo.com.</li>
+    <li><b>Informații contradictorii:</b> prețuri, produse, recenzii și numele firmei diferă între site-uri.</li>
+    <li><b>Autoritate împărțită:</b> linkurile, mențiunile și recenziile se împart între două domenii.</li>
+    <li><b>Efort pierdut:</b> îmbunătățirile de pe purifyo.com nu se transmit copiei, care poate fi citată în continuare.</li>
+  </ul>
+  <div class="note">Decizia privind purifyo.ro aparține conducerii și nu face parte din această propunere.</div>
+
+  <!-- ============ 4. ACTIUNI REALIZATE ============ -->
+  <h2 class="h-plain" id="proactive">Acțiuni proactive deja realizate</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Data</th><th>Acțiune</th><th>De ce a fost importantă</th></tr></thead>
+      <tbody>
+        <tr><td>7 nov. 2026</td><td><b>Eliminarea fișierului <code>nginx.conf</code> expus public.</b> Fișierul de configurare a serverului putea fi descărcat de oricine. A fost șters în aceeași zi; am verificat că nu mai este accesibil.</td><td>Nu conținea parole, dar descria configurarea serverului, informație utilă unui atacator.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============ 5. PROPUNEREA ============ -->
+  <h2 class="h-part" id="propunere"><span class="part-tag">Propunere</span>Acțiuni imediate și etape</h2>
+
+  <h3 class="h-sub"><span class="sub-num">5.1</span> Acțiuni imediate (săptămâna 1) <span class="meta-chip">Efort uman: <span class="fill">1–2</span> h, inclus în Etapa 1</span></h3>
+  <ol class="steps">
+    <li><span><b>Copie de siguranță completă</b> acum, apoi copii automate într-un cont extern al firmei.<span class="who">Tehnic acum · contul extern: Conducerea</span></span></li>
+    <li><span><b>Dezactivarea celor trei fragmente</b> care afișează recenzii înșelătoare.<span class="who">Decide: Conducerea (urgent)</span></span></li>
+    <li><span><b>Descriere reală pentru pagina de Black Friday.</b><span class="who">Tehnic / Agenție Vie</span></span></li>
+    <li><span><b>Datele tehnice vizibile pentru AI</b> (afișate direct în pagină, nu prin JavaScript).<span class="who">Tehnic, cu acordul autorului fragmentului</span></span></li>
+  </ol>
+
+  <h3 class="h-sub"><span class="sub-num">5.2</span> Etapele programului</h3>
+  <div class="note"><b>Efort și cost afișate:</b> doar <b>munca ce necesită oameni</b> (dezvoltator, specialist SEO/GEO, specialist în tratarea apei). Codul, datele structurate, scripturile, modificările în masă și ciornele de conținut se realizează cu asistență AI și <b>nu sunt incluse</b>. Estimarea presupune <b>acces SFTP/SSH</b> la server. Tarife de piață România 2026, fără TVA.</div>
+  <ol class="timeline">
+    <li>
+      <div class="tl-head"><span class="tl-stage">Etapa 1 — Fundația</span><span class="tl-weeks">săptămânile 1–2</span><span class="meta-chip">Efort uman: <span class="fill">11–21</span> h</span><span class="meta-chip">Cost: <span class="fill">1.490–7.160</span> lei</span></div>
+      <p class="tl-goal"><b>Scop:</b> site sigur, curat și coerent pentru AI.</p>
+      <ul>
+        <li>Acțiunile imediate de mai sus.</li>
+        <li>Finalizarea remedierilor de securitate; revizuirea accesului agențiilor.</li>
+        <li>Ștergerea articolelor goale și a paginilor de test; eliminarea conținutului copiat; rezolvarea produselor dublate; afișarea corectă a paginilor inexistente.</li>
+        <li>Un singur plugin de SEO (Rank Math), după mutarea regulilor utile din CMWeb Studio; harta site-ului curățată.</li>
+        <li>Reguli clare pentru roboții AI și un fișier <code>llms.txt</code> complet.</li>
+        <li>Înregistrare în Bing Webmaster Tools (ChatGPT și Copilot folosesc indexul Bing).</li>
+        <li><b>Fundamentele Google:</b> refacerea legăturii cu Search Console, lista căutărilor în limba română care contează, verificarea indexării și a pozițiilor, urmărirea răspunsurilor AI ale Google.</li>
+        <li>Pagina <b>„Despre noi”</b> și un singur nume de firmă peste tot.</li>
+        <li><b>Măsurarea punctului de pornire:</b> 30–50 de întrebări reale în ChatGPT, Gemini, Perplexity, Copilot și Google AI.</li>
+      </ul>
+      <div class="deliv"><div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Rezultat</div><p>Riscurile majore eliminate, identitate clară, bază de comparație pentru rezultate.</p></div>
+    </li>
+    <li>
+      <div class="tl-head"><span class="tl-stage">Etapa 2 — Structură</span><span class="tl-weeks">săptămânile 3–4</span><span class="meta-chip">Efort uman: <span class="fill">8–16</span> h</span><span class="meta-chip">Cost: <span class="fill">1.080–5.470</span> lei</span></div>
+      <p class="tl-goal"><b>Scop:</b> produsele devin comparabile și recomandabile de asistenții de cumpărături.</p>
+      <ul>
+        <li>Fișe de produs complete pentru Google și AI: livrare, retur, garanție, specificații lizibile; coduri EAN corecte.</li>
+        <li>Întrebările frecvente marcate pentru AI; structura titlurilor corectată.</li>
+        <li>Fluxuri de produse actualizate automat către Google Merchant Center și Microsoft (Copilot); evaluarea programului de cumpărături ChatGPT.</li>
+        <li>Raportare corectă: un singur container de măsurare, canal dedicat pentru vizitele din ChatGPT, Perplexity, Gemini etc.</li>
+      </ul>
+      <div class="deliv"><div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Rezultat</div><p>Produsele Purifyo pot apărea în comparațiile și recomandările AI.</p></div>
+    </li>
+    <li>
+      <div class="tl-head"><span class="tl-stage">Etapa 3 — Conținut</span><span class="tl-weeks">săptămânile 5–12</span><span class="meta-chip">Efort uman: <span class="fill">59–122</span> h</span><span class="meta-chip">Cost: <span class="fill">6.110–26.490</span> lei</span></div>
+      <p class="tl-goal"><b>Scop:</b> Purifyo devine <b>sursa</b> pe care AI-ul o citează pentru tratarea apei în România.</p>
+      <ul>
+        <li><b>Pagini de produs</b> după un șablon clar: pentru cine este potrivit, tabel de specificații, costuri de întreținere, 3–5 întrebări, fără contradicții. Începem cu produsele cele mai vândute.</li>
+        <li><b>Ghiduri de alegere</b> pentru fiecare din cele 10 categorii, cu legătură spre calculator.</li>
+        <li><b>Întrebări frecvente de specialitate:</b> minimum 30.</li>
+        <li><b>Ghiduri informative</b>, 15–25 de articole în primul val: calcar și duritate, apă potabilă și osmoză, apă de fântână (fier, mangan, sulf, bacterii), costuri și întreținere.</li>
+        <li><b>Pagini de comparație:</b> 26 L vs 30 L vs duplex, osmoză vs filtru cu cărbune, UV vs clorinare.</li>
+        <li>Autor cu experiență reală, prezentat pe site.</li>
+      </ul>
+      <div class="deliv"><div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Rezultat</div><p>Răspunsuri citabile pentru întrebările pe care clienții le pun AI-ului înainte de cumpărare.</p></div>
+    </li>
+    <li>
+      <div class="tl-head"><span class="tl-stage">Etapa 4 — Autoritate și continuitate</span><span class="tl-weeks">din luna a 3-a</span><span class="meta-chip">Efort uman: <span class="fill">18–41</span> h</span><span class="meta-chip">Cost: <span class="fill">2.240–12.695</span> lei</span></div>
+      <ul>
+        <li><b>Harta durității apei în România</b>, un material unic care atrage citări din presă, bloguri și AI.</li>
+        <li>Prezență externă: profil Google Business, marketplace-uri, video de instalare și întreținere, răspunsuri de specialist pe forumuri.</li>
+        <li>Recenzii reale și pe platforme externe; cifre de încredere verificabile.</li>
+        <li>Viteza site-ului și ajustarea serverului; manualele de utilizare ca pagini web; reducerea pluginurilor duplicate.</li>
+        <li>Monitorizare lunară față de concurență.</li>
+      </ul>
+    </li>
+  </ol>
+
+  <!-- ============ 6. ESTIMARE ============ -->
+  <h2 class="h-part" id="estimare"><span class="part-tag">Estimare</span>Efort și cost uman</h2>
+  <div class="note"><b>Ce include estimarea:</b> doar activitățile care necesită oameni. <b>Ce nu include:</b> tot ce se realizează cu asistență AI sau automat (cod, date structurate, scripturi, modificări în masă, ciorne de conținut). <b>Ipoteză:</b> acces SFTP/SSH la server, deci modificările se instalează direct, iar dezvoltatorul doar le verifică și se ocupă de setările de server.</div>
+
+  <div class="est-grid">
+    <div class="est-card main"><div class="ec-label">Cost realist (o singură dată)</div><div class="ec-value">~25.200 lei</div><p class="ec-note">~4.900 EUR, fără TVA, plus ~300–500 lei costuri externe</p></div>
+    <div class="est-card"><div class="ec-label">Interval total</div><div class="ec-value">11.200–52.300 lei</div><p class="ec-note">~2.200–10.300 EUR · 96–200 ore</p></div>
+    <div class="est-card"><div class="ec-label">După implementare</div><div class="ec-value">350–1.650 lei/lună</div><p class="ec-note">Monitorizare lunară: 2–4 ore + ~50 lei API</p></div>
+  </div>
+
+  <h3 class="h-sub"><span class="sub-num">6.1</span> Ore pe etapă și pe rol</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Etapa</th><th class="num">Dezvoltator</th><th class="num">Specialist SEO/GEO</th><th class="num">Specialist apă</th><th class="num">Total ore</th><th class="num">Cost (lei)</th></tr></thead>
+      <tbody>
+        <tr><td>1 — Fundația<span class="sub">copii de siguranță, verificarea modificărilor, întrebări în AI, căutări-țintă, Bing</span></td><td class="num">4–8</td><td class="num">7–13</td><td class="num">—</td><td class="num">11–21</td><td class="num">1.490–7.160</td></tr>
+        <tr><td>2 — Structură<span class="sub">verificare date structurate, Merchant Center, un singur container de măsurare</span></td><td class="num">3–6</td><td class="num">5–10</td><td class="num">—</td><td class="num">8–16</td><td class="num">1.080–5.470</td></tr>
+        <tr><td>3 — Conținut<span class="sub">verificarea faptelor în 78 de produse, 10 ghiduri, ~30 de întrebări, 15–25 de articole</span></td><td class="num">1–2</td><td class="num">4–10</td><td class="num">54–110</td><td class="num">59–122</td><td class="num">6.110–26.490</td></tr>
+        <tr><td>4 — Autoritate<span class="sub">ajustare server, prezență externă, verificarea datelor de duritate</span></td><td class="num">4–11</td><td class="num">8–20</td><td class="num">6–10</td><td class="num">18–41</td><td class="num">2.240–12.695</td></tr>
+        <tr class="total"><td>Total</td><td class="num">12–27</td><td class="num">24–53</td><td class="num">60–120</td><td class="num">96–200</td><td class="num">10.920–51.815</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><b>Scenariu realist:</b> dezvoltator 18 h × 170 lei + specialist SEO 38 h × 250 lei + specialist apă 90 h × 140 lei ≈ <b>25.200 lei (~4.900 EUR)</b>, fără TVA. Timpul intern al conducerii (decizii, aprobări, conturi) este estimat la 10–20 de ore și nu este facturat.</p>
+
+  <h3 class="h-sub"><span class="sub-num">6.2</span> Tarife folosite (România, 2026, fără TVA)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Rol</th><th class="num">Tarif</th><th>Bază</th></tr></thead>
+      <tbody>
+        <tr><td>Dezvoltator WordPress / WooCommerce</td><td class="num">110–245 lei/h</td><td>25–55 USD/h pentru Europa de Est, inclusiv România</td></tr>
+        <tr><td>Specialist SEO / GEO</td><td class="num">150–400 lei/h</td><td>Specialiști cu experiență; seniorii ajung la 400–1.000 lei/h</td></tr>
+        <tr><td>Specialist tratarea apei</td><td class="num">100–200 lei/h</td><td>Presupunere; poate fi un tehnician intern</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="h-sub"><span class="sub-num">6.3</span> Comparație cu execuția integral umană</h3>
+  <div class="table-wrap">
+    <table class="plain-first">
+      <thead><tr><th>Variantă</th><th class="num">Cost estimat</th></tr></thead>
+      <tbody>
+        <tr><td>Același program (270–610 ore) executat integral de oameni, la 150–300 lei/h</td><td class="num">40.500–183.000 lei</td></tr>
+        <tr><td>Abonament SEO pentru un magazin online complex în România (1.800–4.000 EUR/lună × 4–6 luni)</td><td class="num">~36.700–122.400 lei</td></tr>
+        <tr><td>Abonament GEO la o agenție internațională (2.000–10.000 USD/lună)</td><td class="num">~8.800–44.000 lei / lună</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Economie estimată prin automatizare: aproximativ <b>60–75%</b> față de execuția integral umană.</p>
+
+  <h3 class="h-sub"><span class="sub-num">6.4</span> Nu sunt incluse</h3>
+  <ul class="plain">
+    <li>Consultanța juridică privind recenziile (U1), dacă se decide.</li>
+    <li>Taxa de membru GS1 România, dacă se cumpără coduri EAN reale.</li>
+    <li>Spațiul extern pentru copii de siguranță (câțiva lei pe lună).</li>
+    <li>Abonamentul Claude folosit pentru partea automatizată.</li>
+  </ul>
+  <div class="note">Tarifele provin din oferte publicate de furnizori, nu dintr-un studiu independent. Pentru o sumă exactă recomandăm 2–3 oferte. Dacă verificarea de specialitate este făcută de un tehnician angajat, costul scade cu 6.000–24.000 lei. Tarifele proprii ale firmei (IR-13) vor înlocui tarifele de piață.</div>
+
+  <!-- ============ 7. MASURARE SI RISCURI ============ -->
+  <h2 class="h-plain" id="masurare">Măsurare și riscuri</h2>
+  <h3 class="h-sub"><span class="sub-num">7.1</span> Cum măsurăm succesul</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Indicator</th><th>Cum se măsoară</th><th>Țintă orientativă la 6 luni</th></tr></thead>
+      <tbody>
+        <tr><td>Rata de menționare în AI</td><td>Setul de 30–50 de întrebări, lunar, în 5 asistenți</td><td>Creștere clară față de punctul de pornire</td></tr>
+        <tr><td>Citări cu link spre purifyo.com</td><td>Același set, plus răspunsurile AI ale Google</td><td>Purifyo citat pe întrebările-cheie despre dedurizatoare și osmoză</td></tr>
+        <tr><td>Vizite și comenzi din AI</td><td>Google Analytics, canal „Asistenți AI” (după eliminarea dublei măsurări)</td><td>Canal vizibil și în creștere lună de lună</td></tr>
+        <tr><td>Poziții în Google</td><td>Search Console (după refacerea legăturii)</td><td>Creștere pe căutările-țintă</td></tr>
+        <tr><td>Produse valide în Merchant Center</td><td>Raport Google</td><td>Peste 95% fără erori</td></tr>
+        <tr><td>Vizite ale roboților AI</td><td>Cloudflare</td><td>Paginile importante vizitate regulat</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Rezultatele în AI apar treptat (săptămâni sau luni) și nu pot fi garantate de niciun furnizor. Promitem măsurare transparentă, comparată cu punctul de pornire.</p>
+
+  <h3 class="h-sub"><span class="sub-num">7.2</span> Riscuri și cum le gestionăm</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Risc</th><th>Măsură</th></tr></thead>
+      <tbody>
+        <tr><td>O modificare afectează comenzile</td><td>Copie de siguranță și mediu de test înainte de orice schimbare</td></tr>
+        <tr><td>Modificările se suprapun cu munca agențiilor</td><td>Coordonare cu CM Web Studio, Agenție Vie și Dow Media; un singur responsabil pentru publicare</td></tr>
+        <tr><td>Magazinul duplicat de pe purifyo.ro concurează cu purifyo.com</td><td>Semnalat conducerii (3.5); decizia aparține conducerii</td></tr>
+        <tr><td>Conținut generic, fără valoare</td><td>Revizie de specialist, date concrete, surse citate</td></tr>
+        <tr><td>Afirmații comerciale contestabile</td><td>Verificarea afirmațiilor, a recenziilor și a prețurilor de referință; consultanță juridică</td></tr>
+        <tr><td>Regulile platformelor AI se schimbă des</td><td>Monitorizare lunară și ajustare</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============ 8. CE AVEM NEVOIE ============ -->
+  <h2 class="h-plain" id="intrebari">Ce avem nevoie de la dumneavoastră</h2>
+  <div class="note alert"><b>Decizie urgentă a conducerii:</b> dezactivarea fragmentelor de cod care afișează numere de recenzii inventate și prezintă recenzii introduse de personal ca venind de la cumpărători verificați (WPCode 39813, 39814, 40023).</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Cod</th><th>Ce avem nevoie</th><th>Răspunde</th><th>De ce</th></tr></thead>
+      <tbody>
+        <tr><td>IR-1</td><td>Cum au fost colectate recenziile; dacă cele două introduse de personal sunt păreri reale; dacă IP-ul 86.121.163.106 este al biroului; de ce site-ul afișează „278 recenzii” când Google are 44</td><td>Conducere</td><td>Risc juridic; stabilim ce recenzii rămân și cum sunt afișate</td></tr>
+        <tr><td>IR-2</td><td>Acordul pentru oprirea modulului „ai-seo” din CMWeb Studio; care agenții (Dow Media, CM Web Studio, Agenție Vie) mai lucrează pe site și ce drepturi le trebuie</td><td>Conducere</td><td>Eliminarea etichetelor duplicate și reducerea accesului terților</td></tr>
+        <tr><td>IR-3</td><td>Confirmarea accesului SFTP / WP-CLI (presupus disponibil în estimare); aprobarea unui cont dedicat pentru implementare, a responsabilului de publicare și a cheilor API de monitorizare</td><td>Tehnic + Conducere</td><td>Implementare directă, în siguranță</td></tr>
+        <tr><td>IR-4</td><td>Numele corect al firmei, CUI, adresa, o adresă de email oficială @purifyo.com, profilurile externe, sursa cifrei „9.000 clienți”</td><td>Conducere</td><td>Identitate unică și credibilă pentru AI</td></tr>
+        <tr><td>IR-5</td><td>Decizia privind roboții AI de antrenare (recomandarea noastră: <b>permis</b>)</td><td>Conducere</td><td>Ce află modelele AI despre Purifyo</td></tr>
+        <tr><td>IR-6</td><td>Existența codurilor EAN reale (membru GS1); ce produse dublate rămân</td><td>Conducere</td><td>Fișe de produs complete și acceptate de Google Shopping</td></tr>
+        <tr><td>IR-7</td><td>Cine deține conturile Search Console, Analytics, Merchant Center și Bing; cine a adăugat al doilea container Google Tag Manager</td><td>Conducere</td><td>Măsurarea punctului de pornire și a rezultatelor</td></tr>
+        <tr><td>IR-8</td><td>Principalii concurenți și căutările cele mai importante</td><td>Conducere</td><td>Alegem ce întrebări și ce pagini contează</td></tr>
+        <tr><td>IR-9</td><td>Aprobarea copiilor automate într-un cont extern al firmei (Google Drive, Dropbox etc.); dacă firma de găzduire face copii și oferă un mediu de test</td><td>Conducere</td><td>Siguranța datelor și a modificărilor</td></tr>
+        <tr><td>IR-10</td><td>Cine scrie sau revizuiește conținutul de specialitate; produsele cele mai vândute după încasări; întrebările frecvente ale clienților</td><td>Conducere</td><td>Conținut corect, cu autor credibil</td></tr>
+        <tr><td>IR-11</td><td>Firma de găzduire, cine administrează serverul, cine gestionează contul Cloudflare</td><td>Conducere</td><td>Viteza site-ului și statistica vizitelor roboților AI</td></tr>
+        <tr><td>IR-12</td><td>Date despre duritatea apei; buget pentru promovare externă</td><td>Conducere</td><td>Materialul unic „harta durității” și prezența în afara site-ului</td></tr>
+        <tr><td>IR-13</td><td>Furnizori și tarife existente</td><td>Conducere</td><td>Calculul exact al costurilor</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============ 9. PASI URMATORI ============ -->
+  <h2 class="h-plain" id="pasi">Pași următori</h2>
+  <ol class="steps">
+    <li><span><b>Conducerea:</b> decizia urgentă privind recenziile (U1), aprobarea copiilor de siguranță (U2) și răspunsurile din secțiunea „Ce avem nevoie”.</span></li>
+    <li><span><b>Echipa tehnică:</b> acțiunile imediate care nu depind de alte decizii (copia de siguranță, pagina de Black Friday, datele tehnice).</span></li>
+    <li><span><b>Noi:</b> estimarea finală pe etape, pe baza răspunsurilor, apoi aprobarea programului.</span></li>
+    <li><span><b>Start Etapa 1.</b> Primul raport, cu punctul de pornire al vizibilității în AI, după 2 săptămâni.</span></li>
+  </ol>
+
+  <p class="foot"><span>Propunere GEO · Purifyo.com</span><span>v3.0 · 7 noiembrie 2026</span></p>
+</div>
+</body>
+</html>
