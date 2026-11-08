@@ -168,12 +168,37 @@
   .est-card .ec-note { font-size: .82rem; color: var(--muted); margin: 0; }
   .est-card.main { border-top: 3px solid var(--tile); }
 
+  /* ---- answers form ---- */
+  .answers { color-scheme: light dark; }
+  tbody tr.answer-row td:first-child { padding: .2rem 1rem 1rem; font-weight: 400; color: var(--ink); background: var(--surface-2); }
+  #answers-form .table-wrap { container-type: inline-size; }
+  .answer-row .field { max-width: calc(100cqw - 2rem); }
+  .field { margin: .7rem 0 0; }
+  .field label { display: block; margin-bottom: .3rem; font-size: .88rem; }
+  .answers input[type="text"], .answers input[type="email"], .answers textarea { display: block; width: 100%; min-width: 0; padding: .5rem .65rem;
+    font: inherit; font-size: 1rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+  .answers textarea { min-height: 3.6rem; resize: vertical; }
+  .answers input:focus-visible, .answers textarea:focus-visible, .btn-send:focus-visible { outline: 2px solid var(--tile); outline-offset: 1px; }
+  .answers fieldset { min-width: 0; margin: 1rem 0; padding: .6rem 1.2rem 1.2rem; border: 1px solid var(--line);
+    border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+  .answers legend { padding: 0 .4rem; font-family: var(--serif); font-weight: 700; color: var(--navy); }
+  .answers .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.2rem; }
+  .btn-send { padding: .7rem 1.4rem; font: inherit; font-weight: 700; color: var(--paper); background: var(--navy);
+    border: 0; border-radius: 6px; cursor: pointer; }
+  .btn-send:disabled { opacity: .6; cursor: wait; }
+  .form-count { font-family: var(--mono); font-size: .75rem; color: var(--muted); }
+  .form-status { flex-basis: 100%; margin: 0; font-size: .92rem; }
+  .form-status.ok { color: var(--ok); }
+  .form-status.err { color: var(--alert); }
+
   .foot { margin-top: 3.4rem; padding-top: 1.2rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .78rem;
     font-family: var(--mono); display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
   @media print {
     body { background: #fff; font-size: 11pt; }
     .titleblock { animation: none; box-shadow: none; }
     .table-wrap, .panel, .est-card { box-shadow: none; }
+    .answer-row, .form-help, .form-end { display: none; }
     h2 { break-after: avoid; } tr, li { break-inside: avoid; }
   }
 </style>
@@ -206,7 +231,6 @@
       <li><a href="#situatie">Situația actuală</a></li>
       <li><a href="#proactive">Acțiuni deja realizate</a></li>
       <li><a href="#propunere">Propunerea: acțiuni imediate și etape</a></li>
-      <li><a href="#estimare">Estimare: efort și cost uman</a></li>
       <li><a href="#masurare">Măsurare și riscuri</a></li>
       <li><a href="#intrebari">Ce avem nevoie de la dumneavoastră</a></li>
       <li><a href="#pasi">Pași următori</a></li>
@@ -222,7 +246,7 @@
     <li class="alert"><b>Trei probleme cer o decizie imediată:</b> numere de recenzii <b>generate aleatoriu</b> pe site (risc juridic); <b>lipsa copiilor de siguranță</b> (ultima este din octombrie 2024); pagina de <b>Black Friday</b> are cod JavaScript în loc de descriere pentru Google, chiar în timpul campaniei.</li>
     <li class="win"><b>Un câștig rapid:</b> datele tehnice ale produselor (consum de sare, debit, presiune, dimensiuni) există, dar <b>nu sunt vizibile pentru motoarele AI</b>. Se rezolvă în mai puțin de o oră.</li>
     <li><b>Principalul gol:</b> site-ul <b>nu are conținut informativ</b> pe care AI-ul să-l citeze, iar <b>datele despre produse și despre firmă se contrazic</b> de la o pagină la alta.</li>
-    <li><b>Propunem un program în 4 etape</b>, de aproximativ 3 luni, urmat de monitorizare lunară. Efortul uman estimat: <b>96–200 de ore</b>, cost realist <b>~25.200 lei (~4.900 EUR)</b> fără TVA (secțiunea <a href="#estimare">Estimare</a>).</li>
+    <li><b>Propunem un program în 4 etape</b>, de aproximativ 3 luni, urmat de monitorizare lunară. Efortul uman estimat: <b>96–200 de ore</b>.</li>
   </ul>
 
   <!-- ============ 2. GEO ============ -->
@@ -395,122 +419,67 @@
   </ol>
 
   <h3 class="h-sub"><span class="sub-num">5.2</span> Etapele programului</h3>
-  <div class="note"><b>Efort și cost afișate:</b> doar <b>munca ce necesită oameni</b> (dezvoltator, specialist SEO/GEO, specialist în tratarea apei). Codul, datele structurate, scripturile, modificările în masă și ciornele de conținut se realizează cu asistență AI și <b>nu sunt incluse</b>. Estimarea presupune <b>acces SFTP/SSH</b> la server. Tarife de piață România 2026, fără TVA.</div>
+  <div class="note"><b>Efort afișat:</b> doar <b>munca ce necesită oameni</b> (dezvoltator, specialist SEO/GEO, specialist în tratarea apei). Codul, datele structurate, scripturile, modificările în masă și ciornele de conținut se realizează cu asistență AI și <b>nu sunt incluse</b>. Estimarea presupune <b>acces SFTP/SSH</b> la server.</div>
   <ol class="timeline">
     <li>
-      <div class="tl-head"><span class="tl-stage">Etapa 1 — Fundația</span><span class="tl-weeks">săptămânile 1–2</span><span class="meta-chip">Efort uman: <span class="fill">11–21</span> h</span><span class="meta-chip">Cost: <span class="fill">1.490–7.160</span> lei</span></div>
-      <p class="tl-goal"><b>Scop:</b> site sigur, curat și coerent pentru AI.</p>
+      <div class="tl-head"><span class="tl-stage">Etapa 1 — Fundația</span><span class="tl-weeks">săptămânile 1–2</span><span class="meta-chip">Efort uman: <span class="fill">11–21</span> h</span></div>
       <ul>
-        <li>Acțiunile imediate de mai sus.</li>
-        <li>Finalizarea remedierilor de securitate; revizuirea accesului agențiilor.</li>
-        <li>Ștergerea articolelor goale și a paginilor de test; eliminarea conținutului copiat; rezolvarea produselor dublate; afișarea corectă a paginilor inexistente.</li>
-        <li>Un singur plugin de SEO (Rank Math), după mutarea regulilor utile din CMWeb Studio; harta site-ului curățată.</li>
-        <li>Reguli clare pentru roboții AI și un fișier <code>llms.txt</code> complet.</li>
-        <li>Înregistrare în Bing Webmaster Tools (ChatGPT și Copilot folosesc indexul Bing).</li>
-        <li><b>Fundamentele Google:</b> refacerea legăturii cu Search Console, lista căutărilor în limba română care contează, verificarea indexării și a pozițiilor, urmărirea răspunsurilor AI ale Google.</li>
-        <li>Pagina <b>„Despre noi”</b> și un singur nume de firmă peste tot.</li>
-        <li><b>Măsurarea punctului de pornire:</b> 30–50 de întrebări reale în ChatGPT, Gemini, Perplexity, Copilot și Google AI.</li>
+        <li><code>GEO-001</code> Copii de siguranță și mediu de test</li>
+        <li><code>GEO-034</code> Eliminarea numerelor de recenzii inventate din listările de produse</li>
+        <li><code>GEO-035</code> Datele tehnice ale produselor vizibile direct în pagină (HTML)</li>
+        <li><code>GEO-002</code> Măsurarea punctului de pornire: vizibilitate în AI și în căutări</li>
+        <li><code>GEO-004</code> Remedieri de securitate</li>
+        <li><code>GEO-005</code> Curățarea conținutului: articole goale, pagini de test, pagini inexistente (soft 404), conținut copiat</li>
+        <li><code>GEO-006</code> Curățarea hărții site-ului (sitemap)</li>
+        <li><code>GEO-007</code> Reglarea Rank Math și eliminarea dublurilor SEO din CMWeb Studio</li>
+        <li><code>GEO-008</code> robots.txt: reguli pentru roboții AI și linia de sitemap</li>
+        <li><code>GEO-009</code> Fișier llms.txt complet</li>
+        <li><code>GEO-010</code> Bing Webmaster Tools și IndexNow</li>
+        <li><code>GEO-013</code> Date structurate pentru firmă (Organization)</li>
+        <li><code>GEO-025</code> Pagina „Despre noi” și date coerente despre firmă</li>
+        <li><code>GEO-033</code> Fundamentele Google Search pentru AI Overviews și AI Mode</li>
       </ul>
-      <div class="deliv"><div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Rezultat</div><p>Riscurile majore eliminate, identitate clară, bază de comparație pentru rezultate.</p></div>
     </li>
     <li>
-      <div class="tl-head"><span class="tl-stage">Etapa 2 — Structură</span><span class="tl-weeks">săptămânile 3–4</span><span class="meta-chip">Efort uman: <span class="fill">8–16</span> h</span><span class="meta-chip">Cost: <span class="fill">1.080–5.470</span> lei</span></div>
-      <p class="tl-goal"><b>Scop:</b> produsele devin comparabile și recomandabile de asistenții de cumpărături.</p>
+      <div class="tl-head"><span class="tl-stage">Etapa 2 — Structură</span><span class="tl-weeks">săptămânile 3–4</span><span class="meta-chip">Efort uman: <span class="fill">8–16</span> h</span></div>
       <ul>
-        <li>Fișe de produs complete pentru Google și AI: livrare, retur, garanție, specificații lizibile; coduri EAN corecte.</li>
-        <li>Întrebările frecvente marcate pentru AI; structura titlurilor corectată.</li>
-        <li>Fluxuri de produse actualizate automat către Google Merchant Center și Microsoft (Copilot); evaluarea programului de cumpărături ChatGPT.</li>
-        <li>Raportare corectă: un singur container de măsurare, canal dedicat pentru vizitele din ChatGPT, Perplexity, Gemini etc.</li>
+        <li><code>GEO-011</code> Structura titlurilor (H1 / H2)</li>
+        <li><code>GEO-014</code> Date structurate de produs complete și coduri GTIN corecte</li>
+        <li><code>GEO-015</code> Date structurate FAQPage pe pagina de întrebări frecvente</li>
+        <li><code>GEO-016</code> Date structurate ItemList pe categorii</li>
+        <li><code>GEO-029</code> Fluxuri de produse pentru platformele AI de cumpărături</li>
+        <li><code>GEO-030</code> Măsurarea vizitelor venite din AI și a roboților AI</li>
       </ul>
-      <div class="deliv"><div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Rezultat</div><p>Produsele Purifyo pot apărea în comparațiile și recomandările AI.</p></div>
     </li>
     <li>
-      <div class="tl-head"><span class="tl-stage">Etapa 3 — Conținut</span><span class="tl-weeks">săptămânile 5–12</span><span class="meta-chip">Efort uman: <span class="fill">59–122</span> h</span><span class="meta-chip">Cost: <span class="fill">6.110–26.490</span> lei</span></div>
-      <p class="tl-goal"><b>Scop:</b> Purifyo devine <b>sursa</b> pe care AI-ul o citează pentru tratarea apei în România.</p>
+      <div class="tl-head"><span class="tl-stage">Etapa 3 — Conținut</span><span class="tl-weeks">săptămânile 5–12</span><span class="meta-chip">Efort uman: <span class="fill">59–122</span> h</span></div>
       <ul>
-        <li><b>Pagini de produs</b> după un șablon clar: pentru cine este potrivit, tabel de specificații, costuri de întreținere, 3–5 întrebări, fără contradicții. Începem cu produsele cele mai vândute.</li>
-        <li><b>Ghiduri de alegere</b> pentru fiecare din cele 10 categorii, cu legătură spre calculator.</li>
-        <li><b>Întrebări frecvente de specialitate:</b> minimum 30.</li>
-        <li><b>Ghiduri informative</b>, 15–25 de articole în primul val: calcar și duritate, apă potabilă și osmoză, apă de fântână (fier, mangan, sulf, bacterii), costuri și întreținere.</li>
-        <li><b>Pagini de comparație:</b> 26 L vs 30 L vs duplex, osmoză vs filtru cu cărbune, UV vs clorinare.</li>
-        <li>Autor cu experiență reală, prezentat pe site.</li>
+        <li><code>GEO-018</code> Pagini de produs restructurate, cu răspunsul la început</li>
+        <li><code>GEO-019</code> Introduceri de categorie și ghiduri de alegere</li>
+        <li><code>GEO-020</code> Extinderea întrebărilor frecvente despre tratarea apei</li>
+        <li><code>GEO-021</code> Centru de informații (blog) organizat pe teme</li>
+        <li><code>GEO-022</code> Pagini de comparație și tabele de decizie</li>
+        <li><code>GEO-017</code> Date structurate pentru autorul și verificatorul articolelor</li>
+        <li><code>GEO-026</code> Profiluri de autori experți</li>
       </ul>
-      <div class="deliv"><div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Rezultat</div><p>Răspunsuri citabile pentru întrebările pe care clienții le pun AI-ului înainte de cumpărare.</p></div>
     </li>
     <li>
-      <div class="tl-head"><span class="tl-stage">Etapa 4 — Autoritate și continuitate</span><span class="tl-weeks">din luna a 3-a</span><span class="meta-chip">Efort uman: <span class="fill">18–41</span> h</span><span class="meta-chip">Cost: <span class="fill">2.240–12.695</span> lei</span></div>
+      <div class="tl-head"><span class="tl-stage">Etapa 4 — Autoritate și continuitate</span><span class="tl-weeks">din luna a 3-a</span><span class="meta-chip">Efort uman: <span class="fill">18–41</span> h</span></div>
       <ul>
-        <li><b>Harta durității apei în România</b>, un material unic care atrage citări din presă, bloguri și AI.</li>
-        <li>Prezență externă: profil Google Business, marketplace-uri, video de instalare și întreținere, răspunsuri de specialist pe forumuri.</li>
-        <li>Recenzii reale și pe platforme externe; cifre de încredere verificabile.</li>
-        <li>Viteza site-ului și ajustarea serverului; manualele de utilizare ca pagini web; reducerea pluginurilor duplicate.</li>
-        <li>Monitorizare lunară față de concurență.</li>
+        <li><code>GEO-023</code> Material de date citabil: duritatea apei în România</li>
+        <li><code>GEO-027</code> Prezență externă și mențiuni ale brandului</li>
+        <li><code>GEO-028</code> Vizibilitatea recenziilor și corectitudinea afirmațiilor</li>
+        <li><code>GEO-012</code> Greutatea paginilor și Core Web Vitals</li>
+        <li><code>GEO-024</code> Manualele de utilizare ca pagini HTML</li>
+        <li><code>GEO-032</code> Consolidarea pluginurilor</li>
+        <li><code>GEO-031</code> Monitorizare lunară a vizibilității în AI (activitate continuă, separată de efortul etapei)</li>
       </ul>
     </li>
   </ol>
 
-  <!-- ============ 6. ESTIMARE ============ -->
-  <h2 class="h-part" id="estimare"><span class="part-tag">Estimare</span>Efort și cost uman</h2>
-  <div class="note"><b>Ce include estimarea:</b> doar activitățile care necesită oameni. <b>Ce nu include:</b> tot ce se realizează cu asistență AI sau automat (cod, date structurate, scripturi, modificări în masă, ciorne de conținut). <b>Ipoteză:</b> acces SFTP/SSH la server, deci modificările se instalează direct, iar dezvoltatorul doar le verifică și se ocupă de setările de server.</div>
-
-  <div class="est-grid">
-    <div class="est-card main"><div class="ec-label">Cost realist (o singură dată)</div><div class="ec-value">~25.200 lei</div><p class="ec-note">~4.900 EUR, fără TVA, plus ~300–500 lei costuri externe</p></div>
-    <div class="est-card"><div class="ec-label">Interval total</div><div class="ec-value">11.200–52.300 lei</div><p class="ec-note">~2.200–10.300 EUR · 96–200 ore</p></div>
-    <div class="est-card"><div class="ec-label">După implementare</div><div class="ec-value">350–1.650 lei/lună</div><p class="ec-note">Monitorizare lunară: 2–4 ore + ~50 lei API</p></div>
-  </div>
-
-  <h3 class="h-sub"><span class="sub-num">6.1</span> Ore pe etapă și pe rol</h3>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Etapa</th><th class="num">Dezvoltator</th><th class="num">Specialist SEO/GEO</th><th class="num">Specialist apă</th><th class="num">Total ore</th><th class="num">Cost (lei)</th></tr></thead>
-      <tbody>
-        <tr><td>1 — Fundația<span class="sub">copii de siguranță, verificarea modificărilor, întrebări în AI, căutări-țintă, Bing</span></td><td class="num">4–8</td><td class="num">7–13</td><td class="num">—</td><td class="num">11–21</td><td class="num">1.490–7.160</td></tr>
-        <tr><td>2 — Structură<span class="sub">verificare date structurate, Merchant Center, un singur container de măsurare</span></td><td class="num">3–6</td><td class="num">5–10</td><td class="num">—</td><td class="num">8–16</td><td class="num">1.080–5.470</td></tr>
-        <tr><td>3 — Conținut<span class="sub">verificarea faptelor în 78 de produse, 10 ghiduri, ~30 de întrebări, 15–25 de articole</span></td><td class="num">1–2</td><td class="num">4–10</td><td class="num">54–110</td><td class="num">59–122</td><td class="num">6.110–26.490</td></tr>
-        <tr><td>4 — Autoritate<span class="sub">ajustare server, prezență externă, verificarea datelor de duritate</span></td><td class="num">4–11</td><td class="num">8–20</td><td class="num">6–10</td><td class="num">18–41</td><td class="num">2.240–12.695</td></tr>
-        <tr class="total"><td>Total</td><td class="num">12–27</td><td class="num">24–53</td><td class="num">60–120</td><td class="num">96–200</td><td class="num">10.920–51.815</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p><b>Scenariu realist:</b> dezvoltator 18 h × 170 lei + specialist SEO 38 h × 250 lei + specialist apă 90 h × 140 lei ≈ <b>25.200 lei (~4.900 EUR)</b>, fără TVA. Timpul intern al conducerii (decizii, aprobări, conturi) este estimat la 10–20 de ore și nu este facturat.</p>
-
-  <h3 class="h-sub"><span class="sub-num">6.2</span> Tarife folosite (România, 2026, fără TVA)</h3>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Rol</th><th class="num">Tarif</th><th>Bază</th></tr></thead>
-      <tbody>
-        <tr><td>Dezvoltator WordPress / WooCommerce</td><td class="num">110–245 lei/h</td><td>25–55 USD/h pentru Europa de Est, inclusiv România</td></tr>
-        <tr><td>Specialist SEO / GEO</td><td class="num">150–400 lei/h</td><td>Specialiști cu experiență; seniorii ajung la 400–1.000 lei/h</td></tr>
-        <tr><td>Specialist tratarea apei</td><td class="num">100–200 lei/h</td><td>Presupunere; poate fi un tehnician intern</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3 class="h-sub"><span class="sub-num">6.3</span> Comparație cu execuția integral umană</h3>
-  <div class="table-wrap">
-    <table class="plain-first">
-      <thead><tr><th>Variantă</th><th class="num">Cost estimat</th></tr></thead>
-      <tbody>
-        <tr><td>Același program (270–610 ore) executat integral de oameni, la 150–300 lei/h</td><td class="num">40.500–183.000 lei</td></tr>
-        <tr><td>Abonament SEO pentru un magazin online complex în România (1.800–4.000 EUR/lună × 4–6 luni)</td><td class="num">~36.700–122.400 lei</td></tr>
-        <tr><td>Abonament GEO la o agenție internațională (2.000–10.000 USD/lună)</td><td class="num">~8.800–44.000 lei / lună</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p>Economie estimată prin automatizare: aproximativ <b>60–75%</b> față de execuția integral umană.</p>
-
-  <h3 class="h-sub"><span class="sub-num">6.4</span> Nu sunt incluse</h3>
-  <ul class="plain">
-    <li>Consultanța juridică privind recenziile (U1), dacă se decide.</li>
-    <li>Taxa de membru GS1 România, dacă se cumpără coduri EAN reale.</li>
-    <li>Spațiul extern pentru copii de siguranță (câțiva lei pe lună).</li>
-    <li>Abonamentul Claude folosit pentru partea automatizată.</li>
-  </ul>
-  <div class="note">Tarifele provin din oferte publicate de furnizori, nu dintr-un studiu independent. Pentru o sumă exactă recomandăm 2–3 oferte. Dacă verificarea de specialitate este făcută de un tehnician angajat, costul scade cu 6.000–24.000 lei. Tarifele proprii ale firmei (IR-13) vor înlocui tarifele de piață.</div>
-
-  <!-- ============ 7. MASURARE SI RISCURI ============ -->
+  <!-- ============ 6. MASURARE SI RISCURI ============ -->
   <h2 class="h-plain" id="masurare">Măsurare și riscuri</h2>
-  <h3 class="h-sub"><span class="sub-num">7.1</span> Cum măsurăm succesul</h3>
+  <h3 class="h-sub"><span class="sub-num">6.1</span> Cum măsurăm succesul</h3>
   <div class="table-wrap">
     <table>
       <thead><tr><th>Indicator</th><th>Cum se măsoară</th><th>Țintă orientativă la 6 luni</th></tr></thead>
@@ -526,7 +495,7 @@
   </div>
   <p>Rezultatele în AI apar treptat (săptămâni sau luni) și nu pot fi garantate de niciun furnizor. Promitem măsurare transparentă, comparată cu punctul de pornire.</p>
 
-  <h3 class="h-sub"><span class="sub-num">7.2</span> Riscuri și cum le gestionăm</h3>
+  <h3 class="h-sub"><span class="sub-num">6.2</span> Riscuri și cum le gestionăm</h3>
   <div class="table-wrap">
     <table>
       <thead><tr><th>Risc</th><th>Măsură</th></tr></thead>
@@ -541,31 +510,245 @@
     </table>
   </div>
 
-  <!-- ============ 8. CE AVEM NEVOIE ============ -->
+  <!-- ============ 7. CE AVEM NEVOIE ============ -->
   <h2 class="h-plain" id="intrebari">Ce avem nevoie de la dumneavoastră</h2>
   <div class="note alert"><b>Decizie urgentă a conducerii:</b> dezactivarea fragmentelor de cod care afișează numere de recenzii inventate și prezintă recenzii introduse de personal ca venind de la cumpărători verificați (WPCode 39813, 39814, 40023).</div>
+  <p class="form-help">Puteți răspunde direct în tabel, în câmpurile de sub fiecare întrebare. Nu este obligatoriu să completați tot: trimiteți ce știți acum și reveniți pentru restul. Ce scrieți se salvează automat în acest browser până la trimitere. Răspunsurile ajung prin email la persoana care pregătește această propunere.</p>
+  <div class="note alert form-help"><b>Nu trimiteți parole</b> sau alte date de acces prin acest formular.</div>
+  <noscript><div class="note">Formularul necesită JavaScript. Puteți trimite răspunsurile direct persoanei de contact.</div></noscript>
+  <form id="answers-form" class="answers">
   <div class="table-wrap">
     <table>
       <thead><tr><th>Cod</th><th>Ce avem nevoie</th><th>Răspunde</th><th>De ce</th></tr></thead>
       <tbody>
         <tr><td>IR-1</td><td>Cum au fost colectate recenziile; dacă cele două introduse de personal sunt păreri reale; dacă IP-ul 86.121.163.106 este al biroului; de ce site-ul afișează „278 recenzii” când Google are 44</td><td>Conducere</td><td>Risc juridic; stabilim ce recenzii rămân și cum sunt afișate</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-1.1">
+              <label for="f-IR-1-1"><code>IR-1.1</code> Cum au fost colectate recenziile de produs: emailuri după comenzi reale, importate sau introduse de personal?</label>
+              <textarea id="f-IR-1-1" name="IR-1.1" maxlength="5000" rows="2"></textarea>
+            </div>
+            <div class="field" data-id="IR-1.2">
+              <label for="f-IR-1-2"><code>IR-1.2</code> Cele două recenzii introduse de personal sunt păreri reale ale clienților (de exemplu, primite telefonic)?</label>
+              <textarea id="f-IR-1-2" name="IR-1.2" maxlength="5000" rows="2"></textarea>
+            </div>
+            <div class="field" data-id="IR-1.3">
+              <label for="f-IR-1-3"><code>IR-1.3</code> Adresa IP 86.121.163.106 este a biroului?</label>
+              <input id="f-IR-1-3" name="IR-1.3" type="text" maxlength="300">
+            </div>
+            <div class="field" data-id="IR-1.4">
+              <label for="f-IR-1-4"><code>IR-1.4</code> De ce afișează site-ul „278 recenzii”, când Google are 44?</label>
+              <textarea id="f-IR-1-4" name="IR-1.4" maxlength="5000" rows="2"></textarea>
+            </div>
+          </td>
+        </tr>
         <tr><td>IR-2</td><td>Acordul pentru oprirea modulului „ai-seo” din CMWeb Studio; care agenții (Dow Media, CM Web Studio, Agenție Vie) mai lucrează pe site și ce drepturi le trebuie</td><td>Conducere</td><td>Eliminarea etichetelor duplicate și reducerea accesului terților</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-2.1">
+              <label for="f-IR-2-1"><code>IR-2.1</code> Aprobați oprirea modulului „ai-seo” din CMWeb Studio, după mutarea regulilor robots.txt și a llms.txt în Rank Math?</label>
+              <input id="f-IR-2-1" name="IR-2.1" type="text" maxlength="300">
+            </div>
+            <div class="field" data-id="IR-2.2">
+              <label for="f-IR-2-2"><code>IR-2.2</code> Mai lucrează pe site Dow Media, CM Web Studio și Agenție Vie? Care dintre ele mai au nevoie de drepturi de administrator?</label>
+              <textarea id="f-IR-2-2" name="IR-2.2" maxlength="5000" rows="2"></textarea>
+            </div>
+          </td>
+        </tr>
         <tr><td>IR-3</td><td>Confirmarea accesului SFTP / WP-CLI (presupus disponibil în estimare); aprobarea unui cont dedicat pentru implementare, a responsabilului de publicare și a cheilor API de monitorizare</td><td>Tehnic + Conducere</td><td>Implementare directă, în siguranță</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-3.1">
+              <label for="f-IR-3-1"><code>IR-3.1</code> Aprobați un cont dedicat pentru lucrările GEO (utilizator WordPress cu rolul „Manager magazin” și/sau SFTP), cu modificări salvate ca ciorne, revocabil oricând?</label>
+              <input id="f-IR-3-1" name="IR-3.1" type="text" maxlength="300">
+            </div>
+            <div class="field" data-id="IR-3.2">
+              <label for="f-IR-3-2"><code>IR-3.2</code> Cine aprobă și publică ciornele?</label>
+              <input id="f-IR-3-2" name="IR-3.2" type="text" maxlength="300">
+            </div>
+            <div class="field" data-id="IR-3.3">
+              <label for="f-IR-3-3"><code>IR-3.3</code> Putem crea chei API (OpenAI, Perplexity, Gemini) pentru monitorizarea lunară, la câțiva dolari pe lună?</label>
+              <input id="f-IR-3-3" name="IR-3.3" type="text" maxlength="300">
+            </div>
+          </td>
+        </tr>
         <tr><td>IR-4</td><td>Numele corect al firmei, CUI, adresa, o adresă de email oficială @purifyo.com, profilurile externe, sursa cifrei „9.000 clienți”</td><td>Conducere</td><td>Identitate unică și credibilă pentru AI</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-4.1">
+              <label for="f-IR-4-1"><code>IR-4.1</code> Numele juridic corect: ADA CONCEPT SUPPLY S.R.L. (subsolul site-ului) sau Ada Concept Retail (pagina de întrebări frecvente)?</label>
+              <input id="f-IR-4-1" name="IR-4.1" type="text" maxlength="300">
+            </div>
+            <div class="field" data-id="IR-4.2">
+              <label for="f-IR-4-2"><code>IR-4.2</code> CUI și numărul de înregistrare la Registrul Comerțului</label>
+              <input id="f-IR-4-2" name="IR-4.2" type="text" maxlength="300">
+            </div>
+            <div class="field" data-id="IR-4.3">
+              <label for="f-IR-4-3"><code>IR-4.3</code> Sediul social și adresa punctului de lucru (Str. Crăișorului Nr. 4, Bl. M135B?)</label>
+              <textarea id="f-IR-4-3" name="IR-4.3" maxlength="5000" rows="2"></textarea>
+            </div>
+            <div class="field" data-id="IR-4.4">
+              <label for="f-IR-4-4"><code>IR-4.4</code> Adresa de email oficială @purifyo.com pentru uz public</label>
+              <input id="f-IR-4-4" name="IR-4.4" type="text" maxlength="300">
+            </div>
+            <div class="field" data-id="IR-4.5">
+              <label for="f-IR-4-5"><code>IR-4.5</code> Profiluri sociale, Google Business Profile, marketplace-uri</label>
+              <textarea id="f-IR-4-5" name="IR-4.5" maxlength="5000" rows="2"></textarea>
+            </div>
+            <div class="field" data-id="IR-4.6">
+              <label for="f-IR-4-6"><code>IR-4.6</code> Certificări și anul înființării</label>
+              <input id="f-IR-4-6" name="IR-4.6" type="text" maxlength="300">
+            </div>
+            <div class="field" data-id="IR-4.7">
+              <label for="f-IR-4-7"><code>IR-4.7</code> Sursa cifrei „Peste 9.000 de clienți” (o pagină de produs spune „Peste 5000”)</label>
+              <input id="f-IR-4-7" name="IR-4.7" type="text" maxlength="300">
+            </div>
+          </td>
+        </tr>
         <tr><td>IR-5</td><td>Decizia privind roboții AI de antrenare (recomandarea noastră: <b>permis</b>)</td><td>Conducere</td><td>Ce află modelele AI despre Purifyo</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-5">
+              <label for="f-IR-5"><code>IR-5</code> Permitem CCBot (Common Crawl, blocat în prezent) și păstrăm permise GPTBot, ClaudeBot și Google-Extended?</label>
+              <input id="f-IR-5" name="IR-5" type="text" maxlength="300">
+            </div>
+          </td>
+        </tr>
         <tr><td>IR-6</td><td>Existența codurilor EAN reale (membru GS1); ce produse dublate rămân</td><td>Conducere</td><td>Fișe de produs complete și acceptate de Google Shopping</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-6.1">
+              <label for="f-IR-6-1"><code>IR-6.1</code> Firma este membră GS1 România, astfel încât să poată primi coduri EAN reale?</label>
+              <input id="f-IR-6-1" name="IR-6.1" type="text" maxlength="300">
+            </div>
+            <div class="field" data-id="IR-6.2">
+              <label for="f-IR-6-2"><code>IR-6.2</code> Ce produse dublate rămân: 86 / 91 / 43119 (dedurizator 26 L) și 115 / 128 (dozator)?</label>
+              <textarea id="f-IR-6-2" name="IR-6.2" maxlength="5000" rows="2"></textarea>
+            </div>
+          </td>
+        </tr>
         <tr><td>IR-7</td><td>Cine deține conturile Search Console, Analytics, Merchant Center și Bing; cine a adăugat al doilea container Google Tag Manager</td><td>Conducere</td><td>Măsurarea punctului de pornire și a rezultatelor</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-7.1">
+              <label for="f-IR-7-1"><code>IR-7.1</code> Cine deține conturile Search Console, Google Analytics 4, Merchant Center și Bing Webmaster Tools (firma, Agenție Vie, CM Web)? Putem primi acces de citire?</label>
+              <textarea id="f-IR-7-1" name="IR-7.1" maxlength="5000" rows="2"></textarea>
+            </div>
+            <div class="field" data-id="IR-7.2">
+              <label for="f-IR-7-2"><code>IR-7.2</code> Cine a adăugat al doilea container Google Tag Manager (GTM-PKR5SDG3) și mai este necesar?</label>
+              <textarea id="f-IR-7-2" name="IR-7.2" maxlength="5000" rows="2"></textarea>
+            </div>
+          </td>
+        </tr>
         <tr><td>IR-8</td><td>Principalii concurenți și căutările cele mai importante</td><td>Conducere</td><td>Alegem ce întrebări și ce pagini contează</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-8.1">
+              <label for="f-IR-8-1"><code>IR-8.1</code> 3–5 domenii ale principalilor concurenți</label>
+              <textarea id="f-IR-8-1" name="IR-8.1" maxlength="5000" rows="2"></textarea>
+            </div>
+            <div class="field" data-id="IR-8.2">
+              <label for="f-IR-8-2"><code>IR-8.2</code> Întrebările și subiectele pentru care Purifyo vrea cel mai mult să fie recomandat</label>
+              <textarea id="f-IR-8-2" name="IR-8.2" maxlength="5000" rows="2"></textarea>
+            </div>
+          </td>
+        </tr>
         <tr><td>IR-9</td><td>Aprobarea copiilor automate într-un cont extern al firmei (Google Drive, Dropbox etc.); dacă firma de găzduire face copii și oferă un mediu de test</td><td>Conducere</td><td>Siguranța datelor și a modificărilor</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-9.1">
+              <label for="f-IR-9-1"><code>IR-9.1</code> Aprobați copii automate într-un cont extern al firmei? Ce cont folosim (Google Drive, Dropbox etc.)?</label>
+              <input id="f-IR-9-1" name="IR-9.1" type="text" maxlength="300">
+            </div>
+            <div class="field" data-id="IR-9.2">
+              <label for="f-IR-9-2"><code>IR-9.2</code> Firma de găzduire face copii proprii? Oferă un mediu de test?</label>
+              <textarea id="f-IR-9-2" name="IR-9.2" maxlength="5000" rows="2"></textarea>
+            </div>
+          </td>
+        </tr>
         <tr><td>IR-10</td><td>Cine scrie sau revizuiește conținutul de specialitate; produsele cele mai vândute după încasări; întrebările frecvente ale clienților</td><td>Conducere</td><td>Conținut corect, cu autor credibil</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-10.1">
+              <label for="f-IR-10-1"><code>IR-10.1</code> Cine scrie sau revizuiește conținutul de specialitate? Există un tehnician sau expert care poate apărea ca autor (nume, experiență)?</label>
+              <textarea id="f-IR-10-1" name="IR-10.1" maxlength="5000" rows="2"></textarea>
+            </div>
+            <div class="field" data-id="IR-10.2">
+              <label for="f-IR-10-2"><code>IR-10.2</code> Primele 5–10 produse după încasări</label>
+              <textarea id="f-IR-10-2" name="IR-10.2" maxlength="5000" rows="2"></textarea>
+            </div>
+            <div class="field" data-id="IR-10.3">
+              <label for="f-IR-10-3"><code>IR-10.3</code> Cele mai frecvente 20 de întrebări ale clienților (telefon, email, chat)</label>
+              <textarea id="f-IR-10-3" name="IR-10.3" maxlength="5000" rows="2"></textarea>
+            </div>
+          </td>
+        </tr>
         <tr><td>IR-11</td><td>Firma de găzduire, cine administrează serverul, cine gestionează contul Cloudflare</td><td>Conducere</td><td>Viteza site-ului și statistica vizitelor roboților AI</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-11.1">
+              <label for="f-IR-11-1"><code>IR-11.1</code> Firma de găzduire și planul; cine administrează serverul (panoul HestiaCP)?</label>
+              <textarea id="f-IR-11-1" name="IR-11.1" maxlength="5000" rows="2"></textarea>
+            </div>
+            <div class="field" data-id="IR-11.2">
+              <label for="f-IR-11-2"><code>IR-11.2</code> Cine gestionează contul Cloudflare? Pot fi partajate rapoartele Cloudflare și cele despre roboții AI?</label>
+              <textarea id="f-IR-11-2" name="IR-11.2" maxlength="5000" rows="2"></textarea>
+            </div>
+          </td>
+        </tr>
         <tr><td>IR-12</td><td>Date despre duritatea apei; buget pentru promovare externă</td><td>Conducere</td><td>Materialul unic „harta durității” și prezența în afara site-ului</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-12.1">
+              <label for="f-IR-12-1"><code>IR-12.1</code> Aveți rezultate ale durității apei de la clienți sau instalatori, pe orașe?</label>
+              <textarea id="f-IR-12-1" name="IR-12.1" maxlength="5000" rows="2"></textarea>
+            </div>
+            <div class="field" data-id="IR-12.2">
+              <label for="f-IR-12-2"><code>IR-12.2</code> Buget pentru promovare externă (articole, video, marketplace-uri)</label>
+              <input id="f-IR-12-2" name="IR-12.2" type="text" maxlength="300">
+            </div>
+          </td>
+        </tr>
         <tr><td>IR-13</td><td>Furnizori și tarife existente</td><td>Conducere</td><td>Calculul exact al costurilor</td></tr>
+        <tr class="answer-row">
+          <td colspan="4">
+            <div class="field" data-id="IR-13">
+              <label for="f-IR-13"><code>IR-13</code> Aveți deja dezvoltator, specialist SEO sau tehnician în tratarea apei (angajat sau colaborator)? Ce tarife au?</label>
+              <textarea id="f-IR-13" name="IR-13" maxlength="5000" rows="2"></textarea>
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
+  <fieldset class="form-end">
+    <legend>Finalizare</legend>
+    <div class="field">
+      <label for="f-resp-name">Nume și prenume *</label>
+      <input id="f-resp-name" name="resp_name" type="text" required maxlength="120" autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="f-resp-role">Funcția</label>
+      <input id="f-resp-role" name="resp_role" type="text" maxlength="120" autocomplete="organization-title">
+    </div>
+    <div class="field">
+      <label for="f-resp-email">Email pentru clarificări</label>
+      <input id="f-resp-email" name="resp_email" type="email" maxlength="120" autocomplete="email">
+    </div>
+    <div class="field" data-id="OBS">
+      <label for="f-OBS"><code>OBS</code> Alte observații</label>
+      <textarea id="f-OBS" name="OBS" maxlength="5000" rows="2"></textarea>
+    </div>
+  </fieldset>
+  <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+  <div class="form-actions form-end">
+    <button type="submit" class="btn-send">Trimite răspunsurile</button>
+    <span class="form-count" id="form-count"></span>
+    <p class="form-status" id="form-status" aria-live="polite"></p>
+  </div>
+  </form>
 
-  <!-- ============ 9. PASI URMATORI ============ -->
+  <!-- ============ 8. PASI URMATORI ============ -->
   <h2 class="h-plain" id="pasi">Pași următori</h2>
   <ol class="steps">
     <li><span><b>Conducerea:</b> decizia urgentă privind recenziile (U1), aprobarea copiilor de siguranță (U2) și răspunsurile din secțiunea „Ce avem nevoie”.</span></li>
@@ -576,5 +759,115 @@
 
   <p class="foot"><span>Propunere GEO · Purifyo.com</span><span>v3.0 · 7 noiembrie 2026</span></p>
 </div>
+<script>
+(function () {
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbx8G6dfA4M-AsmWD500umVsaINdgw8jB2w56WI-NyTvju8sA6JCare_jomhMI4yZMxK/exec';
+  const FORM_ID = 'purifyo-geo-v1';
+  const DRAFT_KEY = 'purifyo-geo-draft-v1';
+  const MAX_PAYLOAD = 60000;
+
+  const form = document.getElementById('answers-form');
+  if (!form) return;
+  const statusEl = document.getElementById('form-status');
+  const countEl = document.getElementById('form-count');
+  const button = form.querySelector('.btn-send');
+  const fields = Array.from(form.querySelectorAll('.field[data-id]'));
+
+  function collect() {
+    return fields
+      .map(function (f) {
+        return { id: f.dataset.id, value: f.querySelector('textarea, input').value.trim() };
+      })
+      .filter(function (item) { return item.value; });
+  }
+
+  function setStatus(message, kind) {
+    statusEl.textContent = message;
+    statusEl.className = 'form-status' + (kind ? ' ' + kind : '');
+  }
+
+  function updateCount() {
+    countEl.textContent = 'Completate: ' + collect().length + ' din ' + fields.length;
+  }
+
+  function saveDraft() {
+    const draft = {};
+    Array.from(form.elements).forEach(function (el) {
+      if (el.name && el.name !== 'website') draft[el.name] = el.value;
+    });
+    try { localStorage.setItem(DRAFT_KEY, JSON.stringify(draft)); } catch (e) { /* draft is optional */ }
+  }
+
+  function restoreDraft() {
+    let draft = {};
+    try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY)) || {}; } catch (e) { return; }
+    Array.from(form.elements).forEach(function (el) {
+      if (el.name && el.name in draft) el.value = draft[el.name];
+    });
+  }
+
+  function clearDraft() {
+    try { localStorage.removeItem(DRAFT_KEY); } catch (e) { /* draft is optional */ }
+  }
+
+  let saveTimer;
+  form.addEventListener('input', function () {
+    updateCount();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveDraft, 300);
+  });
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    const items = collect();
+    if (!items.length) {
+      setStatus('Completați cel puțin un răspuns înainte de a trimite.', 'err');
+      return;
+    }
+
+    const payload = JSON.stringify({
+      form: FORM_ID,
+      website: form.elements['website'].value,
+      name: form.elements['resp_name'].value,
+      role: form.elements['resp_role'].value,
+      email: form.elements['resp_email'].value,
+      total: fields.length,
+      items: items
+    });
+    if (payload.length > MAX_PAYLOAD) {
+      setStatus('Răspunsurile sunt prea lungi. Trimiteți-le în două etape.', 'err');
+      return;
+    }
+
+    button.disabled = true;
+    setStatus('Se trimite…');
+    try {
+      // text/plain avoids the browser pre-check that Apps Script cannot answer.
+      const response = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        credentials: 'omit',
+        body: payload
+      });
+      const result = await response.json();
+      if (!result.ok) throw new Error(result.code || 'error');
+      form.reset();
+      clearDraft();
+      updateCount();
+      setStatus('Mulțumim! Răspunsurile au fost trimise. Puteți reveni oricând pentru a completa restul.', 'ok');
+    } catch (error) {
+      saveDraft();
+      setStatus(error.message === 'limit'
+        ? 'Limita zilnică de trimiteri a fost atinsă. Încercați din nou mâine; răspunsurile rămân salvate în acest browser.'
+        : 'Trimiterea nu a reușit. Răspunsurile rămân salvate în acest browser. Încercați din nou.', 'err');
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  restoreDraft();
+  updateCount();
+})();
+</script>
 </body>
 </html>
