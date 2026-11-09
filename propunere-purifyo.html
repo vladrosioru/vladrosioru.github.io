@@ -114,6 +114,7 @@
     letter-spacing: .1em; text-transform: uppercase; color: var(--navy); font-weight: 700; margin-bottom: .45rem; }
   .deliv .dv-title svg { width: 14px; height: 14px; flex-shrink: 0; }
   .deliv p { margin: 0; font-size: .9rem; }
+  .deliv p + p { margin-top: .55rem; }
 
   /* ---- panels ---- */
   .split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin: 1rem 0 1.8rem; }
@@ -213,12 +214,12 @@
     <div class="tb-content">
       <p class="eyebrow">Propunere de implementare · GEO</p>
       <h1>Purifyo.com</h1>
-      <p class="subtitle">Vizibilitate în răspunsurile asistenților AI: ChatGPT, Google AI (AI Overviews, AI Mode), Gemini, Perplexity, Copilot.</p>
+      <p class="subtitle">Vizibilitate în Google Search și în răspunsurile AI ale Google (AI Mode, AI Overviews), precum și în ChatGPT, Gemini, Perplexity și Copilot.</p>
       <dl class="tb-meta">
         <div><dt>Document</dt><dd>Propunere pentru conducere</dd></div>
-        <div><dt>Versiune</dt><dd>3.0 (consolidată)</dd></div>
-        <div><dt>Data</dt><dd>7 noiembrie 2026</dd></div>
-        <div><dt>Status</dt><dd>Draft pentru discuție</dd></div>
+        <div><dt>Versiune</dt><dd>3.1 (finală)</dd></div>
+        <div><dt>Data</dt><dd>9 noiembrie 2026</dd></div>
+        <div><dt>Status</dt><dd>Final, pentru prezentare</dd></div>
       </dl>
     </div>
   </header>
@@ -239,14 +240,14 @@
 
   <!-- ============ 1. REZUMAT ============ -->
   <h2 class="h-plain" id="rezumat">Rezumat executiv</h2>
-  <p>Tot mai mulți clienți își încep cercetarea întrebând un asistent AI („ce dedurizator îmi trebuie pentru o casă cu 4 persoane?”, „dedurizator sau osmoză inversă?”). Asistentul răspunde direct și recomandă câteva magazine sau produse. <b>Dacă Purifyo nu apare în acel răspuns, clientul nu mai ajunge pe site.</b></p>
+  <p>Tot mai mulți clienți își încep cercetarea în Google, inclusiv în modul AI (AI Mode), sau întrebând direct un asistent AI („ce dedurizator îmi trebuie pentru o casă cu 4 persoane?”, „dedurizator sau osmoză inversă?”). Răspunsul vine direct și recomandă câteva magazine sau produse. <b>Dacă Purifyo nu apare în acel răspuns, clientul nu mai ajunge pe site.</b></p>
   <p>Am analizat purifyo.com din panoul de administrare și din exterior, așa cum îl „văd” motoarele AI. Concluziile principale:</p>
   <ul class="obj-list">
     <li class="win"><b>Baza tehnică este bună.</b> Roboții AI au acces liber, pluginul de SEO funcționează, produsele au date structurate, iar fluxurile de produse către Google, Facebook și TikTok există deja.</li>
     <li class="alert"><b>Trei probleme cer o decizie imediată:</b> numere de recenzii <b>generate aleatoriu</b> pe site (risc juridic); <b>lipsa copiilor de siguranță</b> (ultima este din octombrie 2024); pagina de <b>Black Friday</b> are cod JavaScript în loc de descriere pentru Google, chiar în timpul campaniei.</li>
     <li class="win"><b>Un câștig rapid:</b> datele tehnice ale produselor (consum de sare, debit, presiune, dimensiuni) există, dar <b>nu sunt vizibile pentru motoarele AI</b>. Se rezolvă în mai puțin de o oră.</li>
     <li><b>Principalul gol:</b> site-ul <b>nu are conținut informativ</b> pe care AI-ul să-l citeze, iar <b>datele despre produse și despre firmă se contrazic</b> de la o pagină la alta.</li>
-    <li><b>Propunem un program în 4 etape</b>, de aproximativ 3 luni, urmat de monitorizare lunară. Efortul uman estimat: <b>96–200 de ore</b>.</li>
+    <li><b>Propunem un program în 4 etape</b>, de aproximativ 3 luni, urmat de monitorizare lunară, cu <b>prioritate pe Google Search și AI Mode</b>, canalele cele mai folosite de clienți. Aceleași îmbunătățiri servesc și ChatGPT, Gemini, Perplexity și Copilot. Efortul uman estimat: <b>96–200 de ore</b>.</li>
   </ul>
 
   <!-- ============ 2. GEO ============ -->
@@ -262,7 +263,8 @@
     </table>
   </div>
   <p>Pentru produse de 3.000–15.000 lei, pe care clientul le cercetează înainte de cumpărare, recomandarea unui asistent AI cântărește mult.</p>
-  <div class="note"><b>Google rămâne esențial.</b> Google este principalul motor de căutare din România, iar modul AI (AI Mode) funcționează în limba română din octombrie 2025. Google alege sursele pentru răspunsurile AI dintre paginile <b>deja bine poziționate</b> în căutare, așa că o poziție bună în Google este o condiție de bază pentru GEO.</div>
+  <div class="note"><b>Google este prioritatea programului.</b> Google Search și modul său AI (AI Mode) sunt canalele cele mai folosite de clienți, iar AI Mode funcționează în limba română din octombrie 2025. Google alege sursele pentru răspunsurile AI dintre paginile <b>deja bine poziționate</b> în căutare, așa că aceeași muncă aduce un câștig dublu: poziții mai bune în rezultate și șanse mai mari de a fi citat în AI Mode. Google nu cere marcaje speciale pentru AI: contează indexarea, conținutul util, datele structurate corecte și informațiile actualizate din Merchant Center și din profilul Google Business.</div>
+  <div class="note"><b>Celelalte motoare rămân în program.</b> ChatGPT și Copilot (care folosesc indexul Bing), Gemini și Perplexity beneficiază de aceleași fapte clare și date coerente, iar pentru ele adăugăm câțiva pași dedicați: acces pentru roboți, fișierul <code>llms.txt</code>, Bing, fluxuri de produse pentru Copilot.</div>
 
   <!-- ============ 3. SITUATIA ACTUALA ============ -->
   <h2 class="h-part" id="situatie"><span class="part-tag">Analiză</span>Situația actuală</h2>
@@ -273,7 +275,7 @@
       <div class="panel-head"><span class="dot" aria-hidden="true"></span><h4>Ce funcționează deja</h4><span class="tag">Bază solidă</span></div>
       <ul>
         <li>Toți roboții AI importanți (ChatGPT, Claude, Perplexity, Google, Bing) <b>au acces liber</b> și citesc paginile complet.</li>
-        <li>Pluginul de SEO (Rank Math) funcționează: descrieri, date pentru distribuire, hartă a site-ului, setări care permit citarea integrală a textelor.</li>
+        <li>Pluginul de SEO (Rank Math) funcționează: descrieri, date pentru distribuire, hartă a site-ului, setări care permit citarea integrală a textelor, una dintre condițiile Google pentru a apărea ca sursă în AI Mode.</li>
         <li>Produsele au <b>date structurate de bază</b>: marcă, preț cu TVA, recenzii, întrebări frecvente.</li>
         <li><b>Google Analytics 4</b> colectează date; <b>fluxurile de produse</b> către Google (gestionat de Agenție Vie), Facebook și TikTok există.</li>
         <li><b>Specificațiile tehnice</b> sunt completate pentru fiecare produs (dar nu sunt vizibile pentru AI).</li>
@@ -286,7 +288,7 @@
         <li><b>Conținut informativ:</b> niciun articol real, întrebări frecvente doar despre livrare și cont.</li>
         <li><b>Date coerente:</b> produse cu cifre contradictorii, conținut copiat, produse dublate.</li>
         <li><b>Identitate clară:</b> două nume de firmă, fără pagina „Despre noi”, cifre de încredere inconsistente.</li>
-        <li><b>Măsurare:</b> legătura cu Google Search Console nu funcționează din iulie 2024.</li>
+        <li><b>Măsurare:</b> legătura cu Google Search Console nu funcționează din iulie 2024, deci nu vedem cum stă Purifyo în Google.</li>
         <li><b>Siguranță:</b> fără copii de siguranță recente; acces complet pentru trei agenții.</li>
       </ul>
     </div>
@@ -304,14 +306,14 @@
     </table>
   </div>
 
-  <h3 class="h-sub"><span class="sub-num">3.3</span> Ce limitează vizibilitatea în AI</h3>
+  <h3 class="h-sub"><span class="sub-num">3.3</span> Ce limitează vizibilitatea în Google și în AI</h3>
 
   <p><b>A. Conținutul și datele produselor</b></p>
   <div class="table-wrap">
     <table class="plain-first">
       <thead><tr><th>Problemă</th><th>Impact</th></tr></thead>
       <tbody>
-        <tr><td><b>Niciun articol informativ.</b> Cele 10 articole de blog sunt goale (titlul „x”) și sunt indexate. Întrebările frecvente acoperă doar livrarea și contul.</td><td>AI-ul citează surse care <b>explică</b> (duritatea apei, alegerea sistemului, costuri). Purifyo nu are ce oferi, așa că AI-ul citează concurența. Paginile goale scad încrederea în întregul site.</td></tr>
+        <tr><td><b>Niciun articol informativ.</b> Cele 10 articole de blog sunt goale (titlul „x”) și sunt indexate. Întrebările frecvente acoperă doar livrarea și contul.</td><td>Google AI Mode și ceilalți asistenți citează surse care <b>explică</b> (duritatea apei, alegerea sistemului, costuri). Purifyo nu are ce oferi, așa că AI-ul citează concurența. Paginile goale scad încrederea în întregul site.</td></tr>
         <tr><td><b>Datele tehnice nu sunt vizibile pentru AI.</b> Fila „Date tehnice” se încarcă prin JavaScript după deschiderea paginii, iar roboții AI văd o casetă goală.</td><td>Exact cifrele pe care AI-ul le-ar cita (de ex. 3,1 kg sare/regenerare, 2,1 m³/h) lipsesc pentru AI.</td></tr>
         <tr><td><b>Datele produselor se contrazic.</b> Exemplu: stația de 26 L apare cu „5–8 persoane, până la 50°” în text și „4–6 persoane, 20–40°” în caracteristici; dedurizatorul de 30 L are trei variante pentru numărul de persoane.</td><td>AI-ul citează una dintre variante la întâmplare sau consideră informația nesigură.</td></tr>
         <tr><td><b>Conținut copiat.</b> Un produs conține text cu <b>linkuri către magazine concurente</b> (takabanis.ro, keman.ro); două produse conțin cod copiat dintr-o pagină de rezultate Google.</td><td>Conținutul copiat scade încrederea motoarelor în site și trimite vizitatori către concurență.</td></tr>
@@ -331,7 +333,7 @@
         <tr><td>Firma apare cu <b>două nume</b> („ADA CONCEPT SUPPLY S.R.L.” și „Ada Concept Retail”) și <b>nu există o pagină „Despre noi”</b>.</td><td>Identitate neclară, deci încredere mai mică din partea AI-ului.</td></tr>
         <tr><td><b>Cifre de încredere inconsistente:</b> „278 recenzii” (Google are 44, site-ul are 76), „peste 9.000 de clienți” pe o pagină și „peste 5.000” pe alta, „Rating 4.9” scris manual, „ULTIMELE 3 PACHETE ÎN STOC” afișat permanent.</td><td>Cifrele pot fi contrazise ușor; AI-ul și autoritățile tratează cu suspiciune afirmațiile nesusținute.</td></tr>
         <tr><td><b>Prețuri „reduse” permanent</b>, fără dată de final, la aproape toate produsele.</td><td>Risc față de regulile UE privind prețul de referință (Directiva Omnibus).</td></tr>
-        <tr><td><b>Prezență slabă în afara site-ului:</b> profilul firmei indică doar Facebook; 44 de recenzii Google.</td><td>AI-ul „află” despre branduri mai ales din <b>surse externe</b>.</td></tr>
+        <tr><td><b>Prezență slabă în afara site-ului:</b> profilul firmei indică doar Facebook; 44 de recenzii Google.</td><td>AI-ul „află” despre branduri mai ales din <b>surse externe</b>, iar Google recomandă un profil Google Business actualizat pentru funcțiile sale AI.</td></tr>
       </tbody>
     </table>
   </div>
@@ -345,7 +347,7 @@
         <tr><td>Orice pagină inexistentă trimite vizitatorul la prima pagină, în loc să afișeze „pagina nu există”.</td><td>Google consideră asta o eroare de calitate.</td></tr>
         <tr><td>Structura titlurilor e confuză (3 titluri principale pe prima pagină, niciunul pe categorii). Harta site-ului include coșul, contul și articolele goale.</td><td>AI-ul înțelege mai greu paginile; roboții pierd timp pe pagini fără valoare.</td></tr>
         <tr><td>Regulile pentru roboți blochează <b>Common Crawl</b>, o sursă importantă de date pentru modelele AI.</td><td>Modelele viitoare vor ști mai puțin despre Purifyo.</td></tr>
-        <tr><td>Prima pagină are ~800 KB de cod și se încarcă multe scripturi externe (Ads, Clarity, Facebook, Pinterest, TikTok). Limita de memorie WordPress este mică.</td><td>Încărcare lentă; unii roboți citesc incomplet.</td></tr>
+        <tr><td>Prima pagină are ~800 KB de cod și se încarcă multe scripturi externe (Ads, Clarity, Facebook, Pinterest, TikTok). Limita de memorie WordPress este mică.</td><td>Încărcare lentă, iar experiența paginii este una dintre recomandările Google pentru funcțiile AI; unii roboți citesc incomplet.</td></tr>
       </tbody>
     </table>
   </div>
@@ -355,10 +357,10 @@
     <table class="plain-first">
       <thead><tr><th>Problemă</th><th>Impact</th></tr></thead>
       <tbody>
-        <tr><td><b>Legătura cu Google Search Console nu mai funcționează din iulie 2024.</b></td><td>Nu există date despre căutări de 16 luni; nu putem măsura punctul de pornire.</td></tr>
+        <tr><td><b>Legătura cu Google Search Console nu mai funcționează din iulie 2024.</b></td><td>Nu există date despre căutări de 16 luni, chiar pe canalul cel mai folosit de clienți; nu putem măsura punctul de pornire.</td></tr>
         <tr><td><b>Două containere Google Tag Manager</b> trimit date în același cont Google Analytics.</td><td>Vizitele pot fi numărate de două ori, deci rapoartele sunt nesigure.</td></tr>
         <tr><td>Nu știm încă pentru ce căutări apare purifyo.com în Google și dacă este citat în răspunsurile AI ale Google.</td><td>Prioritățile de conținut nu pot fi stabilite pe date reale.</td></tr>
-        <tr><td>Fluxul de produse pentru Google se actualizează doar manual.</td><td>Prețurile și stocul din Google Shopping pot diferi de site.</td></tr>
+        <tr><td>Fluxul de produse pentru Google se actualizează doar manual.</td><td>Prețurile și stocul din Google Shopping pot diferi de site, iar Google recomandă date actualizate în Merchant Center și pentru funcțiile sale AI.</td></tr>
       </tbody>
     </table>
   </div>
@@ -423,6 +425,12 @@
   <ol class="timeline">
     <li>
       <div class="tl-head"><span class="tl-stage">Etapa 1 — Fundația</span><span class="tl-weeks">săptămânile 1–2</span><span class="meta-chip">Efort uman: <span class="fill">11–21</span> h</span></div>
+      <div class="deliv">
+        <div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.1V12a10 10 0 1 1-5.9-9.1"/><path d="M22 4L12 14l-3-3"/></svg>Beneficii pentru afacere</div>
+        <p><b>Protecție și un punct de pornire clar.</b> Scade riscul juridic și riscul de suspendare în Google Merchant Center cauzate de recenziile inventate, iar comenzile și cele 4.045 de conturi de clienți sunt protejate prin copii de siguranță. Firma capătă o identitate clară și avem reperul față de care se măsoară orice progres.</p>
+        <p><b>Google Search și AI Mode:</b> Search Console funcționează din nou, știm care sunt căutările în limba română care contează și unde stăm la indexare și poziții. Din paginile bine poziționate își alege Google sursele pentru AI Mode, deci aici se pune baza pentru tot programul.</p>
+        <p><b>ChatGPT, Copilot, Gemini, Perplexity:</b> reguli clare pentru roboții AI, fișierul llms.txt, înregistrarea în Bing (indexul folosit de ChatGPT și Copilot), iar datele tehnice ale produselor devin vizibile pentru roboții AI.</p>
+      </div>
       <ul>
         <li><code>GEO-001</code> Copii de siguranță și mediu de test</li>
         <li><code>GEO-034</code> Eliminarea numerelor de recenzii inventate din listările de produse</li>
@@ -437,11 +445,17 @@
         <li><code>GEO-010</code> Bing Webmaster Tools și IndexNow</li>
         <li><code>GEO-013</code> Date structurate pentru firmă (Organization)</li>
         <li><code>GEO-025</code> Pagina „Despre noi” și date coerente despre firmă</li>
-        <li><code>GEO-033</code> Fundamentele Google Search pentru AI Overviews și AI Mode</li>
+        <li><code>GEO-033</code> <b>Fundamentele Google Search pentru AI Overviews și AI Mode</b></li>
       </ul>
     </li>
     <li>
       <div class="tl-head"><span class="tl-stage">Etapa 2 — Structură</span><span class="tl-weeks">săptămânile 3–4</span><span class="meta-chip">Efort uman: <span class="fill">8–16</span> h</span></div>
+      <div class="deliv">
+        <div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.1V12a10 10 0 1 1-5.9-9.1"/><path d="M22 4L12 14l-3-3"/></svg>Beneficii pentru afacere</div>
+        <p><b>Produse pe care AI-ul le poate recomanda.</b> Cu fișe complete și coduri EAN corecte, produsele Purifyo pot intra în comparațiile asistenților de cumpărături, în loc să fie respinse sau ignorate. Rapoartele devin de încredere, fără vizite numărate de două ori.</p>
+        <p><b>Google Search și AI Mode:</b> fluxul de produse se actualizează automat în Merchant Center, deci prețurile și stocul din Google Shopping rămân aliniate cu site-ul, iar Google primește datele actualizate pe care le recomandă pentru funcțiile sale AI. Datele structurate corecte și titlurile clare îl ajută să înțeleagă paginile.</p>
+        <p><b>ChatGPT, Copilot, Gemini, Perplexity:</b> flux de produse către Microsoft (Copilot), evaluarea programului de cumpărături ChatGPT și un canal separat în Google Analytics, care arată vizitele și comenzile venite din fiecare asistent.</p>
+      </div>
       <ul>
         <li><code>GEO-011</code> Structura titlurilor (H1 / H2)</li>
         <li><code>GEO-014</code> Date structurate de produs complete și coduri GTIN corecte</li>
@@ -453,6 +467,12 @@
     </li>
     <li>
       <div class="tl-head"><span class="tl-stage">Etapa 3 — Conținut</span><span class="tl-weeks">săptămânile 5–12</span><span class="meta-chip">Efort uman: <span class="fill">59–122</span> h</span></div>
+      <div class="deliv">
+        <div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.1V12a10 10 0 1 1-5.9-9.1"/><path d="M22 4L12 14l-3-3"/></svg>Beneficii pentru afacere</div>
+        <p><b>Purifyo devine sursa citată, nu concurența.</b> Site-ul capătă răspunsuri pe care AI-ul le poate cita exact la întrebările puse înainte de cumpărare („ce dedurizator îmi trebuie?”, „dedurizator sau osmoză inversă?”). Pentru produse de 3.000–15.000 lei, o recomandare în acel moment cântărește mult. Aceleași ghiduri și pagini de produs, fără contradicții, îl ajută și pe vizitatorul de pe site să aleagă produsul potrivit.</p>
+        <p><b>Google Search și AI Mode:</b> paginile se scriu pentru căutările în limba română stabilite în Etapa 1. Câștigul este dublu: poziții mai bune în Google, deci mai multe vizite din căutare, și șanse mai mari de a fi citat în AI Mode.</p>
+        <p><b>ChatGPT, Copilot, Gemini, Perplexity:</b> aceleași ghiduri, comparații și fapte clare pot fi citate și de aceste motoare, fără muncă suplimentară.</p>
+      </div>
       <ul>
         <li><code>GEO-018</code> Pagini de produs restructurate, cu răspunsul la început</li>
         <li><code>GEO-019</code> Introduceri de categorie și ghiduri de alegere</li>
@@ -465,6 +485,12 @@
     </li>
     <li>
       <div class="tl-head"><span class="tl-stage">Etapa 4 — Autoritate și continuitate</span><span class="tl-weeks">din luna a 3-a</span><span class="meta-chip">Efort uman: <span class="fill">18–41</span> h</span></div>
+      <div class="deliv">
+        <div class="dv-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.1V12a10 10 0 1 1-5.9-9.1"/><path d="M22 4L12 14l-3-3"/></svg>Beneficii pentru afacere</div>
+        <p><b>Autoritate în afara site-ului și rezultate urmărite în timp.</b> Mențiunile din presă și de pe bloguri, împreună cu recenziile reale și cifrele de încredere verificabile, cresc credibilitatea Purifyo. Monitorizarea lunară arată poziția față de concurență și permite ajustări când regulile platformelor se schimbă.</p>
+        <p><b>Google Search și AI Mode:</b> profil Google Business complet și actualizat, pe care Google îl recomandă pentru funcțiile sale AI, un site mai rapid pentru o experiență mai bună a paginii și verificarea lunară a prezenței în AI Mode pe căutările-țintă.</p>
+        <p><b>ChatGPT, Copilot, Gemini, Perplexity:</b> asistenții AI „află” despre branduri mai ales din surse externe, așa că mențiunile externe și harta durității apei lucrează direct pentru Purifyo. Monitorizarea lunară îi acoperă pe toți.</p>
+      </div>
       <ul>
         <li><code>GEO-023</code> Material de date citabil: duritatea apei în România</li>
         <li><code>GEO-027</code> Prezență externă și mențiuni ale brandului</li>
@@ -484,11 +510,12 @@
     <table>
       <thead><tr><th>Indicator</th><th>Cum se măsoară</th><th>Țintă orientativă la 6 luni</th></tr></thead>
       <tbody>
+        <tr><td>Poziții în Google</td><td>Search Console (după refacerea legăturii)</td><td>Creștere pe căutările-țintă în limba română</td></tr>
+        <tr><td>Prezență în Google AI Mode</td><td>Verificare lunară pe căutările-țintă; Search Console raportează acest trafic împreună cu restul căutărilor, fără filtru separat</td><td>Purifyo citat pe tot mai multe căutări-țintă</td></tr>
+        <tr><td>Produse valide în Merchant Center</td><td>Raport Google</td><td>Peste 95% fără erori</td></tr>
         <tr><td>Rata de menționare în AI</td><td>Setul de 30–50 de întrebări, lunar, în 5 asistenți</td><td>Creștere clară față de punctul de pornire</td></tr>
         <tr><td>Citări cu link spre purifyo.com</td><td>Același set, plus răspunsurile AI ale Google</td><td>Purifyo citat pe întrebările-cheie despre dedurizatoare și osmoză</td></tr>
-        <tr><td>Vizite și comenzi din AI</td><td>Google Analytics, canal „Asistenți AI” (după eliminarea dublei măsurări)</td><td>Canal vizibil și în creștere lună de lună</td></tr>
-        <tr><td>Poziții în Google</td><td>Search Console (după refacerea legăturii)</td><td>Creștere pe căutările-țintă</td></tr>
-        <tr><td>Produse valide în Merchant Center</td><td>Raport Google</td><td>Peste 95% fără erori</td></tr>
+        <tr><td>Vizite și comenzi din asistenții AI</td><td>Google Analytics, canal „Asistenți AI” pentru ChatGPT, Perplexity, Gemini, Copilot (după eliminarea dublei măsurări)</td><td>Canal vizibil și în creștere lună de lună</td></tr>
         <tr><td>Vizite ale roboților AI</td><td>Cloudflare</td><td>Paginile importante vizitate regulat</td></tr>
       </tbody>
     </table>
@@ -505,7 +532,8 @@
         <tr><td>Magazinul duplicat de pe purifyo.ro concurează cu purifyo.com</td><td>Semnalat conducerii (3.5); decizia aparține conducerii</td></tr>
         <tr><td>Conținut generic, fără valoare</td><td>Revizie de specialist, date concrete, surse citate</td></tr>
         <tr><td>Afirmații comerciale contestabile</td><td>Verificarea afirmațiilor, a recenziilor și a prețurilor de referință; consultanță juridică</td></tr>
-        <tr><td>Regulile platformelor AI se schimbă des</td><td>Monitorizare lunară și ajustare</td></tr>
+        <tr><td>Regulile Google și ale platformelor AI se schimbă des</td><td>Monitorizare lunară și ajustare</td></tr>
+        <tr><td>Dependența de un singur canal (Google)</td><td>Aceleași îmbunătățiri servesc și ChatGPT, Copilot, Gemini și Perplexity; monitorizarea lunară le acoperă pe toate</td></tr>
       </tbody>
     </table>
   </div>
@@ -622,12 +650,12 @@
               <input id="f-IR-6-1" name="IR-6.1" type="text" maxlength="300">
             </div>
             <div class="field" data-id="IR-6.2">
-              <label for="f-IR-6-2"><code>IR-6.2</code> Ce produse dublate rămân: 86 / 91 / 43119 (dedurizator 26 L) și 115 / 128 (dozator)?</label>
+              <label for="f-IR-6-2"><code>IR-6.2</code> Ce produse dublate rămân: 86 / 91 / 43119 (dedurizator 26 L), 115 / 128 (dozator) și 197 / 40175 (osmoză 2000 L/h)?</label>
               <textarea id="f-IR-6-2" name="IR-6.2" maxlength="5000" rows="2"></textarea>
             </div>
           </td>
         </tr>
-        <tr><td>IR-7</td><td>Cine deține conturile Search Console, Analytics, Merchant Center și Bing; cine a adăugat al doilea container Google Tag Manager</td><td>Conducere</td><td>Măsurarea punctului de pornire și a rezultatelor</td></tr>
+        <tr><td>IR-7</td><td>Cine deține conturile Search Console, Analytics, Merchant Center și Bing; cine a adăugat al doilea container Google Tag Manager</td><td>Conducere</td><td>Fără Search Console nu vedem pozițiile în Google; măsurarea punctului de pornire și a rezultatelor</td></tr>
         <tr class="answer-row">
           <td colspan="4">
             <div class="field" data-id="IR-7.1">
@@ -640,7 +668,7 @@
             </div>
           </td>
         </tr>
-        <tr><td>IR-8</td><td>Principalii concurenți și căutările cele mai importante</td><td>Conducere</td><td>Alegem ce întrebări și ce pagini contează</td></tr>
+        <tr><td>IR-8</td><td>Principalii concurenți și căutările cele mai importante</td><td>Conducere</td><td>Alegem căutările Google, întrebările pentru AI și paginile care contează</td></tr>
         <tr class="answer-row">
           <td colspan="4">
             <div class="field" data-id="IR-8.1">
@@ -754,10 +782,10 @@
     <li><span><b>Conducerea:</b> decizia urgentă privind recenziile (U1), aprobarea copiilor de siguranță (U2) și răspunsurile din secțiunea „Ce avem nevoie”.</span></li>
     <li><span><b>Echipa tehnică:</b> acțiunile imediate care nu depind de alte decizii (copia de siguranță, pagina de Black Friday, datele tehnice).</span></li>
     <li><span><b>Noi:</b> estimarea finală pe etape, pe baza răspunsurilor, apoi aprobarea programului.</span></li>
-    <li><span><b>Start Etapa 1.</b> Primul raport, cu punctul de pornire al vizibilității în AI, după 2 săptămâni.</span></li>
+    <li><span><b>Start Etapa 1.</b> Primul raport, cu punctul de pornire al vizibilității în Google și în asistenții AI, după 2 săptămâni.</span></li>
   </ol>
 
-  <p class="foot"><span>Propunere GEO · Purifyo.com</span><span>v3.0 · 7 noiembrie 2026</span></p>
+  <p class="foot"><span>Propunere GEO · Purifyo.com</span><span>v3.1 · 9 noiembrie 2026</span></p>
 </div>
 <script>
 (function () {
